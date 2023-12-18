@@ -1,9 +1,9 @@
-#construct dataloader and evaluator
+#onstruct dataloader and evaluator
 dataset_type = 'CustomDataset'
 data_preprocessor = dict(
     # Input image data channels in 'RGB' order
-    mean=[151.78, 103.29, 97.41],
-    std=[69.92, 55.96, 54.84],
+    mean=[150.60, 102.57, 97.12],
+    std=[70.70, 56.70, 55.68],
     to_rgb=True,
 )
 
@@ -25,13 +25,13 @@ train_dataloader = dict(
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
+        data_root='../../rBP_B_E_P_N-without-mix',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagits'],
         pipeline=train_pipeline),
-    sampler=dict(type='ROSSampler', num_classes=4, ros_pct=0.8, rus_maj_pct=0.8, shuffle=True),
+    sampler=dict(type='DefaultSampler', shuffle=True),
     persistent_workers=True,
 )
 
@@ -40,20 +40,19 @@ val_dataloader = dict(
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
+        data_root='../../rBP_B_E_P_N-without-mix',
         ann_file='meta/val.txt',
         data_prefix='val',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=test_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
 )
 val_evaluator = [
-            dict(type='Accuracy', topk=(1)),
-            dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
+            dict(type='Accuracy', topk=(1)), 
+            dict(type='SingleLabelMetric', items=['precision', 'recall'], average=None)
             ]
 
 test_dataloader = val_dataloader
 test_evaluator = val_evaluator
-

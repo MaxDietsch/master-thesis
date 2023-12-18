@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-image_directory = '../../images/polyps' 
+image_directory = '../../rBP_B_E_P_N-without-mix/barretts' 
 rotation_degrees = [90, 180, 270] 
 
 # take image and rotate it about every value in degrees parameter

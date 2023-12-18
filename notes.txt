@@ -1,0 +1,13 @@
+
+### data level methods:
+ 
+##ROS: sample from each class an equal amount of samples
+##RUS: normally like above, but not possible with that little data
+##2Phase: first pretrained on ROS balanced dataset, then finetune it 
+##threshold: network decisionis adjusted during test phase based on prior probability
+##dynamic sampling: sample examples from class which is more errorneous
+
+#threshold: adjust them during the test phase, keep a look at false positives are better than false negatives
+#dynamic: done by creating a new sampler in sampler.py
+#ROS/RUS: done by creating a new sampler in sampler.py
+#2Phase: simply train first on RUS (not good for me, dynamically could be better) and then on normal imbalanced dataset

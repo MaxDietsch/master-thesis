@@ -5,10 +5,12 @@ def calc_norm(dirs):
     sum_r, sum_g, sum_b = 0.0, 0.0, 0.0
     sum_sq_diff_r, sum_sq_diff_g, sum_sq_diff_b = 0.0, 0.0, 0.0
     i = 0
+    num_images = 0
     for dir in dirs:
         for img_name in os.listdir(dir):
             print(i)
             i += 1
+            num_images += 1
             if not img_name.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
                 continue
 
@@ -21,7 +23,6 @@ def calc_norm(dirs):
             sum_b += image[:, :, 2].mean()   
 
         
-        num_images = len(os.listdir(dir))
         mean_r = sum_r / num_images
         mean_g = sum_g / num_images
         mean_b = sum_b / num_images
@@ -54,7 +55,7 @@ def calc_norm(dirs):
     print(f"standard deviations: r: {std_r}, g: {std_g}, b: {std_b}")
 
 
-data_dir = '../../images'
+data_dir = '../../rBP_B_E_P_N-without-mix'
 directories =[os.path.join(data_dir, dir) for dir in os.listdir(data_dir)]
 print(directories)
 calc_norm(directories)

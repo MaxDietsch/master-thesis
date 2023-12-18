@@ -10,39 +10,39 @@ data_preprocessor = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
     dict(type='RandomFlip', prob=0.5, direction='horizontal'),
-    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
+    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
     dict(type='PackInputs'),         # prepare images and labels
 ]
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
+    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 
 train_dataloader = dict(
-    batch_size=32,
-    num_workers=5,
+    batch_size=4,
+    num_workers=4,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
+        data_root='../../images',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
         classes=['normal', 'polyps', 'esophagitis', 'barretts'],
         pipeline=train_pipeline),
-    sampler=dict(type='ROSSampler', num_classes=4, ros_pct=0.8, rus_maj_pct=0.8, shuffle=True),
+    sampler=dict(type='DynamicSampler', num_classes=4, shuffle=True),
     persistent_workers=True,
 )
 
 val_dataloader = dict(
-    batch_size=32,
-    num_workers=5,
+    batch_size=1,
+    num_workers=1,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
-        ann_file='meta/val.txt',
-        data_prefix='val',
+        data_root='../../images',
+        ann_file='meta/train.txt',
+        data_prefix='train',
         with_label=True,
         classes=['normal', 'polyps', 'esophagitis', 'barretts'],
         pipeline=test_pipeline),
@@ -51,9 +51,8 @@ val_dataloader = dict(
 )
 val_evaluator = [
             dict(type='Accuracy', topk=(1)),
-            dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
+            dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None),
             ]
 
 test_dataloader = val_dataloader
 test_evaluator = val_evaluator
-
