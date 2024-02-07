@@ -31,7 +31,7 @@ train_dataloader = dict(
         with_label=True,
         classes=['normal', 'polyps', 'esophagitis', 'barretts'],
         pipeline=train_pipeline),
-    sampler=dict(type='DefaultSampler', shuffle=True),
+    sampler=dict(type='InfiniteSampler', shuffle=True),
     persistent_workers=True,
 )
 
