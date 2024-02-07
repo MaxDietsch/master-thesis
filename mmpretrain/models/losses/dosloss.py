@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-@MODELS.register.module()
+@MODELS.register_module()
 class DOSLoss(nn.Module):
 
     def __init__(self,
