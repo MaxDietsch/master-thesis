@@ -12,7 +12,7 @@ from .seesaw_loss import SeesawLoss
 from .swav_loss import SwAVLoss
 from .utils import (convert_to_one_hot, reduce_loss, weight_reduce_loss,
                     weighted_loss)
-
+from .dosloss import DOSLoss
 __all__ = [
     'asymmetric_loss',
     'AsymmetricLoss',
@@ -32,4 +32,5 @@ __all__ = [
     'CrossCorrelationLoss',
     'PixelReconstructionLoss',
     'SwAVLoss',
+    'DOSLoss',
 ]
