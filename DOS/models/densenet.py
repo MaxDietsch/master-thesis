@@ -12,7 +12,7 @@ class DenseNet121(nn.Module):
 
         self.backbone = DenseNet()
         self.neck = GlobalAveragePooling()
-        self.head = LinearClsHead(1024, 4)
+        self.head = LinearClsHead(4, 1024)
 
     def forward(self, x):
         x = self.head(self.neck(self.backbone(x)))
