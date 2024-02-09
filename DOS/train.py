@@ -37,7 +37,7 @@ def generate_overloaded_samples():
     calc_mutual_distance_matrix()
     for i in range(num_classes):
         for j in batch_idx[i]:
-            n = v[label, torch.topk(d[i], k[i], largest = False)[1]
+            n = v[label][torch.topk(d[i], k[i], largest = False)[1]]
             
             # sample the vectors 
             w = torch.randn(r[i], k[i])
