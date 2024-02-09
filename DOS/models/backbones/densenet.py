@@ -49,7 +49,7 @@ class DenseLayer(nn.Module):
         # type: (List[torch.Tensor]) -> torch.Tensor
         # assert input features is a list of Tensor
 
-        if isinstance(x, Tensor):
+        if isinstance(x, torch.Tensor):
             x = [x]
 
         bottleneck_output = self.bottleneck_fn(x)
