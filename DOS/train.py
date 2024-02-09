@@ -5,12 +5,13 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 
 from models.densenet import DenseNet121
+from models.losses.f_loss import F_Loss
 
 # maybe make big variables global so that no need to pass them via functions
 num_classes = 4
 samples_per_class = [5, 5, 5, 5]
 r = [0, 1, 2, 3]
-z = []
+z = {'image': [], 'n': [], 'w': []}
 v = [[] for _ in range(num_classes)]
 d = [torch.zeros((i, i)) for i in samples_per_class]
 batch_idx = [[] for _ in range(num_classes)]
@@ -29,12 +30,13 @@ def generate_overloaded_samples():
         for batch_index, (image, label) in enumerate(dos_dataloader):
             # maybe change here to get different amount of classes
             image.to(device)
-            v[label].append(model(image))
+            v[label].append(model(image)[1])
             # to store where the image is located in the dataloader
             batch_idx[label].append(batch_index) 
     
     #
     calc_mutual_distance_matrix()
+    print(d)
     for i in range(num_classes):
         for j in batch_idx[i]:
             n = v[label][torch.topk(d[i], k[i], largest = False)[1]]
@@ -43,8 +45,9 @@ def generate_overloaded_samples():
             w = torch.randn(r[i], k[i])
             w /= torch.norm(w, dim=1, keepdim=True)          
             
-            for l in range(r[i]):
-                z[i].append([j, n, w[l]])
+            z['image'].append(j)
+            z['n'].append(n)
+            z['w'].append(w)
     
     v = [[] for _ in range(num_classes)]
     n = []
@@ -57,6 +60,29 @@ def train(epoch):
     gegenerate_overloaded_samples()
     z = sorted(z, key = lambda x : x[0])
     print(z) 
+    return 
+    
+    for batch_idx, (image, label) in enumerate(dos_dataloader):
+        image = image.to(device)
+        label = label.to(device)
+        optimizer.zero_grad()
+        deep_feat = model.neck(model.backbone(image))
+
+        # calculate l_f
+        f_loss = 0
+        for w in z['w']:
+            f_loss += F_Loss(deep_feat, z['n'][batch_idx], w)
+
+        # calculate l_g
+        g_loss = 0
+        for w in z['w']:
+            classification = model.head(n)
+            g_loss += G_Loss(deep_feat, classification, label, z['n'][batch_idx], w)
+
+
+
+
+
 
 
 
@@ -122,12 +148,6 @@ weight_decay = 0.001
 optimizer = torch.optim.SGD(model.parameters(), lr = lr, momentum = 0.9, weight_decay = weight_decay)
 scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones = milestones, gamma = gamma)
 iter_per_epoch = len(train_dataloader)
-
-get_overloaded_samples(1)
-get_overloaded_samples(1)
-get_overloaded_samples(1)
-get_overloaded_samples(1)
-
 
 
 epochs = 40
