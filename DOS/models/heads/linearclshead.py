@@ -52,4 +52,4 @@ class LinearClsHead(nn.Module):
         pre_logits = self.pre_logits(feats)
         # The final classification head.
         cls_score = self.fc(pre_logits)
-        return cls_score, feats
+        return cls_score

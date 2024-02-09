@@ -57,7 +57,7 @@ def generate_overloaded_samples():
 def train(epoch):
     model.train()
 
-    gegenerate_overloaded_samples()
+    genenerate_overloaded_samples()
     z = sorted(z, key = lambda x : x[0])
     print(z) 
     return 
@@ -78,18 +78,19 @@ def train(epoch):
         for w in z['w']:
             classification = model.head(n)
             g_loss += G_Loss(deep_feat, classification, label, z['n'][batch_idx], w)
+        
+        loss = g_loss + f_loss
+        loss.backward()
+        optimizer.step()
+        print(f'Training Epoch: {epoch} \t Loss: {loss.item()}')
 
-
-
-
-
-
-
-
-
-
-
-
+def evaluation():
+    model.eval()
+    for (image, label) in evalDataLoader:
+        image.to(device)
+        label.to(device)
+        with torch.no_grad():
+            predicted class = torch.argmax(model(image))
 
 
 # data preprocessing
@@ -109,7 +110,7 @@ dos_data = Gastro_Dataset(
 
 # define dos dataloader
 dos_batch_size = 1
-dos_dataloader = DataLoader(dos_data, batch_size = dos_batch_size, shuffle = True)
+dos_dataloader = DataLoader(dos_data, batch_size = dos_batch_size, shuffle = False)
 
 
 
@@ -155,21 +156,10 @@ save_dir = './work-dir'
 for epoch in range(1, epochs + 1):
     train(epoch)
     evaluation()
-    torch.save(model.state_dict(), os.path.join(save_dir, 'ck_{}.pth'.format(epoch)))
+
+
+torch.save(model.state_dict(), os.path.join(save_dir, 'ck_{}.pth'.format(epoch)))
 
 
 
 
-
-
-
-
-
-
-
-
-inputs, labels = next(iter(train_dataloader))
-outputs = model(inputs)
-
-print(outputs)
-print(labels)
