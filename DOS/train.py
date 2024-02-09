@@ -6,22 +6,61 @@ import torchvision.transforms as transforms
 
 from models.densenet import DenseNet121
 
+# maybe make big variables global so that no need to pass them via functions
+def calc_mutual_distance_matrix():
+    for h in range(num_classes):
+        for i in range(samples_per_class[h]):
+            for j in range(samples_per_class[h]):
+                d[h][i, j] = torch.norm(v[h][i] - v[h][j])  # Euclidean distance
 
-def get_overloaded_samples(k):
-    model.eval()
-    for batch_index, (image, label) in enumerate(train_dataloader):
-        if 1 in label:
-            print(batch_index)
+
+num_classes = 4
+samples_per_class = [5, 5, 5, 5]
+r = [0, 1, 2, 3]
+z = []
+v = [[] for _ in range(num_classes)]
+d = [torch.zeros((i, i)) for i in samples_per_class]
+batch_idx = [[] for _ in range(num_classes)]
+
+
+def generate_overloaded_samples():
+    # set of all deep features
+    with torch.no_grad():
+        for batch_index, (image, label) in enumerate(dos_dataloader):
+            # maybe change here to get different amount of classes
+            image.to(device)
+            v[label].append(model(image))
+            # to store where the image is located in the dataloader
+            batch_idx[label].append(batch_index) 
+    
+    #
+    calc_mutual_distance_matrix()
+    for i in range(num_classes):
+        for j in batch_idx[i]:
+            n = v[label, torch.topk(d[i], k[i], largest = False)[1]
             
+            # sample the vectors 
+            w = torch.randn(r[i], k[i])
+            w /= torch.norm(w, dim=1, keepdim=True)          
+            
+            for l in range(r[i])
+                z[i].append([j, n, w[l]])
+    
+    v = [[] for _ in range(num_classes)]
+    n = []
+    batch_index = [[] for _ in range(num_classes)]
+       
 
 def train(epoch):
     model.train()
-    for batch_index, (image, label) in enumerate(train_dataloader):
-        image = image.to(device)
-        label = label.to(device)
-        # zero out gradients
-        optimier.zero_grad()
-        get_overloaded_samples(k)
+
+    gegenerate_overloaded_samples()
+    z = sorted(z, key = lambda x : x[0])
+    print(z) 
+
+
+
+
 
 
 
@@ -33,8 +72,22 @@ transform = transforms.Compose([
     transforms.ToTensor()
     ])
 
+# prepare the dataset for calculating the deep features, (only minority classes are needed
+# in my case) has to be created in a clever way
+dos_dataset_name = 'B_E_P_N_minority'
+dos_data = Gastro_Dataset(
+        annotations_file = f'../../{dos_dataset_name}/meta/train.txt',
+        img_dir = f'../../{dos_dataset_name}/train',
+        transform = transform
+        )
 
-# prepare the dataset
+# define dos dataloader
+dos_batch_size = 1
+dos_dataloader = DataLoader(dos_data, batch_size = dos_batch_size, shuffle = True)
+
+
+
+# prepare the dataset 
 dataset_name = 'B_E_P_N-without-mix'
 training_data = Gastro_Dataset(
         annotations_file = f'../../{dataset_name}/meta/train.txt',
@@ -59,7 +112,6 @@ if torch.cuda.is_available():
 else: 
     device = torch.device('cpu')
     print('CUDA is not available')
-
 
 
 # optimize
