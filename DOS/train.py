@@ -7,13 +7,6 @@ import torchvision.transforms as transforms
 from models.densenet import DenseNet121
 
 # maybe make big variables global so that no need to pass them via functions
-def calc_mutual_distance_matrix():
-    for h in range(num_classes):
-        for i in range(samples_per_class[h]):
-            for j in range(samples_per_class[h]):
-                d[h][i, j] = torch.norm(v[h][i] - v[h][j])  # Euclidean distance
-
-
 num_classes = 4
 samples_per_class = [5, 5, 5, 5]
 r = [0, 1, 2, 3]
@@ -21,6 +14,13 @@ z = []
 v = [[] for _ in range(num_classes)]
 d = [torch.zeros((i, i)) for i in samples_per_class]
 batch_idx = [[] for _ in range(num_classes)]
+
+
+def calc_mutual_distance_matrix():
+    for h in range(num_classes):
+        for i in range(samples_per_class[h]):
+            for j in range(samples_per_class[h]):
+                d[h][i, j] = torch.norm(v[h][i] - v[h][j])  # Euclidean distance
 
 
 def generate_overloaded_samples():
@@ -43,7 +43,7 @@ def generate_overloaded_samples():
             w = torch.randn(r[i], k[i])
             w /= torch.norm(w, dim=1, keepdim=True)          
             
-            for l in range(r[i])
+            for l in range(r[i]):
                 z[i].append([j, n, w[l]])
     
     v = [[] for _ in range(num_classes)]
