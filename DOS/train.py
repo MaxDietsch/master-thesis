@@ -104,9 +104,10 @@ def evaluation():
 
     precision = [tp[i] / (tp[i] + fp[i]) for i in range(num_classes)]
     recall = [tp[i] / (tp[i] + fn[i]) for i in range(num_classes)]
+    f1 = [2 * precision[i] * recall[i] / (precision[i] + recall[i]) for _ in range(num_classes)]
+    accuracy = ((sum(tp) + sum(tn)) / (sum(tp) + sum(fp) + sum(fn) + sum(tn)))
 
-
-
+    print(f'Classwise Precision: \t {precision} \n Classwise Recall: \t {recall} \n Classwise F1-Score: \t {f1} \n Accuracy: \t {accuracy}')
 
 
 # data preprocessing
