@@ -86,11 +86,27 @@ def train(epoch):
 
 def evaluation():
     model.eval()
+    tp = [0 for _ in range(num_classes)]
+    fp = [0 for _ in range(num_classes)]
+    fn = [0 for _ in range(num_classes)]
+    tn = [0 for _ in range(num_classes)]
     for (image, label) in evalDataLoader:
         image.to(device)
         label.to(device)
         with torch.no_grad():
-            predicted class = torch.argmax(model(image))
+            predicted_class = torch.argmax(model(image))
+        if predicted_class == label:
+            tp[label] += 1
+            tn = [elem + 1 if idx != label else elem for idx, elem in enumerate(tn)]
+        else:
+            fp[predicted_class] += 1
+            fn[label] += 1
+
+    precision = [tp[i] / (tp[i] + fp[i]) for i in range(num_classes)]
+    recall = [tp[i] / (tp[i] + fn[i]) for i in range(num_classes)]
+
+
+
 
 
 # data preprocessing
