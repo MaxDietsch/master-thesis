@@ -38,6 +38,8 @@ def generate_overloaded_samples():
             batch_idx[label].append(batch_index) 
     
     #
+    print(v[0][0])
+    print(v[0, 0])
     calc_mutual_distance_matrix()
     print(d)
     for i in range(num_classes):
