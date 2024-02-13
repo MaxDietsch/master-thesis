@@ -9,63 +9,78 @@ from models.losses.f_loss import F_Loss
 
 # maybe make big variables global so that no need to pass them via functions
 num_classes = 3
-samples_per_class = [5, 5, 5, 5]
+samples_per_class = [5, 5, 5]
 r = [0, 1, 2, 3]
 z = {'image': [], 'n': [], 'w': []}
 v = [[] for _ in range(num_classes)]
-d = [torch.zeros((num_classes, i)) for i in samples_per_class]
+d = [torch.zeros((i, i)) for i in samples_per_class]
 batch_idx = [[] for _ in range(num_classes)]
-
+k = [2, 2, 2]
 
 def calc_mutual_distance_matrix():
     global d, v
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
+                # do it symmmetrically for runtime 
                 if i == j:
                     d[h][i, j] = 9999999
-                d[h][i, j] = torch.norm(v[h][i][0] - v[h][j][0])  # Euclidean distance
+                d[h][i, j] = torch.norm(v[h][i] - v[h][j])  # Euclidean distance
 
 
 def generate_overloaded_samples():
-    global v, batch_idx, n, r, z, d
+    global v, batch_idx, n, r, z, d, k, device
     
     # set of all deep features
     with torch.no_grad():
         for batch_index, (image, label) in enumerate(dos_dataloader):
             # maybe change here to get different amount of classes
             image.to(device)
-            v[label].append(model.neck(model.backbone(image)))
+            v[label].append(model.neck(model.backbone(image))[0][0])
+
+            #print(model.neck(model.backbone(image))[0][0])
+
             # to store where the image is located in the dataloader
             batch_idx[label].append(batch_index) 
     
     #
     calc_mutual_distance_matrix()
-    print(d)
+    
+    #print(d)
     for i in range(num_classes):
-        for j in batch_idx[i]:
-            n = v[label][torch.topk(d[i], k[i], largest = False)[1]]
-            
+        for j in range(samples_per_class[i]):
+            n = []
+
+            #print(v[i][0:5])
+            #print(d[i])
+            #print(torch.topk(d[i][j], k[i], largest = False).indices[1 : ])
+
+            for x in torch.topk(d[i][j], k[i], largest = False).indices[1 : ]:
+                n.append(v[i][x])
+
+
+            #print(n) 
+
             # sample the vectors 
-            w = torch.randn(r[i], k[i])
+            w = torch.randn(r[i], k[i] - 1)
             w /= torch.norm(w, dim=1, keepdim=True)          
             
-            z['image'].append(j)
+            z['image'].append(batch_idx[label][j])
             z['n'].append(n)
             z['w'].append(w)
+
+            #print(z)
+            #print('""' * 40)
     
     v = [[] for _ in range(num_classes)]
-    n = []
     batch_index = [[] for _ in range(num_classes)]
        
 
 def train(epoch):
+    global z, device
     model.train()
 
     generate_overloaded_samples()
-    z = sorted(z, key = lambda x : x[0])
-    print(z) 
-    return 
     
     for batch_idx, (image, label) in enumerate(dos_dataloader):
         image = image.to(device)
@@ -173,12 +188,12 @@ optimizer = torch.optim.SGD(model.parameters(), lr = lr, momentum = 0.9, weight_
 scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones = milestones, gamma = gamma)
 iter_per_epoch = len(dos_dataloader)
 
-
+model.to(device)
 epochs = 40
 save_dir = './work-dir'
 for epoch in range(1, epochs + 1):
     train(epoch)
-    evaluation()
+    #evaluation()
 
 
 torch.save(model.state_dict(), os.path.join(save_dir, 'ck_{}.pth'.format(epoch)))
