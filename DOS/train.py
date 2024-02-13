@@ -166,7 +166,7 @@ gamma = 0.2
 weight_decay = 0.001 
 optimizer = torch.optim.SGD(model.parameters(), lr = lr, momentum = 0.9, weight_decay = weight_decay)
 scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones = milestones, gamma = gamma)
-iter_per_epoch = len(dos_train_dataloader)
+iter_per_epoch = len(dos_dataloader)
 
 
 epochs = 40
