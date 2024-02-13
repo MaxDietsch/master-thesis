@@ -57,7 +57,7 @@ def generate_overloaded_samples():
 def train(epoch):
     model.train()
 
-    genenerate_overloaded_samples()
+    generate_overloaded_samples()
     z = sorted(z, key = lambda x : x[0])
     print(z) 
     return 
