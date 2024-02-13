@@ -18,6 +18,7 @@ batch_idx = [[] for _ in range(num_classes)]
 
 
 def calc_mutual_distance_matrix():
+    global d, v
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
@@ -25,6 +26,8 @@ def calc_mutual_distance_matrix():
 
 
 def generate_overloaded_samples():
+    global v, batch_idx, n, r, z, d
+    
     # set of all deep features
     with torch.no_grad():
         for batch_index, (image, label) in enumerate(dos_dataloader):
