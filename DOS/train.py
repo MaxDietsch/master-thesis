@@ -8,7 +8,7 @@ from models.densenet import DenseNet121
 from models.losses.f_loss import F_Loss
 
 # maybe make big variables global so that no need to pass them via functions
-num_classes = 4
+num_classes = 3
 samples_per_class = [5, 5, 5, 5]
 r = [0, 1, 2, 3]
 z = {'image': [], 'n': [], 'w': []}
@@ -22,10 +22,6 @@ def calc_mutual_distance_matrix():
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
-                print(v[h])
-                print(v[h][i])
-                print(v[h][i][0])
-                print(v[h][i][0][0])
                 d[h][i, j] = torch.norm(v[h][i][0] - v[h][j][0])  # Euclidean distance
 
 
@@ -42,7 +38,6 @@ def generate_overloaded_samples():
             batch_idx[label].append(batch_index) 
     
     #
-    print(v[0][0])
     calc_mutual_distance_matrix()
     print(d)
     for i in range(num_classes):
