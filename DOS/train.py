@@ -22,7 +22,7 @@ def calc_mutual_distance_matrix():
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
-                d[h][i, j] = torch.norm(v[h][i] - v[h][j])  # Euclidean distance
+                d[h][i, j] = torch.norm(v[h][i][0] - v[h][j][0])  # Euclidean distance
 
 
 def generate_overloaded_samples():
@@ -39,7 +39,6 @@ def generate_overloaded_samples():
     
     #
     print(v[0][0])
-    print(v[0, 0])
     calc_mutual_distance_matrix()
     print(d)
     for i in range(num_classes):
