@@ -34,6 +34,12 @@ def generate_overloaded_samples():
             # maybe change here to get different amount of classes
             image.to(device)
             v[label].append(model.neck(model.backbone(image)))
+            x = model.neck(model.backbone(image))
+            print (x)
+            print(x[0])
+            print(x[0][0])
+            print(x[0, 0])
+            print('x' * 30)
             # to store where the image is located in the dataloader
             batch_idx[label].append(batch_index) 
     
