@@ -132,6 +132,7 @@ dos_dataloader = DataLoader(dos_data, batch_size = dos_batch_size, shuffle = Fal
 
 
 # prepare the dataset 
+"""
 dataset_name = 'B_E_P_N-without-mix'
 training_data = Gastro_Dataset(
         annotations_file = f'../../{dataset_name}/meta/train.txt',
@@ -142,7 +143,7 @@ training_data = Gastro_Dataset(
 # define dataloader
 batch_size = 2
 train_dataloader = DataLoader(training_data, batch_size = batch_size, shuffle = True)
-
+"""
 
 # load the model with pretrained weights
 model = DenseNet121()
