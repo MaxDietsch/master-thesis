@@ -33,7 +33,7 @@ def generate_overloaded_samples():
         for batch_index, (image, label) in enumerate(dos_dataloader):
             # maybe change here to get different amount of classes
             image.to(device)
-            v[label].append(model(image)[1])
+            v[label].append(model.neck(model.backbone(image)))
             # to store where the image is located in the dataloader
             batch_idx[label].append(batch_index) 
     
