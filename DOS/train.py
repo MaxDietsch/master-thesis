@@ -22,6 +22,10 @@ def calc_mutual_distance_matrix():
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
+                print(v[h])
+                print(v[h][i])
+                print(v[h][i][0])
+                print(v[h][i][0][0])
                 d[h][i, j] = torch.norm(v[h][i][0] - v[h][j][0])  # Euclidean distance
 
 
@@ -34,12 +38,6 @@ def generate_overloaded_samples():
             # maybe change here to get different amount of classes
             image.to(device)
             v[label].append(model.neck(model.backbone(image)))
-            x = model.neck(model.backbone(image))
-            print (x)
-            print(x[0])
-            print(x[0][0])
-            print(x[0, 0])
-            print('x' * 30)
             # to store where the image is located in the dataloader
             batch_idx[label].append(batch_index) 
     
