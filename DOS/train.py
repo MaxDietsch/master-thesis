@@ -13,7 +13,7 @@ samples_per_class = [5, 5, 5, 5]
 r = [0, 1, 2, 3]
 z = {'image': [], 'n': [], 'w': []}
 v = [[] for _ in range(num_classes)]
-d = [torch.zeros((i, i)) for i in samples_per_class]
+d = [torch.zeros((num_classes, i)) for i in samples_per_class]
 batch_idx = [[] for _ in range(num_classes)]
 
 
@@ -22,6 +22,8 @@ def calc_mutual_distance_matrix():
     for h in range(num_classes):
         for i in range(samples_per_class[h]):
             for j in range(samples_per_class[h]):
+                if i == j:
+                    d[h][i, j] = 9999999
                 d[h][i, j] = torch.norm(v[h][i][0] - v[h][j][0])  # Euclidean distance
 
 
