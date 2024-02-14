@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from typing import Optional, List
+from mmpretrain.structures import DataSample
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
