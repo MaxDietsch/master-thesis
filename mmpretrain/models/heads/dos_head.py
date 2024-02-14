@@ -8,16 +8,8 @@ from .linear_head import LinearClsHead
 @MODELS.register_module()
 class DOSHead(LinearClsHead):
 
-    def __init__(self, 
-                 num_classes: int,
-                 in_channels: int,
-                 init_cfg: Optional[dict] = dict(
-                     type='Normal', layer='Linear', std=0.01),
-                 **kwargs):
-        super(LinearClsHead, self).__init__(num_classes = num_classes,
-                                            in_channels = in_channels,
-                                            init_cfg = init_cfg,
-                                            **kwargs)
+    def __init__(self, **kwargs):
+        super(DOSHead, self).__init__(**kwargs)
         
         if not isinstance(self.loss_module, DOSLoss):
             raise TypeError('Loss of the model should be of type DOSLoss')
