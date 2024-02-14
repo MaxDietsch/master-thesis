@@ -19,9 +19,9 @@ class DOSClassifier(ImageClassifier):
 
     def forward(self,
                 inputs: torch.Tensor,
-                data_samples: Optional[List[DataSample]] = None,
-                n, 
-                w, 
+                n,
+                w,
+                data_samples: Optional[List[DataSample]] = None, 
                 mode: str = 'tensor'):
 
         if mode == 'tensor':
