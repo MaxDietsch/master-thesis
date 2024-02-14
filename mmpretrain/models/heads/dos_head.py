@@ -4,6 +4,7 @@ from typing import Optional, Tuple
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
+from ..losses.dos_loss import DOSLoss
 
 @MODELS.register_module()
 class DOSHead(LinearClsHead):
