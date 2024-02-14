@@ -3,20 +3,20 @@ dataset_type = 'CustomDataset'
 data_preprocessor = dict(
     # Input image data channels in 'RGB' order
     mean=[151.78, 103.29, 97.41],
-    std=[69.92, 55.96, 54.84]
+    std=[69.92, 55.96, 54.84],
     to_rgb=True,
 )
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
     dict(type='RandomFlip', prob=0.5, direction='horizontal'),
-    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
+    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),         # prepare images and labels
 ]
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
+    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 

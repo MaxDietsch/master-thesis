@@ -20,6 +20,10 @@ class Gastro_Dataset(Dataset):
     def __getitem__(self, idx):
         img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
         image = Image.open(img_path).convert('RGB')
+        r, g, b = image.split()
+
+        # Merge the channels to form a BGR image
+        #image = Image.merge("RGB", (b, g, r))
         label = self.img_labels.iloc[idx, 1]
         if self.transform:
             image = self.transform(image)

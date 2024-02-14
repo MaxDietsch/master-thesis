@@ -53,7 +53,7 @@ def copy_and_write(file_list, root, class_id, base_dir, category, meta_dir):
             f.write(f"{destination} {class_id}\n")
 
 # Usage
-base_directory = '../../rBP_B_E_P_N-without-mix'
+base_directory = '../../B_E_P_N_minority'
 train_percent = 70  
 val_percent = 10 
 test_percent = 20 
