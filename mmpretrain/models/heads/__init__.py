@@ -31,6 +31,7 @@ from .swav_head import SwAVHead
 from .vig_head import VigClsHead
 from .vision_transformer_head import VisionTransformerClsHead
 from .vqa_head import VQAGenerationHead
+from .dos_head import DOSHead
 
 __all__ = [
     'ClsHead',
@@ -66,4 +67,5 @@ __all__ = [
     'GroundingHead',
     'iTPNClipHead',
     'SparKPretrainHead',
+    'DOSHead',
 ]
