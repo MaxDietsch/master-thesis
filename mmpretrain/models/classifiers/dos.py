@@ -25,7 +25,7 @@ class DOSClassifier(ImageClassifier):
                 mode: str = 'tensor'):
         """ Args:
             inputs (torch.Tensor): The input tensor with shape
-                (N, C, ...) in general.
+                (V, ) in general.
             n (List[torch.Tensor]): The list containing all the nearest neighbours 
                 of the input tensor 
             w (List[torch.Tensor]): The list containing all the weights for the 
@@ -53,7 +53,7 @@ class DOSClassifier(ImageClassifier):
              data_samples: Optional[List[DataSample]] = None) -> dict:
         """ Args:
             inputs (torch.Tensor): The input tensor with shape
-                (N, C, ...) in general.
+                (V, ) in general.
             n (List[torch.Tensor]): The list containing all the nearest neighbours 
                 of the input tensor 
             w (List[torch.Tensor]): The list containing all the weights for the 

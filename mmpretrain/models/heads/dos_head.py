@@ -26,7 +26,7 @@ class DOSHead(LinearClsHead):
 
         """ Args:
             deep_feats (torch.Tensor): The deep feature tensor of the input tensor with shape
-                (V, 1) in general.
+                (V,) in general.
             n (List[torch.Tensor]): The list containing all the nearest neighbours 
                 of the input tensor 
             w (List[torch.Tensor]): The list containing all the weights for the 

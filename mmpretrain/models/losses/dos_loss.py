@@ -18,6 +18,12 @@ class DOSLoss(nn.Module):
                 target: torch.Tensor,
                 n: List[torch.Tensor],
                 w: List[torch.Tensor]) -> float:
+        """ deep_feats (torch.Tensor): The deep feature vector of the input
+            cls_score (torch.Tensor): The output vector of the input
+            target (torch.Tensor): The target class of the input
+            n (torch.Tensor): The deep features of the nearest neighbours of the input
+            w (torch.Tensor): The weights for the given input
+        """
         f_loss = 0
         g_loss = 0
         
