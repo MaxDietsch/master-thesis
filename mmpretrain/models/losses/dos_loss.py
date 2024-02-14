@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from typing import List
 
 from mmpretrain.registry import MODELS
 
@@ -11,7 +12,12 @@ class DOSLoss(nn.Module):
         super(DOSLoss, self).__init__()
         self.ce_loss = nn.CrossEntropyLoss()
 
-    def forward(self, deep_feats, cls_score, target, n, w):
+    def forward(self,
+                deep_feats: torch.Tensor,
+                cls_score: torch.Tensor, 
+                target: torch.Tensor,
+                n: List[torch.Tensor],
+                w: List[torch.Tensor]) -> float:
         f_loss = 0
         g_loss = 0
         
@@ -26,6 +32,8 @@ class DOSLoss(nn.Module):
             for idx, v_i in enumerate(n):
                 f_loss += w[idx] * torch.linalg.norm(deep_feats - v_i)
                 g_loss += rho[idx] * self.ce_loss(cls_score, target)
+        loss = g_loss + f_loss
+        return loss
                 
 
 

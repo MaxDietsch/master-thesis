@@ -47,10 +47,10 @@ class DOSClassifier(ImageClassifier):
 
 
     def loss(self, 
-             inputs: torch:Tensor,
+             inputs: torch.Tensor,
              n: List[torch.Tensor],
              w: List[torch.Tensor],
-             data_samples: Optional[List[DataSample]] = None):
+             data_samples: Optional[List[DataSample]] = None) -> dict:
         """ Args:
             inputs (torch.Tensor): The input tensor with shape
                 (N, C, ...) in general.

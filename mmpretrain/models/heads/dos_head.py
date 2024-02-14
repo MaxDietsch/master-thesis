@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from typing import Optional, Tuple
+from typing import Optional, List
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
@@ -17,7 +17,21 @@ class DOSHead(LinearClsHead):
 
 
 
-    def loss(self, deep_feats, data_samples, n, w):
+    def loss(self,
+             deep_feats: torch.Tensor,
+             n: List[torch.Tensor],
+             w: List[torch.Tensor],
+             data_samples: List[DataSample]) -> dict:
+
+        """ Args:
+            deep_feats (torch.Tensor): The deep feature tensor of the input tensor with shape
+                (V, 1) in general.
+            n (List[torch.Tensor]): The list containing all the nearest neighbours 
+                of the input tensor 
+            w (List[torch.Tensor]): The list containing all the weights for the 
+                input tensor 
+            data_samples (List[DataSample], optional): The annotation
+                data of every samples. """
 
         cls_score = self(deep_feats)
 
