@@ -1,5 +1,5 @@
 model = dict(
-    type = 'DOSClassifier'
+    type = 'DOSClassifier',
     backbone=dict(arch='121', type='DenseNet'),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
