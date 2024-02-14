@@ -21,17 +21,17 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=4,
-    num_workers=4,
+    batch_size=1,
+    num_workers=1,
     dataset=dict(
         type=dataset_type,
-        data_root='../../images',
-        ann_file='meta/train.txt',
+        data_root='../../B_E_P_N-without-mix',
+        ann_file='meta_min/train.txt',
         data_prefix='train',
         with_label=True,
         classes=['normal', 'polyps', 'esophagitis', 'barretts'],
         pipeline=train_pipeline),
-    sampler=dict(type='InfiniteSampler', shuffle=True),
+    sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
 )
 
@@ -40,8 +40,8 @@ val_dataloader = dict(
     num_workers=1,
     dataset=dict(
         type=dataset_type,
-        data_root='../../images',
-        ann_file='meta/train.txt',
+        data_root='../../B_E_P_N-without-mix',
+        ann_file='meta_min/train.txt',
         data_prefix='train',
         with_label=True,
         classes=['normal', 'polyps', 'esophagitis', 'barretts'],
