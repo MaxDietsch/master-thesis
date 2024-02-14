@@ -1,7 +1,7 @@
 
 import torch
 import torch.nn as nn
-
+from typing import List, Optional
 from mmpretrain.registry import MODELS
 from .image import ImageClassifier
 from ..heads.dos_head import DOSHead
