@@ -19,23 +19,48 @@ class DOSClassifier(ImageClassifier):
 
     def forward(self,
                 inputs: torch.Tensor,
-                n,
-                w,
+                n: List[torch.Tensor],
+                w: List[torch.Tensor],
                 data_samples: Optional[List[DataSample]] = None, 
                 mode: str = 'tensor'):
+        """ Args:
+            inputs (torch.Tensor): The input tensor with shape
+                (N, C, ...) in general.
+            n (List[torch.Tensor]): The list containing all the nearest neighbours 
+                of the input tensor 
+            w (List[torch.Tensor]): The list containing all the weights for the 
+                input tensor 
+            data_samples (List[DataSample], optional): The annotation
+                data of every samples. It's required if ``mode="loss"``.
+                Defaults to None.
+            mode (str): Return what kind of value. Defaults to 'tensor'."""
 
         if mode == 'tensor':
             feats = self.extract_feat(inputs)
             return self.head(feats) if self.with_head else feats
         elif mode == 'loss':
-            return self.loss(inputs, data_samples, n, w)
+            return self.loss(inputs, n, w, data_samples)
         elif mode == 'predict':
             return self.predict(inputs, data_samples)
         else:
             raise RuntimeError(f'Invalid mode "{mode}".')
 
 
-    def loss(self, input, data_samples, n, w):
+    def loss(self, 
+             inputs: torch:Tensor,
+             n: List[torch.Tensor],
+             w: List[torch.Tensor],
+             data_samples: Optional[List[DataSample]] = None):
+        """ Args:
+            inputs (torch.Tensor): The input tensor with shape
+                (N, C, ...) in general.
+            n (List[torch.Tensor]): The list containing all the nearest neighbours 
+                of the input tensor 
+            w (List[torch.Tensor]): The list containing all the weights for the 
+                input tensor 
+            data_samples (List[DataSample], optional): The annotation
+                data of every samples. It's required if ``mode="loss"``.
+                Defaults to None."""
 
         deep_feats = self.extract_feat(input)
         return self.head.loss(deep_feats, data_samples, n, w)
