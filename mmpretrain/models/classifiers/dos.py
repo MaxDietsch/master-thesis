@@ -50,9 +50,9 @@ class DOSClassifier(ImageClassifier):
             dict or list: Results of training or testing mode.
         """
         if isinstance(data, dict):
-            results = self(**data, n, w, mode=mode)
+            results = self(**data, n=n, w=w, mode=mode)
         elif isinstance(data, (list, tuple)):
-            results = self(*data, n, w, mode=mode)
+            results = self(*data, n=n, w=w, mode=mode)
         else:
             raise TypeError('Output of `data_preprocessor` should be '
                             f'list, tuple or dict, but got {type(data)}')
