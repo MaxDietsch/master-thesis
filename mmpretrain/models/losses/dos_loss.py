@@ -28,7 +28,7 @@ class DOSLoss(nn.Module):
         g_loss = 0
 
         # helper for g_loss
-        rho = torch.zeros(len(n))
+        rho = (torch.zeros(len(n))).to(torch.device("cuda"))
 
         for w_i in w:
             for idx, v_i in enumerate(n):
