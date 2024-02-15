@@ -27,13 +27,11 @@ class DOSLoss(nn.Module):
         f_loss = 0
         g_loss = 0
 
-        print(deep_feats)
-        print(deep_feats[0])
         
         # helper for g_loss
         rho = torch.zeros(len(n))
         for idx, v_i in enumerate(n):
-            print(v_i)
+            print(w[idx])
             rho[idx] = - w[idx] * torch.linalg.norm(deep_feats[0] - v_i)
         rho = torch.exp(rho)
         rho = rho / torch.sum(rho)
