@@ -8,7 +8,7 @@ param_scheduler = dict(
 k = [0, 3, 2, 1]
 r = [0, 3, 2, 1]
 samples_per_class = [0, 45, 132, 539]
-train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class  max_epochs=400, val_interval=1)
+train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class, max_epochs=400, val_interval=1)
 
 val_cfg = dict()
 test_cfg = dict()
