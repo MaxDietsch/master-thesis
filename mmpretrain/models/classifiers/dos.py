@@ -106,4 +106,4 @@ class DOSClassifier(ImageClassifier):
                 Defaults to None."""
 
         deep_feats = self.extract_feat(inputs)
-        return self.head.loss(deep_feats, data_samples, n, w)
+        return self.head.loss(deep_feats, n, w, data_samples)
