@@ -27,7 +27,9 @@ class DOSLoss(nn.Module):
         f_loss = 0
         g_loss = 0
 
-        
+        print(w) 
+        print(w[0])
+        print(w[0][0, 0])
         # helper for g_loss
         rho = torch.zeros(len(n))
         for idx, v_i in enumerate(n):
