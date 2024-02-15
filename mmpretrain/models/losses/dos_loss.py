@@ -30,17 +30,19 @@ class DOSLoss(nn.Module):
         torch.autograd.set_detect_anomaly(True)
 
         # helper for g_loss
-        rho = (torch.zeros(len(n))).to(torch.device("cuda"))
+        rho = []
 
-        for w_i in w:
+        for idy, w_i in enumerate(w):
+            rho.append((torch.zeros(len(n))).to(torch.device("cuda")))
             for idx, v_i in enumerate(n):
-                rho[idx] += -w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
-            rho = torch.exp(rho)
-            rho = rho / torch.sum(rho)
+                rho[idy][idx] += -w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
+            rho[idy] = torch.exp(rho[idy])
+            rho[idy] = rho[idy] / torch.sum(rho[idy])
 
+        for idy, w_i in enumerate(w):
             for idx, v_i in enumerate(n):
                 f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
-                g_loss += rho[idx] * self.ce_loss(cls_score, target)
+                g_loss += rho[idy][idx] * self.ce_loss(cls_score, target)
 
         loss = g_loss + f_loss
         return loss
