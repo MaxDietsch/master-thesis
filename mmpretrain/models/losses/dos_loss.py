@@ -26,7 +26,8 @@ class DOSLoss(nn.Module):
         """
 
         if len(n) == 0:
-            loss = self.ce_loss(cls_score.unsqueeze(0), target)
+            print(cls_score)
+            loss = self.ce_loss(cls_score[0], target)
 
         else:
             f_loss = 0
