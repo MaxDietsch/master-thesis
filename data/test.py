@@ -9,14 +9,13 @@ data_preprocessor = dict(
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='RandomFlip', prob=0.5, direction='horizontal'),
-    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
+    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),         # prepare images and labels
 ]
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='Resize', scale=(320, 320), interpolation='bicubic'),
+    dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 
@@ -29,7 +28,7 @@ train_dataloader = dict(
         ann_file='meta_min/train.txt',
         data_prefix='train',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=train_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
@@ -41,10 +40,10 @@ val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root='../../B_E_P_N-without-mix',
-        ann_file='meta_min/train.txt',
-        data_prefix='train',
+        ann_file='meta/val.txt',
+        data_prefix='val',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=test_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
