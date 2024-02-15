@@ -37,7 +37,7 @@ class DOSClassifier(ImageClassifier):
 
     def _run_forward(self, data: Union[dict, tuple, list],
                      n: List[torch.Tensor],
-                     w: torch.Tensor
+                     w: torch.Tensor,
                      mode: str) -> Union[Dict[str, torch.Tensor], list]:
         """Unpacks data for :meth:`forward`
 
