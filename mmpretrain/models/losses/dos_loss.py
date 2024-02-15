@@ -47,7 +47,7 @@ class DOSLoss(nn.Module):
         for idy, w_i in enumerate(w):
             for idx, v_i in enumerate(n):
                 f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
-                g_loss += rho[idy][idx] * self.ce_loss(cls_score[idx], target)
+                g_loss += rho[idy][idx] * self.ce_loss(cls_score[idx].unsqueeze(0), target)
 
         loss = g_loss + f_loss
         return loss
