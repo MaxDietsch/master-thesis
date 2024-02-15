@@ -85,7 +85,7 @@ class DOSClassifier(ImageClassifier):
 
             print(inputs)
 
-            return self.loss(inputs, n, w, data_samples)
+            return self.loss(inputs[0], n, w, data_samples)
         elif mode == 'predict':
             return self.predict(inputs, data_samples)
         else:
