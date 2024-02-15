@@ -82,10 +82,7 @@ class DOSClassifier(ImageClassifier):
             feats = self.extract_feat(inputs)
             return self.head(feats) if self.with_head else feats
         elif mode == 'loss':
-
-            print(inputs)
-
-            return self.loss(inputs[0], n, w, data_samples)
+            return self.loss(inputs, n, w, data_samples)
         elif mode == 'predict':
             return self.predict(inputs, data_samples)
         else:
@@ -108,5 +105,5 @@ class DOSClassifier(ImageClassifier):
                 data of every samples. It's required if ``mode="loss"``.
                 Defaults to None."""
 
-        deep_feats = self.extract_feat(input)
+        deep_feats = self.extract_feat(inputs)
         return self.head.loss(deep_feats, data_samples, n, w)
