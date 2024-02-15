@@ -39,6 +39,7 @@ class DOSHead(LinearClsHead):
             cls_score.append(self(v_i))
 
         if len(n) == 0:
+            print("vsakdjasldöfajösdkjfaö")
             cls_score.append(self(deep_feats))
 
 
