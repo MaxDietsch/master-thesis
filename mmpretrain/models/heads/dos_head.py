@@ -21,7 +21,7 @@ class DOSHead(LinearClsHead):
     def loss(self,
              deep_feats: torch.Tensor,
              n: List[torch.Tensor],
-             w: List[torch.Tensor],
+             w: torch.Tensor,
              data_samples: List[DataSample]) -> dict:
 
         """ Args:
@@ -29,12 +29,15 @@ class DOSHead(LinearClsHead):
                 (V,) in general.
             n (List[torch.Tensor]): The list containing all the nearest neighbours 
                 of the input tensor 
-            w (List[torch.Tensor]): The list containing all the weights for the 
+            w (torch.Tensor): The list containing all the weights for the 
                 input tensor 
             data_samples (List[DataSample], optional): The annotation
                 data of every samples. """
 
-        cls_score = self(deep_feats)
+        cls_score = []
+        for v_i in n:
+            cls_score.append(self(v_i))
+
 
         target = torch.cat([i.gt_label for i in data_samples])
 

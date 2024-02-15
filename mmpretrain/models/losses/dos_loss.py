@@ -31,6 +31,9 @@ class DOSLoss(nn.Module):
 
         # helper for g_loss
         rho = []
+        
+        print(cls_score)
+
 
         for idy, w_i in enumerate(w):
             rho.append((torch.zeros(len(n))).to(torch.device("cuda")))
@@ -39,10 +42,12 @@ class DOSLoss(nn.Module):
             rho[idy] = torch.exp(rho[idy])
             rho[idy] = rho[idy] / torch.sum(rho[idy])
 
+
+
         for idy, w_i in enumerate(w):
             for idx, v_i in enumerate(n):
                 f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
-                g_loss += rho[idy][idx] * self.ce_loss(cls_score, target)
+                g_loss += rho[idy][idx] * self.ce_loss(cls_score[idx], target)
 
         loss = g_loss + f_loss
         return loss
