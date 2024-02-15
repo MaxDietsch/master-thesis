@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from typing import List, Optional, Union, Dict
 from mmpretrain.structures import DataSample
+from mmengine.optim import OptimWrapper
 
 from mmpretrain.registry import MODELS
 from .image import ImageClassifier
