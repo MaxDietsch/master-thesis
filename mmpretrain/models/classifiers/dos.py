@@ -80,9 +80,11 @@ class DOSClassifier(ImageClassifier):
 
         if mode == 'tensor':
             feats = self.extract_feat(inputs)
-            print("here is the mistake")
             return self.head(feats) if self.with_head else feats
         elif mode == 'loss':
+
+            print(inputs)
+
             return self.loss(inputs, n, w, data_samples)
         elif mode == 'predict':
             return self.predict(inputs, data_samples)
