@@ -32,8 +32,6 @@ class DOSLoss(nn.Module):
         # helper for g_loss
         rho = []
         
-        print(cls_score)
-
 
         for idy, w_i in enumerate(w):
             rho.append((torch.zeros(len(n))).to(torch.device("cuda")))
