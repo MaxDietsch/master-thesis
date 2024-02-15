@@ -27,6 +27,8 @@ class DOSLoss(nn.Module):
         f_loss = 0
         g_loss = 0
 
+        torch.autograd.set_detect_anomaly(True)
+
         # helper for g_loss
         rho = (torch.zeros(len(n))).to(torch.device("cuda"))
 
