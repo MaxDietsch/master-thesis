@@ -17,10 +17,52 @@ class DOSClassifier(ImageClassifier):
         if not isinstance(self.head, DOSHead):
             raise TypeError('Head of the model should be of type DOSHead')
 
+
+
+    def train_step(self, data: Union[dict, tuple, list],
+                   n: List[torch.Tensor],
+                   w: torch.Tensor, 
+                   optim_wrapper: OptimWrapper
+                   ) -> Dict[str, torch.Tensor]:
+       
+
+        # Enable automatic mixed precision training context.
+        with optim_wrapper.optim_context(self):
+            data = self.data_preprocessor(data, True)
+            losses = self._run_forward(data, n, w, mode='loss')  # type: ignore
+        parsed_losses, log_vars = self.parse_losses(losses)  # type: ignore
+        optim_wrapper.update_params(parsed_losses)
+        return log_vars
+
+
+    def _run_forward(self, data: Union[dict, tuple, list],
+                     n: List[torch.Tensor],
+                     w: torch.Tensor
+                     mode: str) -> Union[Dict[str, torch.Tensor], list]:
+        """Unpacks data for :meth:`forward`
+
+        Args:
+            data (dict or tuple or list): Data sampled from dataset.
+            mode (str): Mode of forward.
+
+        Returns:
+            dict or list: Results of training or testing mode.
+        """
+        if isinstance(data, dict):
+            results = self(**data, mode=mode)
+        elif isinstance(data, (list, tuple)):
+            results = self(*data, n, w, mode=mode)
+        else:
+            raise TypeError('Output of `data_preprocessor` should be '
+                            f'list, tuple or dict, but got {type(data)}')
+        return results
+
+
+
     def forward(self,
                 inputs: torch.Tensor,
                 n: List[torch.Tensor],
-                w: List[torch.Tensor],
+                w: torch.Tensor,
                 data_samples: Optional[List[DataSample]] = None, 
                 mode: str = 'tensor'):
         """ Args:
@@ -28,7 +70,7 @@ class DOSClassifier(ImageClassifier):
                 (V, ) in general.
             n (List[torch.Tensor]): The list containing all the nearest neighbours 
                 of the input tensor 
-            w (List[torch.Tensor]): The list containing all the weights for the 
+            w torch.Tensor: The tensor containing all the weights for the 
                 input tensor 
             data_samples (List[DataSample], optional): The annotation
                 data of every samples. It's required if ``mode="loss"``.
