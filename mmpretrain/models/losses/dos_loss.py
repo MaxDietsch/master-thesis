@@ -40,7 +40,7 @@ class DOSLoss(nn.Module):
                 f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
                 g_loss += rho[idx] * self.ce_loss(cls_score, target)
 
-               loss = g_loss + f_loss
+        loss = g_loss + f_loss
         return loss
                 
 
