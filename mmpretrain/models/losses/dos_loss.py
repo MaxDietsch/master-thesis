@@ -31,13 +31,13 @@ class DOSLoss(nn.Module):
         rho = torch.zeros(len(n))
         for idx, v_i in enumerate(n):
             print(w[idx])
-            rho[idx] = - w[idx] * torch.linalg.norm(deep_feats[0] - v_i)
+            rho[idx] = """- w[idx] *""" torch.linalg.norm(deep_feats[0] - v_i)
         rho = torch.exp(rho)
         rho = rho / torch.sum(rho)
 
         for w_i in w:
             for idx, v_i in enumerate(n):
-                f_loss += w[idx] * torch.linalg.norm(deep_feats[0] - v_i)
+                f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
                 g_loss += rho[idx] * self.ce_loss(cls_score, target)
         loss = g_loss + f_loss
         return loss
