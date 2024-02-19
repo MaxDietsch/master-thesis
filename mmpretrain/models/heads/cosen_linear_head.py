@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Optional, Tuple, List
-
+from mmpretrain.structures import DataSample
 import torch
 import torch.nn as nn
 
