@@ -9,7 +9,7 @@ from .linear_head import LinearClsHead
 
 
 @MODELS.register_module()
-class CoSenLinearHead(LinearClsHead):
+class CoSenLinearClsHead(LinearClsHead):
     """ CoSen Linear classifier head.
         Like LinearClsHead but always return in addition the predictions
         which is important for the calculation of the Confusion Matrix
