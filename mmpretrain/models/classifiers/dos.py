@@ -11,6 +11,9 @@ from ..heads.dos_head import DOSHead
 
 @MODELS.register_module()
 class DOSClassifier(ImageClassifier):
+    """Dos Classifier is exactly like ImageClassifier, but things changed: 
+        give the n and w parameters of DOS to the loss function of the head
+        require DOSHead as head of the model"""
 
     def __init__(self, **kwargs):
         super(DOSClassifier, self).__init__(**kwargs)

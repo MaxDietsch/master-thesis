@@ -32,6 +32,7 @@ from .vig_head import VigClsHead
 from .vision_transformer_head import VisionTransformerClsHead
 from .vqa_head import VQAGenerationHead
 from .dos_head import DOSHead
+from .cosen_linear_head import CoSenLinearHead
 
 __all__ = [
     'ClsHead',
@@ -68,4 +69,5 @@ __all__ = [
     'iTPNClipHead',
     'SparKPretrainHead',
     'DOSHead',
+    'CoSenLinearHead',
 ]
