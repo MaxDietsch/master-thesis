@@ -7,4 +7,4 @@ model = dict(
         topk=1,
         type='CoSenLinearClsHead'),
     neck=dict(type='GlobalAveragePooling'),
-    type='ImageClassifier')
+    type='CoSenClassifier')
