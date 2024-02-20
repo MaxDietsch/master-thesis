@@ -1,5 +1,5 @@
 optim_wrapper = dict(
-    optimizer=dict(type='SGD', lr=0.00001, momentum=0.9, weight_decay=0.0001))
+    optimizer=dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001))
 
 param_scheduler = dict(
     type='MultiStepLR', by_epoch=True, milestones=[100, 200, 300], gamma=0.1)
