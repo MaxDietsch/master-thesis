@@ -18,7 +18,7 @@ train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class
 #""" CoSenTrainLoop 
 s_freq = 3
 s_samples_per_class = [10, 10, 10, 10]
-samples_per_class = [150, 45, 132, 539]
+samples_per_class = [3312, 45, 132, 539]
 mu1 = 0.5
 mu2 = 0.5
 s1 = 0.5
