@@ -34,6 +34,7 @@ class CoSenCrossEntropyLoss(nn.Module):
 
         super(CoSenCrossEntropyLoss, self).__init__()
         self.num_classes = num_classes
+        self.learning_rate = learning_rate
         self.xi = torch.ones((num_classes, num_classes))
 
 
