@@ -17,8 +17,11 @@ class CoSenLinearClsHead(LinearClsHead):
         Needs to have CoSenCrossEntropyLoss as loss_module 
     """
 
-    def __init__(self, init_cfg, **kwargs):
-        super(CoSenLinearClsHead, self).__init__(init_cfg = init_cfg, **kwargs)
+    def __init__(self,
+                num_classes: int,
+                in_channels: int, 
+                 init_cfg, **kwargs):
+        super(CoSenLinearClsHead, self).__init__(num_classes = num_classes, in_channels = in_channels, init_cfg = init_cfg, **kwargs)
 
         if not isinstance (self.loss_module, CoSenCrossEntropyLoss):
             raise TypeError('Loss function of the Head should be of type CoSenLinearClsHead')
