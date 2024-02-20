@@ -18,7 +18,8 @@ def log_softmax(cls_score, label, xi):
     return log_s
 
 # negative log_likelihood, used because we use log_softmax
-def negative_log_likelihood(log_s, label): 
+def negative_log_likelihood(log_s, label):
+    print -log_s[range(label.shape[0])]
     return -log_s[range(label.shape[0]), label].mean()
 
 
@@ -44,7 +45,6 @@ class CoSenCrossEntropyLoss(nn.Module):
                 label (torch.Tensor): The label with shape (Batch, )
                 xi (torch.Tensor): The co-sen matrix with shape (#Classes, #Classes)
         """
-        print(label.shape[0])
         log_s = log_softmax(cls_score, label, self.xi)
         nll_loss = negative_log_likelihood(log_s, label)
 
