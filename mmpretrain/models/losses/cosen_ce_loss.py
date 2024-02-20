@@ -21,7 +21,7 @@ def log_softmax(cls_score, label, xi):
 def negative_log_likelihood(log_s, label):
     print(list(range(label.shape[0])))
     print(-log_s[0])
-    print (-log_s[torch.arange(3), ])
+    print (-log_s[torch.arange(3), label])
 
     return -log_s[range(label.shape[0]), label].mean()
 
