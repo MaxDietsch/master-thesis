@@ -31,7 +31,7 @@ class CoSenCrossEntropyLoss(nn.Module):
                 learning_rate (float): The learning rate for xi
         """
 
-        super(CoSenCrossEntropyLoss, selt).__init__()
+        super(CoSenCrossEntropyLoss, self).__init__()
         self.num_classes = num_classes
         self.xi = torch.ones((num_classes, num_classes))
 
