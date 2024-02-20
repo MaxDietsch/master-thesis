@@ -6,14 +6,22 @@ import torch.nn as nn
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
+from ..losses.cosen_ce_loss import CoSenCrossEntropyLoss
 
 
 @MODELS.register_module()
 class CoSenLinearClsHead(LinearClsHead):
     """ CoSen Linear classifier head.
         Like LinearClsHead but always return in addition the predictions
-        which is important for the calculation of the Confusion Matrix
+        which is important for the calculation of the Confusion Matrix.
+        Needs to have CoSenCrossEntropyLoss as loss_module 
     """
+
+    def __init__(self, init_cfg, **kwargs):
+        super(CoSenLinearClsHead, self).__init__(init_cfg = init_cfg, **kwargs)
+
+        if not isinstance (self.loss_module, CoSenCrossEntropyLoss):
+            raise TypeError('Loss function of the Head should be of type CoSenLinearClsHead')
 
     def _get_loss(self, cls_score: torch.Tensor,
                   data_samples: List[DataSample], **kwargs):
@@ -28,7 +36,7 @@ class CoSenLinearClsHead(LinearClsHead):
         # compute loss
         losses = dict()
         loss = self.loss_module(
-            cls_score, target, avg_factor=cls_score.size(0), **kwargs)
+            cls_score, target, **kwargs)
         losses['loss'] = loss
 
         # compute accuracy
