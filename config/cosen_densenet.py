@@ -1,7 +1,7 @@
 _base_ = [
-        '../model/densenet121.py',
+        '../model/cosen_densenet121.py',
         '../data/test.py',
-        '../schedule/sgd.py',
+        '../schedule/cosen_sgd.py',
         '../runtime/default.py'
         ]
 

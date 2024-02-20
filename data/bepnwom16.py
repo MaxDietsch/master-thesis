@@ -9,7 +9,6 @@ data_preprocessor = dict(
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='RandomFlip', prob=0.5, direction='horizontal'),
     dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),         # prepare images and labels
 ]
@@ -49,7 +48,10 @@ val_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
 )
-val_evaluator = dict(type='Accuracy', topk=(1))
+val_evaluator = [
+        dict(type='Accuracy', topk=(1)),
+        dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
+                ]
 
 test_dataloader = val_dataloader
 test_evaluator = val_evaluator
