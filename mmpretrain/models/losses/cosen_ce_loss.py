@@ -44,7 +44,7 @@ class CoSenCrossEntropyLoss(nn.Module):
                 xi (torch.Tensor): The co-sen matrix with shape (#Classes, #Classes)
         """
 
-        log_s = log_softmax(cls_score, label, xi)
+        log_s = log_softmax(cls_score, label, self.xi)
         nll_loss = negative_log_likelihood(log_s, label)
 
         return nll_loss
