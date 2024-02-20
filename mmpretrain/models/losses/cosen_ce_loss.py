@@ -15,12 +15,10 @@ def log_softmax(cls_score, label, xi):
         l[i] = m.log() + pred - (m + pred.exp()).sum(-1).log().unsqueeze(-1)
     """
     log_s = [xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, torch.argmax(cls_score[i])] + cls_score[i].exp()).sum().log() for i, lab in enumerate(label)]
-    return log_s
+    return torch.tensor(log_s)
 
 # negative log_likelihood, used because we use log_softmax
 def negative_log_likelihood(log_s, label):
-    print(list(range(label.shape[0])))
-    print(-log_s[0])
     print (-log_s[torch.arange(3), label])
 
     return -log_s[range(label.shape[0]), label].mean()
