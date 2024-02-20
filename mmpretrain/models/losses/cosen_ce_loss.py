@@ -14,7 +14,7 @@ def log_softmax(cls_score, label, xi):
         m = xi[lab, torch.argmax(pred[i])]
         l[i] = m.log() + pred - (m + pred.exp()).sum(-1).log().unsqueeze(-1)
     """
-    log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, torch.argmax(cls_score[i])] + cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
+    log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, torch.argmax(cls_score[i])] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
     return log_s
 
 # negative log_likelihood, used because we use log_softmax
@@ -35,7 +35,7 @@ class CoSenCrossEntropyLoss(nn.Module):
         super(CoSenCrossEntropyLoss, self).__init__()
         self.num_classes = num_classes
         self.learning_rate = learning_rate
-        self.xi = torch.ones((num_classes, num_classes)) - torch.eye(num_classes)
+        self.xi = torch.ones((num_classes, num_classes))
 
 
     def forward(self, cls_score, label):
