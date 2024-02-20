@@ -64,7 +64,7 @@ class CoSenCrossEntropyLoss(nn.Module):
                 v_b (torch.Tensor): The vectorized xi tensor, like in the paper.
         """
 
-        self.xi -= self.learning_rate * self.compute_grad(v_a)
+        self.xi -= self.learning_rate * self.compute_grad(v_a).view(self.xi.shape)
 
     def set_xi_lr(self, new_lr):
         """
