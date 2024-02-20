@@ -19,7 +19,7 @@ def log_softmax(cls_score, label, xi):
 
 # negative log_likelihood, used because we use log_softmax
 def negative_log_likelihood(log_s, label): 
-    return -log_s[range(label.shape[0]), label].mean()
+    return -log_s[list(range(label.shape[0])), label].mean()
 
 
 
