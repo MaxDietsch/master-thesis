@@ -19,7 +19,12 @@ train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class
 s_freq = 1
 s_samples_per_class = [10, 10, 10, 10]
 samples_per_class = [150, 45, 132, 539]
-train_cfg = dict(by_epoch = 3, s_freq = s_freq, s_samples_per_class = s_samples_per_class, samples_per_class = samples_per_class, max_epochs = 400, val_interval = 1)
+mu1 = 0.5
+mu2 = 0.5
+s1 = 0.5
+s2 = 0.5
+train_cfg = dict(by_epoch = 3, s_freq = s_freq, s_samples_per_class = s_samples_per_class, samples_per_class = samples_per_class,
+                 mu1 = mu1, mu2 = mu2, s1 = s1, s2 = s2, max_epochs = 400, val_interval = 1)
 #"""
 
 

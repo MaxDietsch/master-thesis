@@ -38,7 +38,6 @@ class LinearClsHead(ClsHead):
         self.in_channels = in_channels
         self.num_classes = num_classes
 
-        print(init_cfg)
 
         if self.num_classes <= 0:
             raise ValueError(
