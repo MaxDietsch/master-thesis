@@ -72,4 +72,7 @@ class CoSenCrossEntropyLoss(nn.Module):
 
         self.learning_rate = new_lr
 
+    def get_xi_lr(self):
+        return self.learning_rate
+
 
