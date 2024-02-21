@@ -20,7 +20,7 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=4,
+    batch_size=1,
     num_workers=4,
     dataset=dict(
         type=dataset_type,
@@ -30,12 +30,12 @@ train_dataloader = dict(
         with_label=True,
         classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=train_pipeline),
-    sampler=dict(type='DefaultSampler', shuffle=False),
+    sampler=dict(type='DefaultSampler', shuffle=True),
     persistent_workers=True,
 )
 
 val_dataloader = dict(
-    batch_size=4,
+    batch_size=1,
     num_workers=4,
     dataset=dict(
         type=dataset_type,
