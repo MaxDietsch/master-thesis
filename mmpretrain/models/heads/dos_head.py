@@ -9,12 +9,16 @@ from ..losses.dos_loss import DOSLoss
 
 @MODELS.register_module()
 class DOSHead(LinearClsHead):
+    """
+    same like LinearClsHead but returns in updated loss function for the dosloss
+    requirements:
+        loss_module of the model should be DOSLoss
+    """
 
     def __init__(self, **kwargs):
         super(DOSHead, self).__init__(**kwargs)
         
-        if not isinstance(self.loss_module, DOSLoss):
-            raise TypeError('Loss of the model should be of type DOSLoss')
+        assert isinstance(self.loss_module, DOSLoss), 'loss_module of the head should be DOSLoss when using DOSHead'
 
 
 

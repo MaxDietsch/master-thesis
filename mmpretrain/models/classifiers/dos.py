@@ -13,14 +13,15 @@ from ..heads.dos_head import DOSHead
 class DOSClassifier(ImageClassifier):
     """Dos Classifier is exactly like ImageClassifier, but things changed: 
         give the n and w parameters of DOS to the loss function of the head
-        require DOSHead as head of the model"""
+        require DOSHead as head of the model
+        requirements: 
+            Head of the Classifier should be DOSHead
+    """
 
     def __init__(self, **kwargs):
         super(DOSClassifier, self).__init__(**kwargs)
 
-        if not isinstance(self.head, DOSHead):
-            raise TypeError('Head of the model should be of type DOSHead')
-
+        assert isinstance(self.head, DOSHead), 'The head of the classifier should be DOSHead when using DOSClassifier'
 
 
     def train_step(self, data: Union[dict, tuple, list],
