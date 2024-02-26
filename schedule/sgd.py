@@ -8,21 +8,6 @@ param_scheduler = dict(
 train_cfg = dict(by_epoch=True, max_epochs=400, val_interval=1)
 #"""
 
-""" DosTrainLoop
-k = [0, 4, 2, 1]
-r = [0, 2, 2, 1]
-samples_per_class = [150, 45, 132, 539]
-train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class, max_epochs=400, val_interval=1)
-"""
-
-""" CoSenTrainLoop 
-s_freq = 1
-s_samples_per_class = [10, 10, 10, 10]
-samples_per_class = [150, 45, 132, 539]
-train_cfg = dict(by_epoch = 3, s_freq = s_freq, s_samples_per_class = s_samples_per_class, samples_per_class = samples_per_class, max_epochs = 400, val_interval = 1)
-"""
-
-
 val_cfg = dict()
 test_cfg = dict()
 

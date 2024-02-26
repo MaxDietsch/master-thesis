@@ -29,7 +29,10 @@ train_cfg = dict(by_epoch = 3, s_freq = s_freq, s_samples_per_class = s_samples_
 
 #""" HardMiningBasedTrainLoop
 min_classes = [1, 2, 3]
-train_cfg = dict(by_epoch = 4, min_classes = min_classes, max_epochs = 400, val_interval = 1)
+min_thrs = 0.3
+max_thrs = 0.2
+k = 3
+train_cfg = dict(by_epoch = 4, min_classes = min_classes, min_thrs = min_thrs, max_thrs = max_thrs, k = k, max_epochs = 400, val_interval = 1)
 
 
 #"""
