@@ -5,6 +5,7 @@ import torch.nn.functional as F
 from mmpretrain.registry import MODELS
 from .utils import weight_reduce_loss
 
+import torch
 import heapq
 
 
