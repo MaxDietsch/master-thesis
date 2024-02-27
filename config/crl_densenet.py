@@ -1,5 +1,5 @@
 _base_ = [
-        '../model/densenet121.py',
+        '../model/crl_densenet121.py',
         '../data/bepnwom16.py',
         '../schedule/sgd.py',
         '../runtime/default.py'
