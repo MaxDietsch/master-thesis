@@ -140,6 +140,7 @@ class CRLLoss(nn.Module):
 
         # get tensor where to store the hard samples, 0 -> hard negatives, 1-> hard positives 
         hard_samples = [[[] for _ in range(cls_score.shape[1]) ] for _ in range(2)]
+        print(hard_samples)
 
         ## MINE HARD NEGATIVES
 
