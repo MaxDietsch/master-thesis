@@ -148,7 +148,7 @@ class CRLLoss(nn.Module):
         print(max_pred_lab)
 
         # check if predictions are wrong
-        max_thrs_mask = torch.ne(max_pred_lab, labels[ind])
+        max_thrs_mask = torch.ne(max_pred_lab, label[ind])
         print(max_thrs_mask)
 
         # get indices where wrong prediction scores are made 
