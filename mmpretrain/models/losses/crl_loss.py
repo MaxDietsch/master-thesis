@@ -156,7 +156,7 @@ class CRLLoss(nn.Module):
 
         # write hard negative samples into hard_samples)
         for i, idx in enumerate(hard_ned_ind):
-            if (len(hard_samples[0][max_pred_lab[idx]]) >= self.k) and  (max_pred[idx] > hard_samples[0][max_pred_lab[idx]][0][0]:
+            if (len(hard_samples[0][max_pred_lab[idx]]) >= self.k) and  (max_pred[idx] > hard_samples[0][max_pred_lab[idx]][0][0]):
                 heapq.heappop(hard_samples[0][max_pred_lab[idx]])
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[lab], idx])
             elif len(hard_samples[0][max_pred_lab[idx]]) < self.k:
