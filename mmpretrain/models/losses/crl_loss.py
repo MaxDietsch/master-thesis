@@ -99,7 +99,7 @@ class CRLLoss(nn.Module):
             self.cls_criterion = cross_entropy
 
         self.k = k 
-        self.min_classes = torch.tensor(min_classes) 
+        self.min_classes = torch.tensor(min_classes).to(torch.device('cuda')) 
 
     def forward(self,
                 cls_score,
