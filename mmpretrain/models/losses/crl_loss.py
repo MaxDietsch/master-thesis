@@ -5,6 +5,8 @@ import torch.nn.functional as F
 from mmpretrain.registry import MODELS
 from .utils import weight_reduce_loss
 
+import heapq
+
 
 def cross_entropy(pred,
                   label,
@@ -40,101 +42,19 @@ def cross_entropy(pred,
     return loss
 
 
-def soft_cross_entropy(pred,
-                       label,
-                       weight=None,
-                       reduction='mean',
-                       class_weight=None,
-                       avg_factor=None):
-    """Calculate the Soft CrossEntropy loss. The label can be float.
-
-    Args:
-        pred (torch.Tensor): The prediction with shape (N, C), C is the number
-            of classes.
-        label (torch.Tensor): The gt label of the prediction with shape (N, C).
-            When using "mixup", the label can be float.
-        weight (torch.Tensor, optional): Sample-wise loss weight.
-        reduction (str): The method used to reduce the loss.
-        avg_factor (int, optional): Average factor that is used to average
-            the loss. Defaults to None.
-        class_weight (torch.Tensor, optional): The weight for each class with
-            shape (C), C is the number of classes. Default None.
-
-    Returns:
-        torch.Tensor: The calculated loss
-    """
-    # element-wise losses
-    loss = -label * F.log_softmax(pred, dim=-1)
-    if class_weight is not None:
-        loss *= class_weight
-    loss = loss.sum(dim=-1)
-
-    # apply weights and do the reduction
-    if weight is not None:
-        weight = weight.float()
-    loss = weight_reduce_loss(
-        loss, weight=weight, reduction=reduction, avg_factor=avg_factor)
-
-    return loss
-
-
-def binary_cross_entropy(pred,
-                         label,
-                         weight=None,
-                         reduction='mean',
-                         avg_factor=None,
-                         class_weight=None,
-                         pos_weight=None):
-    r"""Calculate the binary CrossEntropy loss with logits.
-
-    Args:
-        pred (torch.Tensor): The prediction with shape (N, \*).
-        label (torch.Tensor): The gt label with shape (N, \*).
-        weight (torch.Tensor, optional): Element-wise weight of loss with shape
-            (N, ). Defaults to None.
-        reduction (str): The method used to reduce the loss.
-            Options are "none", "mean" and "sum". If reduction is 'none' , loss
-            is same shape as pred and label. Defaults to 'mean'.
-        avg_factor (int, optional): Average factor that is used to average
-            the loss. Defaults to None.
-        class_weight (torch.Tensor, optional): The weight for each class with
-            shape (C), C is the number of classes. Default None.
-        pos_weight (torch.Tensor, optional): The positive weight for each
-            class with shape (C), C is the number of classes. Default None.
-
-    Returns:
-        torch.Tensor: The calculated loss
-    """
-    # Ensure that the size of class_weight is consistent with pred and label to
-    # avoid automatic boracast,
-    assert pred.dim() == label.dim()
-   
-    if class_weight is not None:
-        N = pred.size()[0]
-        class_weight = class_weight.repeat(N, 1)
-    loss = F.binary_cross_entropy_with_logits(
-        pred,
-        label.float(),  # only accepts float type tensor
-        weight=class_weight,
-        pos_weight=pos_weight,
-        reduction='none')
-
-    # apply weights and do the reduction
-    if weight is not None:
-        assert weight.dim() == 1
-        weight = weight.float()
-        if pred.dim() > 1:
-            weight = weight.reshape(-1, 1)
-    loss = weight_reduce_loss(
-        loss, weight=weight, reduction=reduction, avg_factor=avg_factor)
-    return loss
-
-
 @MODELS.register_module()
-class CrossEntropyLoss(nn.Module):
-    """Cross entropy loss.
+class CRLLoss(nn.Module):
+    """ Loss has a lot of similarities with CrossEntropyLoss
+        Loss based on epoch-based training based on: 
+        Imbalanced Deep Learning by Minority Class Incremental Rectification by Qi Dong et al.
+        (only class based sampling with relative comparison)
+        Requirements: 
+            new (non-default parameters in the init)
 
     Args:
+        min_classes (List[int]): The labels of the minority classes for the algorithm (only
+            these will be used for mining hard samples, in the paper there is a criterion for that)
+        k (int): The k in top-k mining (how many hard positives and negatives will be mined)
         use_sigmoid (bool): Whether the prediction uses sigmoid
             of softmax. Defaults to False.
         use_soft (bool): Whether to use the soft version of CrossEntropyLoss.
@@ -150,13 +70,15 @@ class CrossEntropyLoss(nn.Module):
     """
 
     def __init__(self,
+                 min_classes, 
+                 k, 
                  use_sigmoid=False,
                  use_soft=False,
                  reduction='mean',
                  loss_weight=1.0,
                  class_weight=None,
                  pos_weight=None):
-        super(CrossEntropyLoss, self).__init__()
+        super(CRLLoss, self).__init__()
         self.use_sigmoid = use_sigmoid
         self.use_soft = use_soft
         assert not (
@@ -174,6 +96,9 @@ class CrossEntropyLoss(nn.Module):
             self.cls_criterion = soft_cross_entropy
         else:
             self.cls_criterion = cross_entropy
+
+        self.k = k 
+        self.min_classes = torch.tensor(min_classes) 
 
     def forward(self,
                 cls_score,
@@ -197,6 +122,52 @@ class CrossEntropyLoss(nn.Module):
             kwargs.update({'pos_weight': pos_weight})
         else:
             pos_weight = None
+
+        
+        ### MINE HARD SAMPLES
+
+        print(cls_score)
+        print(label)
+        
+        # get mask of where the min_class examples are in the batch 
+        min_labels_mask = torch.isin(label, self.min_classes)
+        print(min_labels_mask)
+        
+        # get the indices of the location of min_classes in the batch
+        ind = torch.where(min_labels_mask)
+        print(ind)
+
+        # get tensor where to store the hard samples, 0 -> hard negatives, 1-> hard positives 
+        hard_samples = [[[] for _ in range(len(ind)) ] for _ in range(2)]
+
+        ## MINE HARD NEGATIVES
+
+        # get label for which the maximum prediction was made and the maximum prediction score
+        max_pred, max_pred_lab = cls_score[min_labels_mask].max(dim=1)
+        print(max_pred_lab)
+
+        # check if predictions are wrong
+        max_thrs_mask = torch.ne(max_pred_lab, labels[ind])
+        print(max_thrs_mask)
+
+        # get indices where wrong prediction scores are made 
+        hard_neg_ind = torch.nonzero(max_thrs_mask)
+        print(hard_ned_ind)
+
+        # write hard negative samples into hard_samples)
+        for i, idx in enumerate(hard_ned_ind):
+            if (len(hard_samples[0][max_pred_lab[idx]]) >= self.k) and  (max_pred[idx] > hard_samples[0][max_pred_lab[idx]][0][0]:
+                heapq.heappop(hard_samples[0][max_pred_lab[idx]])
+                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[lab], idx])
+            elif len(hard_samples[0][max_pred_lab[idx]]) < self.k:
+                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[lab], idx])
+        print(hard_samples)
+
+
+
+
+
+
 
         loss_cls = self.loss_weight * self.cls_criterion(
             cls_score,
