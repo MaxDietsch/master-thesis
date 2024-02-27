@@ -183,7 +183,7 @@ class CRLLoss(nn.Module):
 
 
         # write hard positives into hard_samples (need a max heap, -> minus before min_pred to convert to min heap)
-        for i, idx enumerate(ind):
+        for i, idx in enumerate(ind):
             if (len(hard_samples[1][min_labels[i]]) >= self.k)  and  (-min_pred[i] < self.hard_samples[1][min_labels][0][0]):
                 heapq.heappop(hard_samples[1][min_lables[i]])
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
