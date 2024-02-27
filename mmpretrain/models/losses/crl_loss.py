@@ -139,7 +139,7 @@ class CRLLoss(nn.Module):
         print(ind)
 
         # get tensor where to store the hard samples, 0 -> hard negatives, 1-> hard positives 
-        hard_samples = [[[] for _ in range(len(ind)) ] for _ in range(2)]
+        hard_samples = [[[] for _ in range(cls_score.shape[1]) ] for _ in range(2)]
 
         ## MINE HARD NEGATIVES
 
@@ -159,9 +159,9 @@ class CRLLoss(nn.Module):
         for i, idx in enumerate(hard_neg_ind):
             if (len(hard_samples[0][max_pred_lab[idx]]) >= self.k) and  (max_pred[idx] > hard_samples[0][max_pred_lab[idx]][0][0]):
                 heapq.heappop(hard_samples[0][max_pred_lab[idx]])
-                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], idx])
+                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], ind[idx]])
             elif len(hard_samples[0][max_pred_lab[idx]]) < self.k:
-                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], idx])
+                heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], ind[idx]])
         print(hard_samples)
 
 
