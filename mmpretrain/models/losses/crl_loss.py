@@ -162,9 +162,6 @@ class CRLLoss(nn.Module):
                 heapq.heappop(hard_samples[0][max_pred_lab[idx]])
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], ind[idx]])
             elif len(hard_samples[0][max_pred_lab[idx]]) < self.k:
-                print(idx) 
-                print(ind)
-                print(ind[idx])
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], ind[idx]])
         #print(hard_samples)
 
