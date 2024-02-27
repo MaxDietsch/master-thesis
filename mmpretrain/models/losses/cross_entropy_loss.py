@@ -108,11 +108,7 @@ def binary_cross_entropy(pred,
     # Ensure that the size of class_weight is consistent with pred and label to
     # avoid automatic boracast,
     assert pred.dim() == label.dim()
-    print(cls_score)
-    print(cls_score.shape)
-
-    print(label)
-
+   
     if class_weight is not None:
         N = pred.size()[0]
         class_weight = class_weight.repeat(N, 1)
@@ -189,6 +185,10 @@ class CrossEntropyLoss(nn.Module):
         assert reduction_override in (None, 'none', 'mean', 'sum')
         reduction = (
             reduction_override if reduction_override else self.reduction)
+
+        print(cls_score)
+        print(cls_score.shape)
+        print(label)
 
         if self.class_weight is not None:
             class_weight = cls_score.new_tensor(self.class_weight)
