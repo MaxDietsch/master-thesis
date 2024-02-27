@@ -135,12 +135,12 @@ class CRLLoss(nn.Module):
         print(min_labels_mask)
         
         # get the indices of the location of min_classes in the batch
-        ind = torch.where(min_labels_mask)
+        ind = torch.nonzero(min_labels_mask).view(-1)
         print(ind)
 
         # get tensor where to store the hard samples, 0 -> hard negatives, 1-> hard positives 
         hard_samples = [[[] for _ in range(cls_score.shape[1]) ] for _ in range(2)]
-        print(hard_samples)
+        #print(hard_samples)
 
         ## MINE HARD NEGATIVES
 
