@@ -171,6 +171,7 @@ class CRLLoss(nn.Module):
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], idx])
         #print(hard_samples)
 
+
         ## MINE HARD POSITIVES
 
         # get mask of where the min_class examples are in the batch 
@@ -221,7 +222,9 @@ class CRLLoss(nn.Module):
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
+        print(cls_score[min_labels_mask])
         for i, min_sample in enumerate(cls_score[min_labels_mask]):
+            print(i)
             lab = label[min_labels_mask][i]
             for j, hard_neg in enumerate(hard_samples[0][lab]):
                 for k, hard_pos in enumerate(hard_samples[1][lab]):
