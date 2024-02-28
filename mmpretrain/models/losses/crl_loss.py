@@ -202,6 +202,19 @@ class CRLLoss(nn.Module):
         print(hard_samples)
 
         
+        # WHAT TO DO WITH CLASSES WHICH DO NOT HAVE HARD NEGATIVES OR HARD POSITIVES ?
+        # approach: if hard negative empty: fill with one hot of the corresponding class 
+        #           if hard positive empty. fill with inverse one hot of the corresponding class 
+        for i in range(2):
+            for lab, arr in enumerate(hard_samples[i]):
+                if len(arr) == 0:
+                    if i == 0:
+                        arr.append([ F.one_hot(lab, num_classes = num_classes), -1 ])
+                    if i == 1:
+                        arr.append([ 1 - F.one_hot(lab, num_classes = num_classes), -1 ])
+        print(hard_samples)
+
+        
         # for all indices that are not in ind (so are not from min_classes) 
 
         #print(cls_score[ ~ min_labels_mask])
@@ -224,8 +237,8 @@ class CRLLoss(nn.Module):
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
         print(cls_score[min_labels_mask])
         for i, min_sample in enumerate(cls_score[min_labels_mask]):
-            print(i)
             lab = label[min_labels_mask][i]
+
             for k, hard_pos in enumerate(hard_samples[1][lab]):
                 for j, hard_neg in enumerate(hard_samples[0][lab]):
 
