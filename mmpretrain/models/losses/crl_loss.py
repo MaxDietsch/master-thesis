@@ -205,6 +205,7 @@ class CRLLoss(nn.Module):
         # WHAT TO DO WITH CLASSES WHICH DO NOT HAVE HARD NEGATIVES OR HARD POSITIVES ?
         # approach: if hard negative empty: fill with one hot of the corresponding class 
         #           if hard positive empty. fill with inverse one hot of the corresponding class 
+        k1, k2 = 0, 0 
         for i in range(2):
             for lab, arr in enumerate(hard_samples[i]):
                 if len(arr) == 0:
@@ -212,6 +213,10 @@ class CRLLoss(nn.Module):
                         arr.append([ F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
                     if i == 1:
                         arr.append([ 1 - F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
+                if i == 0:
+                    k1 += len(arr)
+                if i == 1: 
+                    k2 += len(arr)
         print(hard_samples)
 
         
@@ -231,7 +236,10 @@ class CRLLoss(nn.Module):
         
         # form the triplets
         # create triplet tensor with shape ( (# of min_class samples in the batch) * k * k,  3 * num_classes)
+
+        #calculate dimension
         triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
+        triplets = torch.zeros((len(ind) * k1 * k2, 3 * num_classes))
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
