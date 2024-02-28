@@ -127,8 +127,8 @@ class CRLLoss(nn.Module):
         
         ### MINE HARD SAMPLES
 
-        # print(cls_score)
-        # print(label)
+        print(cls_score)
+        print(label)
         
         # get mask of where the min_class examples are in the batch 
         min_labels_mask = torch.isin(label, self.min_classes)
@@ -174,9 +174,6 @@ class CRLLoss(nn.Module):
         # get prediction score for min classes
         min_pred = cls_score[ min_labels_mask, min_labels]
         print(min_pred)
-
-
-
 
 
         # write hard positives into hard_samples (need a max heap, -> minus before min_pred to convert to min heap)
