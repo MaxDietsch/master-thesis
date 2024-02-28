@@ -217,6 +217,10 @@ class CRLLoss(nn.Module):
                     k1 += len(arr)
                 if i == 1: 
                     k2 += len(arr)
+
+        k1 = k1 // num_classes + 1
+        k2 = k2 // num_classes + 1
+
         print(hard_samples)
 
         
