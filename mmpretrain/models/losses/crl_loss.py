@@ -227,7 +227,7 @@ class CRLLoss(nn.Module):
             print(i)
             lab = label[min_labels_mask][i]
             for k, hard_pos in enumerate(hard_samples[1][lab]):
-                for j, hard_neg in enumerate(hard_samples[0][lab])
+                for j, hard_neg in enumerate(hard_samples[0][lab]):
 
                     triplets[i + j + k, 0 : num_classses] = min_sample
                     triplets[i + j + k, num_classes : num_classes + numclasses] = cls_score[hard_neg[1]]
