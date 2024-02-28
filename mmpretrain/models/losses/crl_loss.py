@@ -138,16 +138,16 @@ class CRLLoss(nn.Module):
 
         # get label for which the maximum prediction was made and the maximum prediction score
         max_pred, max_pred_lab = cls_score.max(dim=1)
-        print(max_pred_lab)
+        #print(max_pred_lab)
 
         # check if predictions are for min_classes and are wrong 
         max_thrs_mask = torch.logical_and(torch.isin(max_pred_lab, self.min_classes), torch.ne(max_pred_lab, label))
         # with threshold checking: use torch.gt(max_pred, self.max_thrs)
-        print(max_thrs_mask)
+        #print(max_thrs_mask)
 
         # get indices where wrong prediction scores are made 
         hard_neg_ind = torch.nonzero(max_thrs_mask)
-        print(hard_neg_ind)
+        #print(hard_neg_ind)
 
         # write hard negative samples into hard_samples)
         for i, idx in enumerate(hard_neg_ind):
@@ -156,36 +156,36 @@ class CRLLoss(nn.Module):
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], idx])
             elif len(hard_samples[0][max_pred_lab[idx]]) < self.k:
                 heapq.heappush(hard_samples[0][max_pred_lab[idx]], [max_pred[idx], idx])
-        print(hard_samples)
+        #print(hard_samples)
 
         ## MINE HARD POSITIVES
 
         # get mask of where the min_class examples are in the batch 
         min_labels_mask = torch.isin(label, self.min_classes)
-        #print(min_labels_mask)
+        print(min_labels_mask)
         
         # get the indices of the location of min_classes in the batch
         ind = torch.nonzero(min_labels_mask).view(-1)
-        #print(ind)
+        print(ind)
         
-        # contrast to paper: every min class example counts as hard positive (maybe change with threshold)
+        # contrast to paper: every min class example counts as hard positive (maybe change with threshold see threshold for hard negatives)
         # get concrete labels of min classes
         min_labels = label[min_labels_mask]
-        #print(min_labels)
+        print(min_labels)
 
         # get prediction score for min classes
         min_pred = cls_score[ min_labels_mask, min_labels]
-        #print(min_pred)
+        print(min_pred)
 
 
         # write hard positives into hard_samples (need a max heap, -> minus before min_pred to convert to min heap)
-        for i, idx in enumerate(ind):
+        for i in range(len(ind)):
             if (len(hard_samples[1][min_labels[i]]) >= self.k)  and  (-min_pred[i] < hard_samples[1][min_labels[i]][0][0]):
                 heapq.heappop(hard_samples[1][min_labels[i]])
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
             elif len(hard_samples[1][min_labels[i]]) < self.k:
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
-        #print(hard_samples)
+        print(hard_samples)
 
 
 
