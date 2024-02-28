@@ -199,7 +199,7 @@ class CRLLoss(nn.Module):
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
             elif len(hard_samples[1][min_labels[i]]) < self.k:
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
-        #print(hard_samples)
+        print(hard_samples)
 
         
         # for all indices that are not in ind (so are not from min_classes) 
@@ -226,8 +226,8 @@ class CRLLoss(nn.Module):
         for i, min_sample in enumerate(cls_score[min_labels_mask]):
             print(i)
             lab = label[min_labels_mask][i]
-            for j, hard_neg in enumerate(hard_samples[0][lab]):
-                for k, hard_pos in enumerate(hard_samples[1][lab]):
+            for k, hard_pos in enumerate(hard_samples[1][lab]):
+                for j, hard_neg in enumerate(hard_samples[0][lab])
 
                     triplets[i + j + k, 0 : num_classses] = min_sample
                     triplets[i + j + k, num_classes : num_classes + numclasses] = cls_score[hard_neg[1]]
