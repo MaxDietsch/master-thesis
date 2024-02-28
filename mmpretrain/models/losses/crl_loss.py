@@ -209,9 +209,9 @@ class CRLLoss(nn.Module):
             for lab, arr in enumerate(hard_samples[i]):
                 if len(arr) == 0:
                     if i == 0:
-                        arr.append([ F.one_hot(lab, num_classes = num_classes), -1 ])
+                        arr.append([ F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
                     if i == 1:
-                        arr.append([ 1 - F.one_hot(lab, num_classes = num_classes), -1 ])
+                        arr.append([ 1 - F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
         print(hard_samples)
 
         
