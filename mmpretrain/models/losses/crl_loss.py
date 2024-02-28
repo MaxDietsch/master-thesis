@@ -166,16 +166,16 @@ class CRLLoss(nn.Module):
         
         # get the indices of the location of min_classes in the batch
         ind = torch.nonzero(min_labels_mask).view(-1)
-        print(ind)
+        #print(ind)
         
         # contrast to paper: every min class example counts as hard positive (maybe change with threshold see threshold for hard negatives)
         # get concrete labels of min classes
         min_labels = label[min_labels_mask]
-        print(min_labels)
+        #print(min_labels)
 
         # get prediction score for min classes
         min_pred = cls_score[ min_labels_mask, min_labels]
-        print(min_pred)
+        #print(min_pred)
 
 
         # write hard positives into hard_samples (need a max heap, -> minus before min_pred to convert to min heap)
@@ -185,22 +185,23 @@ class CRLLoss(nn.Module):
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
             elif len(hard_samples[1][min_labels[i]]) < self.k:
                 heapq.heappush(hard_samples[1][min_labels[i]], [ - min_pred[i], ind[i] ])
-        print(hard_samples)
+        #print(hard_samples)
 
+        
+        # for all indices that are not in ind (so are not from min_classes) 
 
+        print(cls_score[ ~ min_labels_mask])
+        print(label[ ~ min_labels_mask])
 
-
-
-
-
-
-
-        loss_cls = self.loss_weight * self.cls_criterion(
-            cls_score,
-            label,
+        loss_mjr = self.loss_weight * self.cls_criterion(
+            cls_score[ ~ min_labels_mask],
+            label[ ~ min_labels_mask],
             weight,
             class_weight=class_weight,
             reduction=reduction,
             avg_factor=avg_factor,
             **kwargs)
-        return loss_cls
+
+
+
+        return loss_mjr
