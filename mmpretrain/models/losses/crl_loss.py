@@ -43,6 +43,17 @@ def cross_entropy(pred,
     return loss
 
 
+def seminal_triplet_loss(pred, label):
+    """ Calculate the seminal triplet ranking loss (see paper) 
+
+    Args: 
+        pred (torch.Tensor): The prediction with shape (y, C) where C is the number of classes.
+        label (torch.Tensor): The gt label of the prediciton. 
+    """
+
+
+
+
 @MODELS.register_module()
 class CRLLoss(nn.Module):
     """ Loss has a lot of similarities with CrossEntropyLoss
@@ -129,9 +140,11 @@ class CRLLoss(nn.Module):
 
         print(cls_score)
         print(label)
+
+        num_classes = cls_score.shape[1]
         
         # get tensor where to store the hard samples, 0 -> hard negatives, 1-> hard positives 
-        hard_samples = [[[] for _ in range(cls_score.shape[1]) ] for _ in range(2)]
+        hard_samples = [[[] for _ in range(num_classes) ] for _ in range(2)]
         #print(hard_samples)
 
         ## MINE HARD NEGATIVES
@@ -147,7 +160,7 @@ class CRLLoss(nn.Module):
 
         # get indices where wrong prediction scores are made 
         hard_neg_ind = torch.nonzero(max_thrs_mask)
-        #print(hard_neg_ind)
+        print(hard_neg_ind)
 
         # write hard negative samples into hard_samples)
         for i, idx in enumerate(hard_neg_ind):
@@ -162,11 +175,11 @@ class CRLLoss(nn.Module):
 
         # get mask of where the min_class examples are in the batch 
         min_labels_mask = torch.isin(label, self.min_classes)
-        print(min_labels_mask)
+        #print(min_labels_mask)
         
         # get the indices of the location of min_classes in the batch
         ind = torch.nonzero(min_labels_mask).view(-1)
-        #print(ind)
+        print(ind)
         
         # contrast to paper: every min class example counts as hard positive (maybe change with threshold see threshold for hard negatives)
         # get concrete labels of min classes
@@ -190,8 +203,8 @@ class CRLLoss(nn.Module):
         
         # for all indices that are not in ind (so are not from min_classes) 
 
-        print(cls_score[ ~ min_labels_mask])
-        print(label[ ~ min_labels_mask])
+        #print(cls_score[ ~ min_labels_mask])
+        #print(label[ ~ min_labels_mask])
 
         loss_mjr = self.loss_weight * self.cls_criterion(
             cls_score[ ~ min_labels_mask],
@@ -201,6 +214,29 @@ class CRLLoss(nn.Module):
             reduction=reduction,
             avg_factor=avg_factor,
             **kwargs)
+        
+        # form the triplets
+        # create triplet tensor with shape ( (# of min_class samples in the batch) * k * k,  3 * num_classes)
+        triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
+
+        # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
+        # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
+        for i, min_sample in enumerate(cls_score[min_labels_mask]):
+            lab = label[min_labels_mask][i]
+            for j, hard_neg in enumerate(hard_samples[0][lab]):
+                for k, hard_pos in enumerate(hard_samples[1][lab])
+
+                triplet[i + j + k, 0 : num_classses] = min_sample
+                triplet[i + j + k, num_classes : num_classes + numclasses] = cls_score[hard_neg[1]]
+                triplet[i + j + k, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]]
+
+
+        print(triplet) 
+            
+
+
+
+
 
 
 
