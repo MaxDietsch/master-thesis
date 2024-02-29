@@ -242,7 +242,7 @@ class CRLLoss(nn.Module):
 
         #calculate dimension
         #triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
-        triplets = torch.zeros(dim, 3 * num_classes))
+        triplets = torch.zeros((dim, 3 * num_classes))
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
