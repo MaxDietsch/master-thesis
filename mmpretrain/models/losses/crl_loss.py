@@ -43,13 +43,24 @@ def cross_entropy(pred,
     return loss
 
 
-def seminal_triplet_loss(pred, label):
+def seminal_triplet_loss(triplets, label):
     """ Calculate the seminal triplet ranking loss (see paper) 
 
     Args: 
-        pred (torch.Tensor): The prediction with shape (y, C) where C is the number of classes.
-        label (torch.Tensor): The gt label of the prediciton. 
+        triplets (torch.Tensor): The generated triplets with shape (dim, C) where C is the number of classes.
     """
+
+    print(triplets.shape)
+    print(label.shape) 
+
+    print(triplets[ : , label ])
+    print(triplets[ : , 4 + label ])
+    print(torch.abs(triplets[ : , label ] - triplets[ : , 4 + label ]))
+
+
+    loss =  torch.sum(torch.maximum(0, m + torch.abs(triplets[ : , label ] - triplets[ : , 4 + label ]) - torch.abs(triplets[ : , label ] - triplets [ : , 8 + label ])))
+    return loss / triplets.shape[0]
+
 
 
 
@@ -111,6 +122,7 @@ class CRLLoss(nn.Module):
 
         self.k = k 
         self.min_classes = torch.tensor(min_classes).to(torch.device('cuda')) 
+
 
     def forward(self,
                 cls_score,
@@ -205,7 +217,6 @@ class CRLLoss(nn.Module):
         # WHAT TO DO WITH CLASSES WHICH DO NOT HAVE HARD NEGATIVES OR HARD POSITIVES ?
         # approach: if hard negative empty: fill with one hot of the corresponding class 
         #           if hard positive empty. fill with inverse one hot of the corresponding class 
-        k1, k2 = 0, 0 
         for i in range(2):
             for lab, arr in enumerate(hard_samples[i]):
                 if len(arr) == 0:
@@ -214,21 +225,7 @@ class CRLLoss(nn.Module):
                     if i == 1:
                         arr.append([ 1 - F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
         
-        dim = 0
-        print(min_labels)
-        print(hard_samples)
-        for i in range(len(hard_samples[0])):
-            print((min_labels == i).sum().item())
-            print(len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item())
-            dim += len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item()
-
-
-
-        #print(hard_samples)
-
-        
         # for all indices that are not in ind (so are not from min_classes) 
-
         #print(cls_score[ ~ min_labels_mask])
         #print(label[ ~ min_labels_mask])
 
@@ -244,41 +241,30 @@ class CRLLoss(nn.Module):
         # form the triplets
         # create triplet tensor with shape ( (# of min_class samples in the batch) * k * k,  3 * num_classes)
 
-        #calculate dimension
-        #triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
+        #calculate dimension #triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
+        dim = 0
+        for i in range(len(hard_samples[0])):
+            #print((min_labels == i).sum().item())
+            #print(len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item())
+            dim += len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item()
         triplets = torch.zeros((dim, 3 * num_classes))
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
-        # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
+        # if we do make triplet tensor with self.k: last rows could be zero because we do not mine k hard negs or hard pos for each class. 
         #print(cls_score[min_labels_mask])
 
-        num_sam = cls_score[min_labels_mask].shape[0]
         idx = 0
         for i, min_sample in enumerate(cls_score[min_labels_mask]):
             lab = label[min_labels_mask][i]
 
             for k, hard_pos in enumerate(hard_samples[1][lab]):
-                l2 = hard_samples[0][lab]
                 for j, hard_neg in enumerate(hard_samples[0][lab]):
-
-
                     triplets[idx, 0 : num_classes] = min_sample
                     triplets[idx, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
                     triplets[idx, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
                     idx += 1
+        #print(triplets) 
+        
+        loss_mnr = seminal_triplet_loss(triplets, label[min_labels_mask])
 
-
-                    #triplets[i * num_sam + k * l2 + j, 0 : num_classes] = min_sample
-                    #triplets[i * num_sam + k * l2 + j, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
-                    #triplets[i * num_sam + k * l2 + j, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
-
-        print(triplets) 
-            
-
-
-
-
-
-
-
-        return loss_mjr
+        return loss_mjr + loss_mnr
