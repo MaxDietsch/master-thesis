@@ -1,6 +1,6 @@
 model = dict(
     type='ImageClassifier',
-    backbone=dict(type='EfficientNet', arch='b4'),
+    backbone=dict(type='EfficientNet', arch='b0'),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
         type='LinearClsHead',
