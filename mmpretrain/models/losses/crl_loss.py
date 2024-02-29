@@ -213,13 +213,12 @@ class CRLLoss(nn.Module):
                         arr.append([ F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
                     if i == 1:
                         arr.append([ 1 - F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
-                if i == 0:
-                    k1 += len(arr)
-                if i == 1: 
-                    k2 += len(arr)
+        
+        dim = 0
+        for i in range(len(hard_samples[0])):
+            dim += len(hard_samples[0][i]) * len(hard_samples[1][i])
 
-        k1 = k1 // num_classes + 1
-        k2 = k2 // num_classes + 1
+
 
         #print(hard_samples)
 
@@ -242,8 +241,8 @@ class CRLLoss(nn.Module):
         # create triplet tensor with shape ( (# of min_class samples in the batch) * k * k,  3 * num_classes)
 
         #calculate dimension
-        triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
-        triplets = torch.zeros((len(ind) * k1 * k2, 3 * num_classes))
+        #triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
+        triplets = torch.zeros((len(ind) * dim, 3 * num_classes))
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
@@ -258,7 +257,7 @@ class CRLLoss(nn.Module):
                     triplets[i + j + k, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
                     triplets[i + j + k, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
 
-        #print(triplets) 
+        print(triplets) 
             
 
 
