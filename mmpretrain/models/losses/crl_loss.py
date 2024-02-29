@@ -218,6 +218,8 @@ class CRLLoss(nn.Module):
         print(min_labels)
         print(hard_samples)
         for i in range(len(hard_samples[0])):
+            print(min_labels == i).sum().item())
+            print(len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item())
             dim += len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item()
 
 
