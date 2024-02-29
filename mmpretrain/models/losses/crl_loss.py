@@ -251,15 +251,17 @@ class CRLLoss(nn.Module):
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
         #print(cls_score[min_labels_mask])
+
+        num_sam = cls_score[min_labels_mask].shape[0]
         for i, min_sample in enumerate(cls_score[min_labels_mask]):
             lab = label[min_labels_mask][i]
 
             for k, hard_pos in enumerate(hard_samples[1][lab]):
                 for j, hard_neg in enumerate(hard_samples[0][lab]):
 
-                    triplets[i + j + k, 0 : num_classes] = min_sample
-                    triplets[i + j + k, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
-                    triplets[i + j + k, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
+                    triplets[i * num_sam + j * self.k + k, 0 : num_classes] = min_sample
+                    triplets[i * num_sam + j * self.k + k, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
+                    triplets[i * num_sam + j * self.k + k, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
 
         print(triplets) 
             
