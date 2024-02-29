@@ -57,7 +57,7 @@ def seminal_triplet_loss(triplets, label):
     print(triplets[ : , 1 ])
     print(torch.abs(triplets[ : , 0 ] - triplets[ : , 1 ]))
     
-        loss =  torch.sum(torch.maximum(0, m + torch.abs(triplets[ : , 0 ] - triplets[ : , 1]) - torch.abs(triplets[ : , 0 ] - triplets [ : , 2 ])))
+    loss =  torch.sum(torch.maximum(0, m + torch.abs(triplets[ : , 0 ] - triplets[ : , 1]) - torch.abs(triplets[ : , 0 ] - triplets [ : , 2 ])))
 
 
     #loss =  torch.sum(torch.maximum(0, m + torch.abs(triplets[ : , label ] - triplets[ : , 4 + label ]) - torch.abs(triplets[ : , label ] - triplets [ : , 8 + label ])))
