@@ -53,6 +53,25 @@ val_evaluator = [
         dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
                 ]
 
-test_dataloader = val_dataloader
-test_evaluator = val_evaluator
+#test_dataloader = val_dataloader
+#test_evaluator = val_evaluator
+
+test_dataloader = dict(
+    batch_size=16,
+    num_workers=5,
+    dataset=dict(
+        type=dataset_type,
+        data_root='../../B_E_P_N',
+        ann_file='meta/test.txt',
+        data_prefix='test',
+        with_label=True,
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
+        pipeline=test_pipeline),
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    persistent_workers=True,
+)
+test_evaluator = [
+        dict(type='Accuracy', topk=(1)),
+        dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
+                ]
 

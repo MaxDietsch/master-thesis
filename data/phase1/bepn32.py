@@ -2,14 +2,13 @@
 dataset_type = 'CustomDataset'
 data_preprocessor = dict(
     # Input image data channels in 'RGB' order
-    mean=[151.78, 103.29, 97.41],
-    std=[69.92, 55.96, 54.84],
+    mean=[151.14, 102.69, 97.74],
+    std=[70.03, 55.91, 54.73],
     to_rgb=True,
 )
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),     # read image
-    dict(type='RandomFlip', prob=0.5, direction='horizontal'),
     dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
     dict(type='PackInputs'),         # prepare images and labels
 ]
@@ -25,13 +24,13 @@ train_dataloader = dict(
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
+        data_root='../../B_E_P_N',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=train_pipeline),
-    sampler=dict(type='ROSSampler', num_classes=4, ros_pct=0.8, rus_maj_pct=0.8, shuffle=True),
+    sampler=dict(type='DefaultSampler', shuffle=True),
     persistent_workers=True,
 )
 
@@ -40,11 +39,11 @@ val_dataloader = dict(
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N-without-mix',
+        data_root='../../B_E_P_N',
         ann_file='meta/val.txt',
         data_prefix='val',
         with_label=True,
-        classes=['normal', 'polyps', 'esophagitis', 'barretts'],
+        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=test_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
