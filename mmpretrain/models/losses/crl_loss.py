@@ -247,6 +247,7 @@ class CRLLoss(nn.Module):
         #calculate dimension
         #triplets = torch.zeros((len(ind) * self.k * self.k, 3 * num_classes))
         triplets = torch.zeros((dim, 3 * num_classes))
+        print(triplets.shape)
 
         # for each min sample get each combination of hard negative and hard positive for that class and write that in 1 row
         # last rows could be zero because we do not mine k hard negs or hard pos for each class. 
@@ -258,6 +259,8 @@ class CRLLoss(nn.Module):
 
             for k, hard_pos in enumerate(hard_samples[1][lab]):
                 for j, hard_neg in enumerate(hard_samples[0][lab]):
+
+                    print(i * num_sam + k * self.k + j)
 
                     triplets[i * num_sam + k * self.k + j, 0 : num_classes] = min_sample
                     triplets[i * num_sam + k * self.k + j, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
