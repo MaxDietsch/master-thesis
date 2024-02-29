@@ -216,7 +216,7 @@ class CRLLoss(nn.Module):
         
         dim = 0
         for i in range(len(hard_samples[0])):
-            dim += len(hard_samples[0][i]) * len(hard_samples[1][i])
+            dim += len(hard_samples[0][i]) * len(hard_samples[1][i]) * (ind == i).sum().item
 
 
 
