@@ -215,6 +215,8 @@ class CRLLoss(nn.Module):
                         arr.append([ 1 - F.one_hot(torch.tensor(lab), num_classes = num_classes), -1 ])
         
         dim = 0
+        print(min_labels)
+        print(hard_samples)
         for i in range(len(hard_samples[0])):
             dim += len(hard_samples[0][i]) * len(hard_samples[1][i]) * (min_labels == i).sum().item()
 
