@@ -138,8 +138,8 @@ class CRLLoss(nn.Module):
         
         ### MINE HARD SAMPLES
 
-        print(cls_score)
-        print(label)
+        #print(cls_score)
+        #print(label)
 
         num_classes = cls_score.shape[1]
         
@@ -160,7 +160,7 @@ class CRLLoss(nn.Module):
 
         # get indices where wrong prediction scores are made 
         hard_neg_ind = torch.nonzero(max_thrs_mask)
-        print(hard_neg_ind)
+        #print(hard_neg_ind)
 
         # write hard negative samples into hard_samples)
         for i, idx in enumerate(hard_neg_ind):
@@ -180,7 +180,7 @@ class CRLLoss(nn.Module):
         
         # get the indices of the location of min_classes in the batch
         ind = torch.nonzero(min_labels_mask).view(-1)
-        print(ind)
+        #print(ind)
         
         # contrast to paper: every min class example counts as hard positive (maybe change with threshold see threshold for hard negatives)
         # get concrete labels of min classes
@@ -221,7 +221,7 @@ class CRLLoss(nn.Module):
         k1 = k1 // num_classes + 1
         k2 = k2 // num_classes + 1
 
-        print(hard_samples)
+        #print(hard_samples)
 
         
         # for all indices that are not in ind (so are not from min_classes) 
@@ -258,7 +258,7 @@ class CRLLoss(nn.Module):
                     triplets[i + j + k, num_classes : num_classes + num_classes] = cls_score[hard_neg[1]] if hard_neg[1] > 0 else hard_neg[0]
                     triplets[i + j + k, 2 * num_classes : 3 * num_classes] = cls_score[hard_pos[1]] if hard_pos[1] > 0 else hard_pos[0]
 
-        print(triplets) 
+        #print(triplets) 
             
 
 
