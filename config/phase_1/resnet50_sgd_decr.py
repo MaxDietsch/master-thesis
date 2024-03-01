@@ -1,6 +1,6 @@
 _base_ = [
         '../../model/resnet50.py',
-        '../../data/phase1/bepn32.py',
+        '../../data/phase1/bepn16.py',
         '../../schedule/sgd_decr.py',
         '../../runtime/default.py'
 ]
