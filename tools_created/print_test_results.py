@@ -16,8 +16,8 @@ def find_and_print_json_values(root_dir):
                                 try:
                                     data = json.load(json_file)
                                     # Assuming 'accuracy' and 'recall' are top-level keys in the JSON file
-                                    accuracy = data.get('accuracy', 'N/A')
-                                    recall = data.get('recall', 'N/A')
+                                    accuracy = data.get('accuracy/top1', 'N/A')
+                                    recall = data.get('single-label/recall_classwise', 'N/A')
                                     print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
                                 except json.JSONDecodeError:
                                     print(f"Error reading JSON file: {file_path}")
