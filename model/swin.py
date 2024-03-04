@@ -4,7 +4,7 @@ model = dict(
         type='SwinTransformer',
         arch='tiny',
         img_size=640,
-        )
+        ),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
         type='LinearClsHead',
