@@ -4,7 +4,6 @@ cd ..
 
 model="resnet50"
 lr_array=("lr_0.01" "lr_0.001" "lr_decr")
-lr_array_store=("lr_001" "lr_0001" "lr_decr")
 epoch_lr0_01="60 98"
 epoch_lr0_001="68 100"
 epoch_lr_decr="60 62 94"
@@ -20,9 +19,6 @@ do
     do
         epoch="${innerArray[$j]}"
 
-        echo python test.py ../config/phase_1/${model}_sgd_decr.py ../work_dirs/phase_1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --out ../work_dirs/phase_1/${model}/test/${lr_array[$i]}_epoch_"$epoch" --out-item metrics
-
-        
         python test.py ../config/phase_1/${model}_test.py ../work_dirs/phase_1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --work-dir ../work_dirs/phase_1/${model}/test/${lr_array[$i]}_epoch_"$epoch"
     done
 done
