@@ -8,7 +8,7 @@ epoch_lr0_01="60 98"
 epoch_lr0_001="68 100"
 epoch_lr_decr="60 62 94"
 
-epochs = ("$epoch_lr0_01" "$epoch_lr0_001" "$epoch_lr_decr")
+epochs=("$epoch_lr0_01" "$epoch_lr0_001" "$epoch_lr_decr")
 
 # iterate over outer array
 for i in "${!epochs[@]}"
