@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../..
+cd ..
 
 model = "resnet50"
 lr_array = ("lr_0.01" "lr_0.001" "lr_decr")
