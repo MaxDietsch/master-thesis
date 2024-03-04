@@ -2,7 +2,7 @@
 
 _base_ = [
         '../../model/swin.py',
-        '../../data/phase1/bepn6.py',
+        '../../data/phase1/bepn14.py',
         '../../schedule/sgd_decr.py',
         '../../runtime/default.py'
 ]
