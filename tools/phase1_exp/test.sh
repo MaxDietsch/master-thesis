@@ -20,4 +20,5 @@ do
         epoch="${innerArray[$j]}"
         
         python test.py ../config/phase_1/${model}_sgd_decr.py ../work_dirs/phase_1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --out ../work_dirs/phase_1/${model}/test/${lr_array[$i]}_epoch_"$epoch" --out-item metrics
-
+    done
+done
