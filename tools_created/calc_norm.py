@@ -58,7 +58,8 @@ def calc_norm(dir):
     print(f"standard deviations: r: {std_r}, g: {std_g}, b: {std_b}")
 
 
-data_dir = '../../B_E_P_N/train'
+#data_dir = '../../B_E_P_N/train'
+data_dir = '../../../Gastro_extend_with_Colon/colon'
 #directories =[os.path.join(data_dir, dir) for dir in os.listdir(data_dir)]
 #print(directories)
 calc_norm(data_dir)
