@@ -52,6 +52,7 @@ def organize_dataset(base_dir, train_pct, val_pct, test_pct):
         copy_and_write(test_files, root, class_id, base_dir, 'test', meta_dir)
         print(f"id of {root} is: {class_id}")
         class_id += 1
+        print('----- next class: -----')
 
 def copy_and_write(file_list, root, class_id, base_dir, category, meta_dir):
     for file in file_list:
