@@ -3,8 +3,11 @@ import os
 import shutil
 
 """
-this script moves images from the train.txt file which are from specific classes, to a new dir called classname_aug
-then they can be augmented with another script 
+This script takes a directory (ROOT) and searches for meta/train.txt files. 
+Train.txt should look like this: 
+../../B_E_P_N/train/esophagitis_603.jpg 3, where B_E_P_N is the ROOT.
+All images specified in this file should be present in ROOT/class_name.
+The images are copied to a new directory: dataset_name/class_name.
 """
 
 ROOT = '../../B_E_P_N/'

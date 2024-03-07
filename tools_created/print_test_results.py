@@ -1,6 +1,13 @@
 import os
 import json
 
+"""
+This script takes a directory (specified_directory).
+It goes two directories deeper from the base directory and searches for .json file. 
+This procedure is down for every subdirectory on the base directory. 
+The script will read the .json files and print the accuracy and recall to the screen. 
+"""
+
 def find_and_print_json_values(root_dir):
     # Walk through the directory structure starting at 'root_dir'
     for d1 in os.listdir(root_dir):

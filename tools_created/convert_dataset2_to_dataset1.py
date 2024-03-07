@@ -3,8 +3,11 @@ import cv2
 import numpy as np
 
 """
-that script takes a directory and the mean and standard deviations of the images in the directory 
-it transforms the images, so that the mean and standaard deviations are as wantes (and inputed in the file)
+That script takes a directory (image_directory) and the mean and standard 
+deviations (for each channel) of the images in the specified directory.
+It transforms the images, so that the mean and standaard deviations are as
+wanted (and inputed in the file, see mean_1, std_1).
+The new images are stored in a new directory (output_directory).
 """
 
 

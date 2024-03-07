@@ -1,6 +1,12 @@
 import cv2
 import os
 
+"""
+This script takes a directory of images and calculates the 
+mean of each channel and the standard deviation of each channel of the overall image dataset
+This is useful for noramlization.
+"""
+
 def calc_norm(dir):
     sum_r, sum_g, sum_b = 0.0, 0.0, 0.0
     sum_sq_diff_r, sum_sq_diff_g, sum_sq_diff_b = 0.0, 0.0, 0.0

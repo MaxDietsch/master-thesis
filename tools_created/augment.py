@@ -3,6 +3,12 @@ import cv2
 import os 
 from matplotlib import pyplot as plt
 
+"""
+This script takes a directory of images and applies the augmentations specified with the
+different arrays. 
+The augmentation will be stored in the same directory as the normal images
+"""
+
 # Define the augmentations: 
 
 # when rotating the dimension is kept -> distortion (maybe do it different way)
@@ -17,20 +23,28 @@ brightness = [brightness1, brightness2]
 
 
 elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=80, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
+elastic = [elastic]
+# only do it for 0 degree and 180 degree rotations
 apply_elastic = [0, 2]
 
 # maybe set fit_output to true, is quite similar to elastic1
 perspective1 = A.Perspective(scale=(0.2, 0.2), fit_output = False, p=1.0)
+perspective = [perspective]
+# only do it for 90 degree and 270 degree rotations 
 apply_perspective = [1, 3]
 
-#crop1 = A.RandomResizedCrop(height=1000, width=1000, scale=(0.8, 1.0), ratio = (0.8, 1.2), interpolation = cv2.INTER_CUBIC, p=1.0)  
+# this defines all augmentations
+# every rotation and every brightness specified in rotations and brightness array are done to the base images
+# if apply_elastic is not empty: then the elastic transformations specified will 
+# be done for each image in image_transformations at each index in apply_elastic.
+# the same principle goes for apply_perspective 
+polyp_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
 
-# num_images if above trafos are applied: 
-# x * 4 (rot) + x * 2 + x * 2 (on 2 rots) + x * 2 (on 2 rots) = 8 * x
-def apply_transformations(folder_path):
+def apply_transformations(folder_path, augmentations):
 
     # Iterate over all files in the directory
     i = 0
+
     for file_name in os.listdir(folder_path):
 
         file_path = os.path.join(folder_path, file_name)
@@ -43,21 +57,23 @@ def apply_transformations(folder_path):
             image_transformations = [image]
             
             # apply rotations for each image
-            for rot in rotations: 
+            for rot in augmentations['rotations']: 
                 transformed = rot(image = image)
                 image_transformations.append(transformed['image'])
 
-            for bright in brightness:
+            for bright in augmentations['brightness']:
                 transformed = bright(image = image)
                 image_transformations.append(transformed['image'])
 
-            for idx in apply_elastic: 
-                transformed = elastic1(image = image_transformations[idx])
-                image_transformations.append(transformed['image'])
+            for idx in augmentations['apply_elastic']: 
+                for elastic_aug in augmentations['elastic']:
+                    transformed = elastic_aug(image = image_transformations[idx])
+                    image_transformations.append(transformed['image'])
 
-            for idx in apply_perspective: 
-                transformed = perspective1(image = image_transformations[idx])
-                image_transformations.append(transformed['image'])
+            for idx in augmentations['apply_perspective']: 
+                for perspec_aug in augmentations['perspective']:
+                    transformed = perspective1(image = image_transformations[idx])
+                    image_transformations.append(transformed['image'])
 
             
             # store the images
@@ -89,5 +105,6 @@ def apply_transformations(folder_path):
             """
 
 # Example usage
-folder_path = '../../../GastroDataset/B_E_P_N/Polyps2'
-apply_transformations(folder_path)
+folder_path = '../../../B_E_P_N/polyps2'
+apply_transformations(folder_path, polyp_augmentations)
+print('Your images are augmented')

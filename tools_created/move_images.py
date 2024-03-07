@@ -1,6 +1,12 @@
 import os
 import shutil
 
+"""
+This script takes a directory (source_dir) and all images with this are copied to 
+a new directory (target_directory).
+"""
+
+
 def count_existing_images(directory, file_extensions):
         return sum(1 for filename in os.listdir(directory) if any(filename.endswith(ext) for ext in file_extensions))
 
