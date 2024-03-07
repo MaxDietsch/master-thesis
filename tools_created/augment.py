@@ -105,6 +105,6 @@ def apply_transformations(folder_path, augmentations):
             """
 
 # Example usage
-folder_path = '../../../B_E_P_N/polyps2'
+folder_path = '../../B_E_P_N/polyps2'
 apply_transformations(folder_path, polyp_augmentations)
 print('Your images are augmented')
