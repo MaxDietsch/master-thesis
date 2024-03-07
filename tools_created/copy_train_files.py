@@ -1,6 +1,6 @@
 
 import os 
-
+import shutil
 
 """
 this script moves images from the train.txt file which are from specific classes, to a new dir called classname_aug
