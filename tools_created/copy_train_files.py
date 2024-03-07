@@ -18,7 +18,7 @@ os.makedirs(new_data_dir, exist_ok = True)
 train_file_path = os.path.join(ROOT, 'meta/train.txt')
 extracted_files = {'esophagitis': [], 'polyps': [], 'barretts': [], 'normal': []}
 
-with open(file_path, 'r') as file:
+with open(train_file_path, 'r') as file:
     for line in file:
         filename = line.split('/')[-1].split(' ')[0]
 
