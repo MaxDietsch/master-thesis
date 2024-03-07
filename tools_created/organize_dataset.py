@@ -14,7 +14,7 @@ The dataset split can be controlled with the variables further down.
 
 
 
-def organize_dataset(base_dir, train_pct, val_pct, test_pct):
+def organize_dataset(base_dir, train_pct, val_pct, test_pct, class_ids: None):
     class_id = 0
     meta_dir = os.path.join(base_dir, 'meta')
     os.makedirs(meta_dir, exist_ok=True)
@@ -46,6 +46,9 @@ def organize_dataset(base_dir, train_pct, val_pct, test_pct):
         val_files = files[num_train:num_train + num_val]
         test_files = files[num_train + num_val:]
 
+        if class_ids is not None: 
+            class_id = class_ids[root]
+
         # Copy and Write to files
         copy_and_write(train_files, root, class_id, base_dir, 'train', meta_dir)
         copy_and_write(val_files, root, class_id, base_dir, 'val', meta_dir)
@@ -69,8 +72,10 @@ def copy_and_write(file_list, root, class_id, base_dir, category, meta_dir):
 base_directory = '../../B_E_P_N_aug'
 train_percent = 100
 val_percent = 0
-test_percent = 0 
+test_percent = 0
 
-organize_dataset(base_directory, train_percent, val_percent, test_percent)
-print('Your dataset is organized, you can begin to train')
+class_ids = {'normal': 0, 'polyps': 1, 'barretts': 2, 'esophagitis': 3}
+
+organize_dataset(base_directory, train_percent, val_percent, test_percent, class_ids)
+print('Your dataset is organized, you can begin to train\n(Maybe change the annotations to match your preferred classes)')
 
