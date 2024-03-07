@@ -10,7 +10,7 @@ then they can be augmented with another script
 ROOT = '../../B_E_P_N/'
 
 # create new dataset directory
-dataset_name  'B_E_P_N_aug'
+dataset_name = 'B_E_P_N_aug'
 new_data_dir = os.path.join(ROOT + '../', dataset_name)
 os.makedirs(new_data_dir, exist_ok = True)
 
