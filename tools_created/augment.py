@@ -9,8 +9,7 @@ different arrays.
 The augmentation will be stored in the same directory as the normal images
 """
 
-# Define the augmentations: 
-
+# Define the augmentations for polyp class: 
 # when rotating the dimension is kept -> distortion (maybe do it different way)
 rotate90 = A.SafeRotate(limit = (90, 90), p = 1.0, border_mode = cv2.BORDER_CONSTANT, value = 0)
 rotate180 = A.SafeRotate(limit = (180, 180), p = 1.0)
@@ -39,6 +38,18 @@ apply_perspective = [1, 3]
 # be done for each image in image_transformations at each index in apply_elastic.
 # the same principle goes for apply_perspective 
 polyp_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
+
+
+# Define the augmentations for barretts class:
+apply_perspective = []
+barretts_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
+
+# Define the augmentations for esophagitis class: 
+rotations = []
+brightness = []
+apply_elastic = [0]
+apply_perspective = []
+esophagitis_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
 
 def apply_transformations(folder_path, augmentations):
 
@@ -107,4 +118,13 @@ def apply_transformations(folder_path, augmentations):
 # Example usage
 folder_path = '../../B_E_P_N/polyps2'
 apply_transformations(folder_path, polyp_augmentations)
+
+folder_path = '../../B_E_P_N/barretts2'
+apply_transformations(folder_path, barretts_augmentations)
+
+folder_path = '../../B_E_P_N/esophagitis2'
+apply_transformations(folder_path, esophagitis_augmentations)
+
+
+
 print('Your images are augmented')
