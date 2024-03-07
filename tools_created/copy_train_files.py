@@ -24,7 +24,7 @@ with open(train_file_path, 'r') as file:
 
         class_name = filename.split('_')[0]
 
-        extracted_files[class_name.append(filename)]
+        extracted_files[class_name].append(filename)
 
 
 # copy files to directory 
