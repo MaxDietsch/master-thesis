@@ -31,7 +31,7 @@ with open(train_file_path, 'r') as file:
 for key, filenames in extracted_files.items():
     os.makedirs(os.path.join(new_data_dir, key), exist_ok = True)
     for filename in filenames:
-        source_path = os.path.join(root, key, filename)
+        source_path = os.path.join(ROOT, key, filename)
         destination_path = os.path.join(new_data_dir, key, filename)
         shutil.copy2(source_path, destination_path)
 
