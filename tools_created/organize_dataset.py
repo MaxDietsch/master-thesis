@@ -2,6 +2,18 @@ import os
 import random
 import shutil
 
+"""
+This script takes a root directory containing a dataset. Each separate class should have 
+1 directory with their images. 
+In the root directory meta, train, val and test files are created. 
+The meta files contain train.txt, val.txt and test.txt files where the filepath and their
+label is written down (separated by a whitespace).
+The train, val and test directories contain the images used for train, val, test. 
+The dataset split can be controlled with the variables further down. 
+"""
+
+
+
 def organize_dataset(base_dir, train_pct, val_pct, test_pct):
     class_id = 0
     meta_dir = os.path.join(base_dir, 'meta')
@@ -53,10 +65,11 @@ def copy_and_write(file_list, root, class_id, base_dir, category, meta_dir):
             f.write(f"{destination} {class_id}\n")
 
 # Usage
-base_directory = '../../B_E_P_N_minority'
-train_percent = 70  
-val_percent = 10 
-test_percent = 20 
+base_directory = '../../B_E_P_N_aug'
+train_percent = 100
+val_percent = 0
+test_percent = 0 
 
 organize_dataset(base_directory, train_percent, val_percent, test_percent)
+print('Your dataset is organized, you can begin to train')
 
