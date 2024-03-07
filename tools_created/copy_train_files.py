@@ -22,7 +22,7 @@ with open(file_path, 'r') as file:
     for line in file:
         filename = line.split('/')[-1].split(' ')[0]
 
-        class_name = filename.split('_').[0]
+        class_name = filename.split('_')[0]
 
         extracted_files[class_name.append(filename)]
 
