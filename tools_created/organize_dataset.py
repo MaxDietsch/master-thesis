@@ -46,8 +46,9 @@ def organize_dataset(base_dir, train_pct, val_pct, test_pct, class_ids: None):
         val_files = files[num_train:num_train + num_val]
         test_files = files[num_train + num_val:]
 
-        if class_ids is not None: 
-            class_id = class_ids[root]
+        if class_ids is not None:
+            class_name = root.split('/')[-1]
+            class_id = class_ids[class_name]
 
         # Copy and Write to files
         copy_and_write(train_files, root, class_id, base_dir, 'train', meta_dir)
