@@ -16,7 +16,7 @@ os.makedirs(new_data_dir, exist_ok = True)
 
 # get the file names
 train_file_path = os.path.join(ROOT, 'meta/train.txt')
-extracted_files = dict{'esophagitis': [], 'polyps': [], 'barretts': [], 'normal': []}
+extracted_files = {'esophagitis': [], 'polyps': [], 'barretts': [], 'normal': []}
 
 with open(file_path, 'r') as file:
     for line in file:
