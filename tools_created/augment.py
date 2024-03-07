@@ -23,13 +23,13 @@ brightness = [brightness1, brightness2]
 
 
 elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=80, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
-elastic = [elastic]
+elastic = [elastic1]
 # only do it for 0 degree and 180 degree rotations
 apply_elastic = [0, 2]
 
 # maybe set fit_output to true, is quite similar to elastic1
 perspective1 = A.Perspective(scale=(0.2, 0.2), fit_output = False, p=1.0)
-perspective = [perspective]
+perspective = [perspective1]
 # only do it for 90 degree and 270 degree rotations 
 apply_perspective = [1, 3]
 
