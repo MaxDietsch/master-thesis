@@ -24,13 +24,13 @@ brightness = [brightness1, brightness2]
 elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=60, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
 elastic = [elastic1]
 # only do it for 0 degree and 180 degree rotations
-apply_elastic = [0, 2]
+apply_elastic = []
 
 # maybe set fit_output to true, is quite similar to elastic1
 perspective1 = A.Perspective(scale=(0.1, 0.1), fit_output = False, p=1.0)
 perspective = [perspective1]
 # only do it for 90 degree and 270 degree rotations 
-apply_perspective = [1, 3]
+apply_perspective = []
 
 # this defines all augmentations
 # every rotation and every brightness specified in rotations and brightness array are done to the base images
@@ -41,17 +41,11 @@ polyp_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_
 
 
 # Define the augmentations for barretts class:
-apply_perspective = []
-rotations = [rotate90, rotate180]
-apply_elastic = [0, 1]
-apply_perspective = [3]
 barretts_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
 
-# Define the augmentations for esophagitis class: 
+# Define the augmentations for esophagitis class:
 rotations = []
 brightness = []
-apply_elastic = [0]
-apply_perspective = []
 esophagitis_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
 
 def apply_transformations(folder_path, augmentations):
