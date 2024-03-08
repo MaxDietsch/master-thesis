@@ -113,13 +113,13 @@ def apply_transformations(folder_path, augmentations):
             """
 
 # Example usage
-folder_path = '../../B_E_P_N_aug2/polyps'
+folder_path = '../../B_E_P_N_aug3/polyps'
 apply_transformations(folder_path, polyp_augmentations)
 
-folder_path = '../../B_E_P_N_aug2/barretts'
+folder_path = '../../B_E_P_N_aug3/barretts'
 apply_transformations(folder_path, barretts_augmentations)
 
-folder_path = '../../B_E_P_N_aug2/esophagitis'
+folder_path = '../../B_E_P_N_aug3/esophagitis'
 apply_transformations(folder_path, esophagitis_augmentations)
 
 
