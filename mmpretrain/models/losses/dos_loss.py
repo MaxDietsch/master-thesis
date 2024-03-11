@@ -35,19 +35,21 @@ class DOSLoss(nn.Module):
             rho = []
             
             #"""Pytorchify:
-            for i, w_i in enumerate(w):
-                rho.append((torch.zeros(len(w_i))).to(torch.device("cuda")))
+            batch_size = deep_feats[0].shape[0]
+            for i in range(batch_size):
+                rho.append((torch.zeros(batch_size)).to(torch.device("cuda")))
                 if w_i.numel() == 0: 
                     # this sample has no overloaded instance
                     continue
                 else:
-                    print(w_i.shape)
+                    #print(w[i].shape)
                     #print(n[i].shape)
                     #print(deep_feats[0][i].shape)
                     #print((deep_feats[0][i] - n[i]).shape)
                     rho[i] = -w_i @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
+                    rho[i] = torch.exp(rho[i])
+                    rho[i] = rho[i] / torch.sum(rho[i])
                     
-
             print(rho)
 
 
