@@ -39,8 +39,10 @@ class DOSLoss(nn.Module):
                 if w_i.numel == 0: 
                     continue
                 else: 
+                    print(w_i[idy].shape)
+                    print((torch.linalg.norm(deep_feats[0][idy] - n[idy])).shape)
 
-                    print((-w_i[idx] * torch.linalg.norm(deep_feats[0][idy] - n[idy])).shape)
+                    print((-w_i[idy] * torch.linalg.norm(deep_feats[0][idy] - n[idy])).shape)
             print(rho)
 
 
