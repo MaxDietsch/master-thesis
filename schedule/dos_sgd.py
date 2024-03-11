@@ -11,7 +11,7 @@ train_cfg = dict(by_epoch=True, max_epochs=400, val_interval=1)
 #""" DosTrainLoop
 k = [0, 4, 2, 1]
 r = [0, 2, 2, 1]
-samples_per_class = [150, 45, 132, 539]
+samples_per_class = [3312, 45, 132, 539]
 train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class, max_epochs=100, val_interval=1)
 #"""
 

@@ -2,7 +2,7 @@
 
 _base_ = [
         '../model/dos_densenet121.py',
-        '../data/test.py',
+        '../data/phase1/bepn8.py',
         '../schedule/dos_sgd.py',
         '../runtime/default.py'
 ]
