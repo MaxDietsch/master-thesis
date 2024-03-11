@@ -34,14 +34,15 @@ class DOSLoss(nn.Module):
             # helper for g_loss
             rho = []
             
-            #"""Pytorchify: 
+            #"""Pytorchify:
+            print(deep_feats)
             for idy, w_i in enumerate(w):
                 if w_i.numel == 0: 
                     continue
                 else: 
                     rho.append(torch.zeros(len(n[idy])).to(torch.device("cuda")))
                     for idx, v_i in enumerate(n[idy]):
-                        rho[idy][idx] = -w_i[idx] * torch.linalg.norm(deep_features - v_i)
+                        rho[idy][idx] = -w_i[idx] * torch.linalg.norm(deep_feats - v_i)
                     rho[idy] = torch.exp(rho[idy])
                     rho[idy] = rho[idy] / torch.sum(rho[idy])
             print(rho)
