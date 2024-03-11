@@ -36,7 +36,7 @@ class DOSLoss(nn.Module):
             
             #"""Pytorchify:
             for idy, w_i in enumerate(w):
-                if w_i.numel == 0: 
+                if w_i.numel() == 0: 
                     continue
                 else: 
                     print(w_i[idy].shape)
