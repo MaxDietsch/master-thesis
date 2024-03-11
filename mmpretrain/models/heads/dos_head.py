@@ -39,11 +39,11 @@ class DOSHead(LinearClsHead):
                 data of every samples. """
 
         cls_score = []
-        print(n) 
-        print(w)
         for v_i in n:
-            print(v_i.device)
-            cls_score.append(self(v_i))
+            if v_i.numel == 0: 
+                cls_score.append(None)
+            else:
+                cls_score.append(self(v_i))
 
         if len(n) == 0:
             cls_score.append(self(deep_feats))
