@@ -38,7 +38,7 @@ class DOSLoss(nn.Module):
             batch_size = deep_feats[0].shape[0]
             for i in range(batch_size):
                 rho.append((torch.zeros(batch_size)).to(torch.device("cuda")))
-                if w_i.numel() == 0: 
+                if w[i].numel() == 0: 
                     # this sample has no overloaded instance
                     continue
                 else:
@@ -46,7 +46,7 @@ class DOSLoss(nn.Module):
                     #print(n[i].shape)
                     #print(deep_feats[0][i].shape)
                     #print((deep_feats[0][i] - n[i]).shape)
-                    rho[i] = -w_i @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
+                    rho[i] = -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
                     rho[i] = torch.exp(rho[i])
                     rho[i] = rho[i] / torch.sum(rho[i])
                     
