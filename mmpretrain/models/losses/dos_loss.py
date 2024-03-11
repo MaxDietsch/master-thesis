@@ -17,7 +17,7 @@ class DOSLoss(nn.Module):
                 cls_score: torch.Tensor, 
                 target: torch.Tensor,
                 n: List[torch.Tensor],
-                w: torch.Tensor) -> float:
+                w: List[torch.Tensor]) -> float:
         """ deep_feats (torch.Tensor): The deep feature vector of the input
             cls_score (torch.Tensor): The output vector of the input
             target (torch.Tensor): The target class of the input
@@ -39,10 +39,9 @@ class DOSLoss(nn.Module):
                 if w_i.numel() == 0: 
                     continue
                 else:
-                    print(w_i)
-                    print(n[idy])
-                    print(deep_feats[0][idy])
-                    print(w_i.shape)
+                    print(n[idy].shape)
+                    print(deep_feats[0][idy].shape)
+                    print((deep_feats[0][idy] - n[idy]).shape)
                     print((torch.linalg.norm(deep_feats[0][idy] - n[idy])).shape)
 
             print(rho)
