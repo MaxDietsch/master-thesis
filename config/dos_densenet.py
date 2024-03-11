@@ -7,5 +7,6 @@ _base_ = [
         '../runtime/default.py'
 ]
 
-load_from = '../work_dirs/densetnet121_sgd_bepnwom_default/epoch_400.pth'
+#load_from = '../work_dirs/densetnet121_sgd_bepnwom_default/epoch_400.pth'
+load_from = None
 resume = False

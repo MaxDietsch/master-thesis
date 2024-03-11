@@ -2,7 +2,7 @@ optim_wrapper = dict(
     optimizer=dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001))
 
 param_scheduler = dict(
-    type='MultiStepLR', by_epoch=True, milestones=[100, 200, 300], gamma=0.1)
+    type='MultiStepLR', by_epoch=True, milestones=[30, 60, 90], gamma=0.1)
 
 """ EpochBasedTrainLoop
 train_cfg = dict(by_epoch=True, max_epochs=400, val_interval=1)
@@ -12,7 +12,7 @@ train_cfg = dict(by_epoch=True, max_epochs=400, val_interval=1)
 k = [0, 4, 2, 1]
 r = [0, 2, 2, 1]
 samples_per_class = [150, 45, 132, 539]
-train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class, max_epochs=400, val_interval=1)
+train_cfg = dict(by_epoch=2, k = k, r = r, samples_per_class = samples_per_class, max_epochs=100, val_interval=1)
 #"""
 
 """ CoSenTrainLoop 
