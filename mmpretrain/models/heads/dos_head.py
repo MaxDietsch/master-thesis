@@ -43,6 +43,7 @@ class DOSHead(LinearClsHead):
             if v_i.numel == 0: 
                 cls_score.append(None)
             else:
+                print(v_i)
                 cls_score.append(self(v_i))
 
         if len(n) == 0:
