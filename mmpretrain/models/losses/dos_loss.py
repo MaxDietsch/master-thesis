@@ -39,14 +39,8 @@ class DOSLoss(nn.Module):
                 if w_i.numel == 0: 
                     continue
                 else: 
-                    rho.append(torch.zeros(len(n[idy])).to(torch.device("cuda")))
-                    for idx, v_i in enumerate(n[idy]):
-                        # deep_feats[0] is of shape [B, 1024], v_i is of shape [1024] -> broadcasting works
-                        print(w_i[idx].shape)
-                        print((-w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)).shape)
-                        rho[idy][idx] = -w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
-                    rho[idy] = torch.exp(rho[idy])
-                    rho[idy] = rho[idy] / torch.sum(rho[idy])
+
+                    print((-w_i[idx] * torch.linalg.norm(deep_feats[0][idy] - n[idy])).shape)
             print(rho)
 
 
