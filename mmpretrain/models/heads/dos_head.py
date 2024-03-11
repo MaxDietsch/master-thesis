@@ -40,7 +40,7 @@ class DOSHead(LinearClsHead):
 
         cls_score = []
         for v_i in n:
-            if v_i.numel == 0: 
+            if v_i.numel() == 0: 
                 cls_score.append(None)
             else:
                 print(v_i)
