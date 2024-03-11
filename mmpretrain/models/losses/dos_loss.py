@@ -42,6 +42,9 @@ class DOSLoss(nn.Module):
                 else: 
                     rho.append(torch.zeros(len(n[idy])).to(torch.device("cuda")))
                     for idx, v_i in enumerate(n[idy]):
+                        print(deep_feats[0].shape)
+                        print(v_i.shape)
+                        print(torch.linalg.norm(deep_feats[0] - v_i))
                         rho[idy][idx] = -w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
                     rho[idy] = torch.exp(rho[idy])
                     rho[idy] = rho[idy] / torch.sum(rho[idy])
