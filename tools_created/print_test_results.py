@@ -52,7 +52,7 @@ def find_json_values(root_dir):
 def calculate_average():
 
     for key in acc: 
-
+        print(acc[key])
         print(torch.stack(acc[key]))
         acc_temp = torch.mean(torch.stack(acc[key]), dim = 0)
         print(acc_temp)
