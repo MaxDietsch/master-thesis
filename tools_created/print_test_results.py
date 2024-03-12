@@ -52,21 +52,21 @@ def find_json_values(root_dir):
 def calculate_average():
 
     for key in acc: 
-        print(torch.stack(acc[key]))
+        #print(torch.stack(acc[key]))
         acc_temp = torch.mean(torch.stack(acc[key]), dim = 0)
-        print(acc_temp)
+        #print(acc_temp)
 
-        print(torch.stack(rec[key]))
+        #print(torch.stack(rec[key]))
         rec_temp = torch.mean(torch.stack(rec[key]), dim = 0)
-        print(rec_temp)
+        #print(rec_temp)
 
-        print(torch.stack(prec[key]))
+        #print(torch.stack(prec[key]))
         prec_temp = torch.mean(torch.stack(prec[key]), dim = 0)
-        print(prec_temp)
+        #print(prec_temp)
 
-        print(torch.stack(f1[key]))
+        #print(torch.stack(f1[key]))
         f1_temp = torch.mean(torch.stack(f1[key]), dim = 0) 
-        print(f1_temp)
+        #print(f1_temp)
         
         
         with open(txt_path, 'a') as file:
@@ -76,7 +76,7 @@ def calculate_average():
             
             tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
             
-            for metric, tensor in zip(custom_strings, tensors):
+            for metric, tensor in zip(metrics, tensors):
                 tensor_str = tensor.cpu().numpy().tolist()
                 file.write(f"{metric} \n {tensor_str}\n\n")
         
@@ -87,4 +87,6 @@ txt_path = '../work_dirs/phase1/results.txt'
 model = 'ResNet50'
 find_json_values(specified_directory)
 calculate_average()
+
+print('The results are written to the specified file!')
 
