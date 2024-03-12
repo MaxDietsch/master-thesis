@@ -41,8 +41,7 @@ def find_json_values(root_dir):
                                             acc[d1].append(torch.tensor(accuracy))
                                             rec[d1].append(torch.tensor(recall))
                                             prec[d1].append(torch.tensor(precision))
-                                            print(f1_score)
-                                            f1[d1].append(torch.tensor(f1))
+                                            f1[d1].append(torch.tensor(f1_score))
 
                                             #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
                                         except json.JSONDecodeError:
