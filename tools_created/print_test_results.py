@@ -28,7 +28,8 @@ def find_json_values(root_dir):
                         d3_path = os.path.join(d2_path, d3)
                         if os.path.isdir(d3_path):
                             for file in os.listdir(d3_path):
-                                if file.endswith('.json'):  # Check if the file is a JSON file
+                                if file.endswith('.json'):
+                                    print(file)
                                     file_path = os.path.join(d3_path, file)
                                     with open(file_path, 'r') as json_file:
                                         try:
