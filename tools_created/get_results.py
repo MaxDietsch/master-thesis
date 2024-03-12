@@ -78,7 +78,7 @@ def calculate_average():
             
             for metric, tensor in zip(metrics, tensors):
                 tensor_str = tensor.cpu().numpy().tolist()
-                file.write(f"{metric} \n {tensor_str}")
+                file.write(f"{metric} \t {tensor_str} \n")
             
 
 # Example usage
