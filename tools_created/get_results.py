@@ -1,6 +1,7 @@
 import os
 import json
-import torch 
+import torch
+import numpy as np
 
 """
 This script takes a directory (specified_directory).
@@ -77,8 +78,7 @@ def calculate_average():
             tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
             
             for metric, tensor in zip(metrics, tensors):
-                rounded_tensor = torch.round(tensor * 10000) / 10000
-                tensor_str = rounded_tensor.cpu().numpy().tolist()
+                tensor_str = np.round(tensor.cpu().numpy(), 4).tolist()
                 file.write(f"{metric} \t {tensor_str} \n")
             
 
