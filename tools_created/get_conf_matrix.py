@@ -39,9 +39,10 @@ def calculate_average():
             
             for cm in zip(cm_mean, cm_std):
                 cm_mean = np.round(cm_mean.cpu().numpy(), 4)
-                cm_std = np.round(cm_std.cpu().numpy(), 4)
+                
+                torch.save(cm_mean, specified_directory + '/' + key + '_cm.pt')
 
-                file.write(f"{metric} \n mean: \t {cm_mean} \n std: \t {cm_std} \n\n")
+                #file.write(f"{metric} \n mean: \t {cm_mean} \n std: \t {cm_std} \n\n")
             
 
 # Example usage
