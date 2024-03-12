@@ -10,7 +10,7 @@ lr_array=("lr_0.01" "lr_0.001" "lr_decr")
 #epoch_lr_decr="60 62 94"
 
 #epochs=("$epoch_lr0_01" "$epoch_lr0_001" "$epoch_lr_decr")
-epochs = ("$epoch")
+epochs=("$epoch")
 
 # iterate over outer array
 for i in "${!epochs[@]}"
