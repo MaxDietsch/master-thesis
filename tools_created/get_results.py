@@ -90,9 +90,9 @@ def calculate_average():
             
 
 # Example usage
-specified_directory = "../work_dirs/phase1/efficientnet_b4/test"
+specified_directory = "../work_dirs/phase1/densenet121/test"
 txt_path = '../work_dirs/phase1/results.txt'
-model = 'EfficientNet_B4'
+model = 'DenseNet121'
 find_json_values(specified_directory)
 calculate_average()
 
