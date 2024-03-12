@@ -37,7 +37,7 @@ class DOSLoss(nn.Module):
             #"""Pytorchify:
             batch_size = deep_feats[0].shape[0]
             for i in range(batch_size):
-                rho.append((torch.zeros(batch_size)).to(torch.device("cuda")))
+                rho.append((torch.empty(1)).to(torch.device("cuda")))
                 if w[i].numel() == 0: 
                     # this sample has no overloaded instance
                     continue
