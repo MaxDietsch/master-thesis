@@ -70,7 +70,7 @@ def calculate_average():
         
         
         with open(txt_path, 'a') as file:
-            file.write(f"Model: {model} with schedule: \n")
+            file.write(f"\n\nModel: {model} with schedule: {key} \n")
             
             metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
             
@@ -78,8 +78,8 @@ def calculate_average():
             
             for metric, tensor in zip(metrics, tensors):
                 tensor_str = tensor.cpu().numpy().tolist()
-                file.write(f"{metric} \n {tensor_str}\n\n")
-        
+                file.write(f"{metric} \n {tensor_str}")
+            
 
 # Example usage
 specified_directory = "../work_dirs/phase1/resnet50/test"
