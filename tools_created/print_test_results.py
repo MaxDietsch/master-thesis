@@ -29,7 +29,6 @@ def find_json_values(root_dir):
                         if os.path.isdir(d3_path):
                             for file in os.listdir(d3_path):
                                 if file.endswith('.json'):
-                                    print(file)
                                     file_path = os.path.join(d3_path, file)
                                     with open(file_path, 'r') as json_file:
                                         try:
@@ -39,10 +38,10 @@ def find_json_values(root_dir):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-                                            acc[d3].append(accuracy)
-                                            rec[d3].append(recall)
-                                            prec[d3].append(precision)
-                                            f1[d3].append(f1)
+                                            acc[d2].append(accuracy)
+                                            rec[d2].append(recall)
+                                            prec[d2].append(precision)
+                                            f1[d2].append(f1)
 
                                             #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
                                         except json.JSONDecodeError:
