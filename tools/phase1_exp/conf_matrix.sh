@@ -2,7 +2,7 @@
 
 cd ..
 
-model="densenet121"
+model="resnet50"
 epoch="91 92 93 94 95 96 97 98 99 100"
 lr_array=("lr_0.01" "lr_0.001" "lr_decr")
 #epoch_lr0_01="60 98"
@@ -21,8 +21,7 @@ do
     do
         epoch="${innerArray[$j]}"
 
-        #python test.py ../config/phase_1/${model}_test.py ../work_dirs/phase_1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --work-dir ../work_dirs/phase_1/${model}/test/${lr_array[$i]}_epoch_"$epoch"
-        python test.py ../config/phase1/${model}_test.py ../work_dirs/phase1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --work-dir ../work_dirs/phase1/${model}/test/${lr_array[$i]}/epoch_"$epoch"
+        python analysis_tools/confusion_matrix.py ../config/phase1/${model}_test.py ../work_dirs/phase1/${model}/${lr_array}/epoch_"$epoch".pth --show-path ../work_dirs/phase1/${model}/test/${lr_array[$i]}/conf_matrix_epoch_"$epoch"
 
     done
 done
