@@ -54,19 +54,24 @@ def calculate_average():
 
     for key in acc: 
         #print(torch.stack(acc[key]))
-        acc_temp = torch.mean(torch.stack(acc[key]), dim = 0)
+        acc_temp_mean = torch.mean(torch.stack(acc[key]), dim = 0)
+        acc_temp_std = torch.std(torch.stack(acc[key]), dim = 0)
+
         #print(acc_temp)
 
         #print(torch.stack(rec[key]))
-        rec_temp = torch.mean(torch.stack(rec[key]), dim = 0)
+        rec_temp_mean = torch.mean(torch.stack(rec[key]), dim = 0)
+        rec_temp_std = torch.std(torch.stack(rec[key]), dim = 0)
         #print(rec_temp)
 
         #print(torch.stack(prec[key]))
-        prec_temp = torch.mean(torch.stack(prec[key]), dim = 0)
+        prec_temp_mean = torch.mean(torch.stack(prec[key]), dim = 0)
+        prec_temp_std = torch.std(torch.stack(prec[key]), dim = 0)
         #print(prec_temp)
 
         #print(torch.stack(f1[key]))
-        f1_temp = torch.mean(torch.stack(f1[key]), dim = 0) 
+        f1_temp_mean = torch.mean(torch.stack(f1[key]), dim = 0) 
+        f1_temp_std = torch.std(torch.stack(f1[key]), dim = 0) 
         #print(f1_temp)
         
         
@@ -75,11 +80,13 @@ def calculate_average():
             
             metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
             
-            tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
+            tensors_mean = [acc_temp_mean, rec_temp_mean, prec_temp_mean, f1_temp_mean]
+            tensors_std = [acc_temp_std, rec_temp_std, prec_temp_std, f1_temp_std]
             
-            for metric, tensor in zip(metrics, tensors):
-                tensor_str = np.round(tensor.cpu().numpy(), 4)
-                file.write(f"{metric} \t {tensor_str} \n")
+            for metric, tensor_mean, tensor_std in zip(metrics, tensors_mean, tensors_std):
+                tensor_mean = np.round(tensor_mean.cpu().numpy(), 4)
+                tensor_std = np.round(tensor_std.cpu().numpy(), 4)
+                file.write(f"{metric} \n mean: \t {tensor_str} \n std: \t {tensor_std} \n\n")
             
 
 # Example usage
