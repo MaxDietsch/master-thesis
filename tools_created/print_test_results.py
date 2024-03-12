@@ -4,17 +4,17 @@ import torch
 
 """
 This script takes a directory (specified_directory).
-It goes two directories deeper from the base directory and searches for .json file. 
+It goes three directories deeper from the base directory and searches for .json file. 
 This procedure is down for every subdirectory on the base directory. 
 The script will read the .json files and search for accuracy, precision, recall and f1 scores.
 The scores (except accuracy) should be classwise and the average over all found values will be calculated.
 The calculated scores will be printed to the screen 
 """
 
-acc = []
-rec = []
-prec = []
-f1= []
+acc = {"lr_0.01": [], 'lr_0.0001': [], 'lr_decr': []}
+rec = {"lr_0.01": [], 'lr_0.0001': [], 'lr_decr': []}
+prec = {"lr_0.01": [], 'lr_0.0001': [], 'lr_decr': []}
+f1 = {"lr_0.01": [], 'lr_0.0001': [], 'lr_decr': []}
 
 def find_json_values(root_dir):
     # Walk through the directory structure starting at 'root_dir'
@@ -24,58 +24,64 @@ def find_json_values(root_dir):
             for d2 in os.listdir(d1_path):
                 d2_path = os.path.join(d1_path, d2)
                 if os.path.isdir(d2_path):  # Ensure d2 is a directory
-                    for file in os.listdir(d2_path):
-                        if file.endswith('.json'):  # Check if the file is a JSON file
-                            file_path = os.path.join(d2_path, file)
-                            with open(file_path, 'r') as json_file:
-                                try:
-                                    data = json.load(json_file)
-                                    # Assuming 'accuracy' and 'recall' are top-level keys in the JSON file
-                                    accuracy = data.get('accuracy/top1', 'N/A')
-                                    recall = data.get('single-label/recall_classwise', 'N/A')
-                                    precision = data.get('single-label/precision_classwise', 'N/A')
-                                    f1_score = data.get('single-label/f1-score_classwise', 'N/A')
+                    for d3 in os.listdir(d2_path):
+                        d3_path = os.path.join(d2_path, d3)
+                        if os.path.isdir(d3_path):
+                            for file in os.listdir(d2_path):
+                                if file.endswith('.json'):  # Check if the file is a JSON file
+                                    file_path = os.path.join(d2_path, file)
+                                    with open(file_path, 'r') as json_file:
+                                        try:
+                                            data = json.load(json_file)
+                                            # Assuming 'accuracy' and 'recall' are top-level keys in the JSON file
+                                            accuracy = data.get('accuracy/top1', 'N/A')
+                                            recall = data.get('single-label/recall_classwise', 'N/A')
+                                            precision = data.get('single-label/precision_classwise', 'N/A')
+                                            f1_score = data.get('single-label/f1-score_classwise', 'N/A')
 
-                                    acc.append(accuracy)
-                                    rec.append(recall)
-                                    prec.append(precision)
-                                    f1.append(f1)
+                                            acc[d3].append(accuracy)
+                                            rec[d3].append(recall)
+                                            prec[d3].append(precision)
+                                            f1[d3].append(f1)
 
-                                    #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
-                                except json.JSONDecodeError:
-                                    print(f"Error reading JSON file: {file_path}")
+                                            #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
+                                        except json.JSONDecodeError:
+                                            print(f"Error reading JSON file: {file_path}")
     # Print the separator line
     print('reading finished')
 
 def calculate_average():
-    print(torch.stack(acc))
-    acc = torch.mean(torch.stack(acc), dim = 0)
-    print(acc)
 
-    print(torch.stack(rec))
-    rec = torch.mean(torch.stack(rec), dim = 0)
-    print(rec)
+    for key in acc: 
 
-    print(torch.stack(prec))
-    prec = torch.mean(torch.stack(prec), dim = 0)
-    print(prec)
+        print(torch.stack(acc[key]))
+        acc_temp = torch.mean(torch.stack(acc[key]), dim = 0)
+        print(acc_temp)
 
-    print(torch.stack(f1))
-    f1 = torch.mean(torch.stack(f1), dim = 0) 
-    print(f1)
-    
-    """
-    with open(txt_path, 'a') as file:
-        file.write(f"Model: {model}\n")
+        print(torch.stack(rec[key]))
+        rec_temp = torch.mean(torch.stack(rec[key]), dim = 0)
+        print(rec_temp)
+
+        print(torch.stack(prec[key]))
+        prec_temp = torch.mean(torch.stack(prec[key]), dim = 0)
+        print(prec_temp)
+
+        print(torch.stack(f1[key]))
+        f1_temp = torch.mean(torch.stack(f1[key]), dim = 0) 
+        print(f1_temp)
         
-        metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
-        
-        tensors = [acc, rec, prec, f1]
-        
-        for metric, tensor in zip(custom_strings, tensors):
-            tensor_str = tensor.cpu().numpy().tolist()
-            file.write(f"{metric} \n {tensor_str}\n\n")
-    """
+        """
+        with open(txt_path, 'a') as file:
+            file.write(f"Model: {model} with schedule: \n")
+            
+            metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
+            
+            tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
+            
+            for metric, tensor in zip(custom_strings, tensors):
+                tensor_str = tensor.cpu().numpy().tolist()
+                file.write(f"{metric} \n {tensor_str}\n\n")
+        """
 
 # Example usage
 specified_directory = "../work_dirs/phase1/resnet50/test"
