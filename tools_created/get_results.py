@@ -77,8 +77,9 @@ def calculate_average():
             tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
             
             for metric, tensor in zip(metrics, tensors):
+                tensor = torch.round(tensor * 10000) / 10000
                 tensor_str = tensor.cpu().numpy().tolist()
-                file.write(f"{metric} \t {tensor_str:.4f} \n")
+                file.write(f"{metric} \t {tensor_str} \n")
             
 
 # Example usage
