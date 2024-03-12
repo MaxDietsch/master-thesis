@@ -63,10 +63,24 @@ def calculate_average():
     print(torch.stack(f1))
     f1 = torch.mean(torch.stack(f1), dim = 0) 
     print(f1)
-
+    
+    """
+    with open(txt_path, 'a') as file:
+        file.write(f"Model: {model}\n")
+        
+        metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
+        
+        tensors = [acc, rec, prec, f1]
+        
+        for metric, tensor in zip(custom_strings, tensors):
+            tensor_str = tensor.cpu().numpy().tolist()
+            file.write(f"{metric} \n {tensor_str}\n\n")
+    """
 
 # Example usage
-specified_directory = "../work_dirs/phase_1/resnet50/test"
+specified_directory = "../work_dirs/phase1/resnet50/test"
+txt_path = '../work_dirs/phase1/results.txt'
+model = 'ResNet50'
 find_json_values(specified_directory)
 calculate_average()
 
