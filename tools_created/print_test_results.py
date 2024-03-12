@@ -38,7 +38,7 @@ def find_json_values(root_dir):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-                                            acc[d1].append(torch.tensor(accuracy)
+                                            acc[d1].append(torch.tensor(accuracy))
                                             rec[d1].append(torch.tensor(recall))
                                             prec[d1].append(torch.tensor(precision))
                                             f1[d1].append(torch.tensor(f1))
