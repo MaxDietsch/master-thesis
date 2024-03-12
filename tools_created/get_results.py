@@ -78,7 +78,7 @@ def calculate_average():
             tensors = [acc_temp, rec_temp, prec_temp, f1_temp]
             
             for metric, tensor in zip(metrics, tensors):
-                print(np.round(tensor.cpu().numpy(), 4))
+                print(np.round(tensor.cpu().numpy(), 4).tolist())
                 tensor_str = np.round(tensor.cpu().numpy(), 4).tolist()
                 file.write(f"{metric} \t {tensor_str} \n")
             
