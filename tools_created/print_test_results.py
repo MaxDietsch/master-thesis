@@ -38,7 +38,7 @@ def find_json_values(root_dir):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-
+                                            print(accuracy)
                                             acc[d3].append(accuracy)
                                             rec[d3].append(recall)
                                             prec[d3].append(precision)
