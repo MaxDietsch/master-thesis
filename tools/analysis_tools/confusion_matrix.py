@@ -10,6 +10,7 @@ from mmengine.runner import Runner
 from mmpretrain.evaluation import ConfusionMatrix
 from mmpretrain.registry import DATASETS
 from mmpretrain.utils import register_all_modules
+import torch
 
 
 def parse_args():
