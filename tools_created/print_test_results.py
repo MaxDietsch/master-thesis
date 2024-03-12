@@ -27,9 +27,9 @@ def find_json_values(root_dir):
                     for d3 in os.listdir(d2_path):
                         d3_path = os.path.join(d2_path, d3)
                         if os.path.isdir(d3_path):
-                            for file in os.listdir(d2_path):
+                            for file in os.listdir(d3_path):
                                 if file.endswith('.json'):  # Check if the file is a JSON file
-                                    file_path = os.path.join(d2_path, file)
+                                    file_path = os.path.join(d3_path, file)
                                     with open(file_path, 'r') as json_file:
                                         try:
                                             data = json.load(json_file)
@@ -38,7 +38,6 @@ def find_json_values(root_dir):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-                                            print(accuracy)
                                             acc[d3].append(accuracy)
                                             rec[d3].append(recall)
                                             prec[d3].append(precision)
