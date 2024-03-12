@@ -103,7 +103,7 @@ def main():
         if args.show_path is not None:
             
             # safe the confusion matrix as pytorch tensor:
-            torch.save(tensor, args.show_path + '.pt')
+            torch.save(cm, args.show_path + '.pt')
 
             fig.savefig(args.show_path)
             print(f'The confusion matrix is saved at {args.show_path}.')
