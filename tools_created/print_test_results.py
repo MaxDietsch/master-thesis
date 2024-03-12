@@ -68,7 +68,7 @@ def calculate_average():
         f1_temp = torch.mean(torch.stack(f1[key]), dim = 0) 
         print(f1_temp)
         
-        """
+        
         with open(txt_path, 'a') as file:
             file.write(f"Model: {model} with schedule: \n")
             
@@ -79,7 +79,7 @@ def calculate_average():
             for metric, tensor in zip(custom_strings, tensors):
                 tensor_str = tensor.cpu().numpy().tolist()
                 file.write(f"{metric} \n {tensor_str}\n\n")
-        """
+        
 
 # Example usage
 specified_directory = "../work_dirs/phase1/resnet50/test"
