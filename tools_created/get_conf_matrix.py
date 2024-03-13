@@ -35,7 +35,7 @@ def calculate_average():
     for key in cms:
         print(torch.stack(cms[key]))
         cm_mean = torch.mean(torch.stack(cms[key]), dim = 0)
-        print(cm_mean.shape)
+        print(cm_mean)
         cm_std = torch.std(torch.stack(cms[key]), dim = 0)
         
         
