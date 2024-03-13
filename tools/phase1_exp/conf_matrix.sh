@@ -21,7 +21,7 @@ do
     do
         epoch="${innerArray[$j]}"
 
-        python analysis_tools/confusion_matrix.py ../config/phase1/${model}_test.py ../work_dirs/phase1/${model}/${lr_array[i]}/epoch_"$epoch".pth --show-path ../work_dirs/phase1/${model}/test/${lr_array[$i]}/cm/conf_matrix_epoch_"$epoch"
+        python analysis_tools/confusion_matrix.py ../config/phase1/${model}_test.py ../work_dirs/phase1/${model}/${lr_array[$i]}/epoch_"$epoch".pth --show-path ../work_dirs/phase1/${model}/test/${lr_array[$i]}/cm/conf_matrix_epoch_"$epoch"
 
     done
 done
