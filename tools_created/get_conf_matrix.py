@@ -36,16 +36,12 @@ def calculate_average():
         cm_mean = torch.mean(torch.stack(cms[key]), dim = 0)
         cm_std = torch.std(torch.stack(cms[key]), dim = 0)
         
-        
-        with open(txt_path, 'a') as file:
-            
-            torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
+        torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
 
             
 
 # Example usage
 specified_directory = "../work_dirs/phase1/swin/test"
-model = 'ResNet50'
 find_json_values(specified_directory)
 calculate_average()
 
