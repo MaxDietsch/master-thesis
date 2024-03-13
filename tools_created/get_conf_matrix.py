@@ -31,9 +31,9 @@ def find_json_values(root_dir):
 
 def calculate_average():
 
-    for key in acc: 
-        cm_mean = torch.mean(torch.stack(acc[key]), dim = 0)
-        cm_std = torch.std(torch.stack(acc[key]), dim = 0)
+    for key in cms: 
+        cm_mean = torch.mean(torch.stack(cms[key]), dim = 0)
+        cm_std = torch.std(torch.stack(cms[key]), dim = 0)
         
         
         with open(txt_path, 'a') as file:
