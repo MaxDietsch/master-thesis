@@ -19,11 +19,13 @@ def find_json_values(root_dir):
     for d1 in os.listdir(root_dir):
         d1_path = os.path.join(root_dir, d1)
         if os.path.isdir(d1_path):  # Ensure d1 is a directory
-            for file in os.listdir(d1_path):
-                if file.endswith('.pt'):
-                    file_path = os.path.join(d2_path, file)
-                    loaded_cm = torch.load(file_path)
-                    cms[d1].append(loaded_cm)
+            for d2 in os.listdir(d1_path):
+                d2_path = os.path.join(d1_path, d2)
+                for file in os.listdir(d2_path):
+                    if file.endswith('.pt'):
+                        file_path = os.path.join(d2_path, file)
+                        loaded_cm = torch.load(file_path)
+                        cms[d1].append(loaded_cm)
     # Print the separator line
     print('reading finished')
 
