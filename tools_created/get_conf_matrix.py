@@ -25,7 +25,7 @@ def find_json_values(root_dir):
 
                     if file.endswith('.pt'):
                         file_path = os.path.join(d2_path, file)
-                        loaded_cm = torch.load(file_path)
+                        loaded_cm = torch.load(file_path).float()
                         cms[d1].append(loaded_cm)
     # Print the separator line
     print('reading finished')
