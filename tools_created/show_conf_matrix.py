@@ -40,7 +40,7 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
   plt.ylabel("True Label")
   plt.xlabel("Predicted Label")
   plt.grid(False)
-  plt.savefig(filename)
+  #plt.savefig(filename)
   plt.close()
 
 
@@ -48,7 +48,7 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
 # Read the PyTorch tensor from the file
 model = 'ResNet50'
 schedule = 'lr_decr'
-filename = f"../../utils/decr.pt"  # Replace with your actual filename
+filename = f"../work_dirs/phase1/densenet121/test/lr_decr/cm/avg_cm.pt"  # Replace with your actual filename
 tensor = torch.load(filename)
 
 # Ensure it's a square tensor with values between 0 and 1
