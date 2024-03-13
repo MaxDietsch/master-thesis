@@ -22,9 +22,8 @@ def find_json_values(root_dir):
             for d2 in os.listdir(d1_path):
                 d2_path = os.path.join(d1_path, d2)
                 for file in os.listdir(d2_path):
-                    print(d1)
-                    print(d2)
                     if file.endswith('.pt'):
+                        print(file_path)
                         file_path = os.path.join(d2_path, file)
                         loaded_cm = torch.load(file_path)
                         cms[d1].append(loaded_cm)
