@@ -38,16 +38,13 @@ def calculate_average():
         
         
         with open(txt_path, 'a') as file:
-            file.write(f"\n\n(Average Confusion Matrix of) Model: {model} with schedule: {key} \n")
             
             torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
 
-                #file.write(f"{metric} \n mean: \t {cm_mean} \n std: \t {cm_std} \n\n")
             
 
 # Example usage
 specified_directory = "../work_dirs/phase1/swin/test"
-txt_path = '../work_dirs/phase1/results.txt'
 model = 'ResNet50'
 find_json_values(specified_directory)
 calculate_average()
