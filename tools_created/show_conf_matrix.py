@@ -45,10 +45,11 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
 # Read the PyTorch tensor from the file
 model = 'resnet50'
 schedule = 'lr_decr'
-filename = f"../work_dirs/phase1/{model}/test/{schedule}_cm.pt"  # Replace with your actual filename
+filename = f"../../utils/avg_cm.pt"  # Replace with your actual filename
 tensor = torch.load(filename)
 
 # Ensure it's a square tensor with values between 0 and 1
+print(tensor)
 if not (tensor.shape[0] == tensor.shape[1]) or not (tensor.min() >= 0 and tensor.max() <= 1):
   raise ValueError("Input tensor must be square and have values between 0 and 1.")
 

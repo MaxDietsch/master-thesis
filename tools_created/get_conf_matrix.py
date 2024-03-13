@@ -32,8 +32,9 @@ def find_json_values(root_dir):
 
 def calculate_average():
 
-    for key in cms: 
+    for key in cms:
         cm_mean = torch.mean(torch.stack(cms[key]), dim = 0)
+        print(cm_mean.shape)
         cm_std = torch.std(torch.stack(cms[key]), dim = 0)
         
         
