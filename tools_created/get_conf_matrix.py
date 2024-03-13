@@ -22,8 +22,8 @@ def find_json_values(root_dir):
             for d2 in os.listdir(d1_path):
                 d2_path = os.path.join(d1_path, d2)
                 for file in os.listdir(d2_path):
+
                     if file.endswith('.pt'):
-                        print(file_path)
                         file_path = os.path.join(d2_path, file)
                         loaded_cm = torch.load(file_path)
                         cms[d1].append(loaded_cm)
@@ -38,7 +38,7 @@ def calculate_average():
         
         
         with open(txt_path, 'a') as file:
-            file.write(f"\n\nModel: {model} with schedule: {key} \n")
+            file.write(f"\n\n(Average Confusion Matrix of) Model: {model} with schedule: {key} \n")
             
             for cm in zip(cm_mean, cm_std):
                 cm_mean = np.round(cm_mean.cpu().numpy(), 4)
@@ -49,9 +49,9 @@ def calculate_average():
             
 
 # Example usage
-specified_directory = "../work_dirs/phase1/efficientnet_b4/test"
+specified_directory = "../work_dirs/phase1/resnet50/test"
 txt_path = '../work_dirs/phase1/results.txt'
-model = 'EfficientNet_B4'
+model = 'ResNet50'
 find_json_values(specified_directory)
 calculate_average()
 
