@@ -40,13 +40,7 @@ def calculate_average():
         with open(txt_path, 'a') as file:
             file.write(f"\n\n(Average Confusion Matrix of) Model: {model} with schedule: {key} \n")
             
-            for cm in cm_mean:
-                #cm_mean = np.round(cm.cpu().numpy(), 4)
-                print(cm)
-                cm_mean = cm.cpu()
-                print(cm_mean)
-                
-                torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
+            torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
 
                 #file.write(f"{metric} \n mean: \t {cm_mean} \n std: \t {cm_std} \n\n")
             
