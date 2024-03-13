@@ -33,6 +33,7 @@ def find_json_values(root_dir):
 def calculate_average():
 
     for key in cms:
+        print(torch.stack(cms[key]))
         cm_mean = torch.mean(torch.stack(cms[key]), dim = 0)
         print(cm_mean.shape)
         cm_std = torch.std(torch.stack(cms[key]), dim = 0)
@@ -45,7 +46,7 @@ def calculate_average():
                 #cm_mean = np.round(cm.cpu().numpy(), 4)
                 cm_mean = cm.cpu()
                 
-                torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
+                #torch.save(cm_mean, specified_directory + '/' + key +  '/cm/' + 'avg_cm.pt')
 
                 #file.write(f"{metric} \n mean: \t {cm_mean} \n std: \t {cm_std} \n\n")
             
