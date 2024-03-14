@@ -45,6 +45,7 @@ class DOSHead(LinearClsHead):
                 # this sample has no overloaded instance
                 cls_score.append(self(deep_feats[0][i].unsqueeze(dim=0)))
             else:
+                print(v_i)
                 cls_score.append(self(v_i))
         #"""
         """
