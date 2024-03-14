@@ -48,7 +48,7 @@ class DOSLoss(nn.Module):
         print(target.shape)
         for i in range(batch_size):
             f_loss += -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
-            g_loss += rho[i] @ self.ce_loss(cls_score, target) 
+            g_loss += rho[i] @ self.ce_loss(cls_score[i], target[i]) 
         loss = f_loss + g_loss
 
 
