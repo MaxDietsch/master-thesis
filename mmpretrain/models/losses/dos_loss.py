@@ -57,7 +57,7 @@ class DOSLoss(nn.Module):
             else: 
                 print(cls_score[i])
                 print(target[i])
-                n_loss += self.ce_loss(cls_score[i], target[i])
+                n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
         loss = f_loss + g_loss
 
 
