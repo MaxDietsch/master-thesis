@@ -21,13 +21,13 @@ brightness2 = A.RandomBrightnessContrast(brightness_limit=(-0.1, -0.1), contrast
 brightness = [brightness1, brightness2]
 
 
-elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=60, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
+elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=80, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
 elastic = [elastic1]
 # only do it for 0 degree and 180 degree rotations
 apply_elastic = [0, 2]
 
 # maybe set fit_output to true, is quite similar to elastic1
-perspective1 = A.Perspective(scale=(0.1, 0.1), fit_output = False, p=1.0)
+perspective1 = A.Perspective(scale=(0.2, 0.2), fit_output = False, p=1.0)
 perspective = [perspective1]
 # only do it for 90 degree and 270 degree rotations 
 apply_perspective = [1, 3]
@@ -117,11 +117,11 @@ def apply_transformations(folder_path, augmentations):
 folder_path = '../../B_E_P_N_aug4/polyps'
 apply_transformations(folder_path, polyp_augmentations)
 
-folder_path = '../../B_E_P_N_aug4/barretts'
-apply_transformations(folder_path, barretts_augmentations)
+#folder_path = '../../B_E_P_N_aug4/barretts'
+#apply_transformations(folder_path, barretts_augmentations)
 
-folder_path = '../../B_E_P_N_aug4/esophagitis'
-apply_transformations(folder_path, esophagitis_augmentations)
+#folder_path = '../../B_E_P_N_aug4/esophagitis'
+#apply_transformations(folder_path, esophagitis_augmentations)
 
 
 
