@@ -46,7 +46,7 @@ class DOSHead(LinearClsHead):
             else:
                 print(v_i.shape)
                 cls_score.append(self((v_i, ))
-                print(self(v_i).shape)
+                print(self((v_i, ))[0].shape)
         #"""
         """
         if len(n) == 0:
