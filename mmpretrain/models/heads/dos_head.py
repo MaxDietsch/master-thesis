@@ -39,12 +39,10 @@ class DOSHead(LinearClsHead):
                 data of every samples. """
 
         cls_score = []
-        print(deep_feats)
-        print(deep_feats[0].shape)
-        for v_i in n:
+        for i, v_i in enumerate(n):
             if v_i.numel() == 0:
                 # this sample has no overloaded instance
-                cls_score.append(self(deep_feats))
+                cls_score.append(self(deep_feats[0][i]))
             else:
                 cls_score.append(self(v_i))
 

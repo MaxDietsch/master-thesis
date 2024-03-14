@@ -28,6 +28,7 @@ class DOSLoss(nn.Module):
         #"""Pytorchify:
         f_loss = 0
         g_loss = 0
+        n_loss = 0
         batch_size = deep_feats[0].shape[0]
         rho = []
         for i in range(batch_size):
@@ -46,12 +47,13 @@ class DOSLoss(nn.Module):
         #print(rho)
         
         print(cls_score)
-        print(cls_score[0].shape)
-        print(n[0].shape)
-        print(target.shape)
+        print(target)
         for i in range(batch_size):
-            f_loss += -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
-            g_loss += rho[i] @ self.ce_loss(cls_score[i], target[i]) 
+            if n[i].numel() != 0:
+                f_loss += -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
+                g_loss += rho[i] @ self.ce_loss(cls_score[i], target[i]) 
+            else: 
+                n_loss += self.ce_loss(cls_score[i], target[i])
         loss = f_loss + g_loss
 
 
