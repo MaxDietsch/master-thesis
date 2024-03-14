@@ -29,6 +29,7 @@ class DOSLoss(nn.Module):
         f_loss = 0
         g_loss = 0
         batch_size = deep_feats[0].shape[0]
+        rho = []
         for i in range(batch_size):
             rho.append((torch.empty(1)).to(torch.device("cuda")))
             if w[i].numel() == 0: 
