@@ -46,7 +46,7 @@ class DOSHead(LinearClsHead):
                 print(deep_feats[0])
                 print(deep_feats[0][i])
                 print(deep_feats[0][i].unsqueeze(dim=1))
-                cls_score.append(self(deep_feats[0][i])
+                cls_score.append(self(deep_feats[0][i]))
             else:
                 cls_score.append(self(v_i))
 
