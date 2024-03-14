@@ -36,7 +36,11 @@ apply_perspective = []
 # every rotation and every brightness specified in rotations and brightness array are done to the base images
 # if apply_elastic is not empty: then the elastic transformations specified will 
 # be done for each image in image_transformations at each index in apply_elastic.
-# the same principle goes for apply_perspective 
+# the same principle goes for apply_perspective
+rotations = []
+brightness = [brigthness1]
+apply_elastic = [0]
+apply_perspective = [1]
 polyp_augmentations = {'rotations': rotations, 'brightness': brightness, 'apply_elastic': apply_elastic, 'elastic': elastic, 'apply_perspective': apply_perspective, 'perspective': perspective}
 
 
