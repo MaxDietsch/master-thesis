@@ -20,7 +20,10 @@ class DOSHead(LinearClsHead):
         
         assert isinstance(self.loss_module, DOSLoss), 'loss_module of the head should be DOSLoss when using DOSHead'
 
+    def pre_logits(self, feats: torch.Tensor) -> torch.Tensor:
+        """Overwrite the existing pre_logits function so that all feats are returned"""
 
+        return feats
 
     def loss(self,
              deep_feats: torch.Tensor,
