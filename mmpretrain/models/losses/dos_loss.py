@@ -54,7 +54,7 @@ class DOSLoss(nn.Module):
                 #print(cls_score[i])
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]))
                 #print(rho[i])
-                g_loss += rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])])
+                g_loss += rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda"))
             else: 
                 #print(cls_score[i])
                 #print(target[i])
