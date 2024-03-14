@@ -55,6 +55,8 @@ class DOSLoss(nn.Module):
                 print(rho[i])
                 g_loss += rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])])
             else: 
+                print(cls_score[i])
+                print(target[i])
                 n_loss += self.ce_loss(cls_score[i], target[i])
         loss = f_loss + g_loss
 
