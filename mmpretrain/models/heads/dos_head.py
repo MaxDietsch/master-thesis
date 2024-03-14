@@ -42,9 +42,9 @@ class DOSHead(LinearClsHead):
         for i, v_i in enumerate(n):
             if v_i.numel() == 0:
                 # this sample has no overloaded instance
-                print(deep_feats[0][i].unsqueeze(dim=0).shape)
+                #print(deep_feats[0][i].unsqueeze(dim=0).shape)
                 cls_score.append(self((deep_feats[0][i].unsqueeze(dim=0),)))
-                print(self((deep_feats[0][i].unsqueeze(dim=0), )).shape)
+                #print(self((deep_feats[0][i].unsqueeze(dim=0), )).shape)
             else:
                 #print(v_i.shape)
                 # (v_i, ) because pre_logits extracts the last one (feats[-1])
