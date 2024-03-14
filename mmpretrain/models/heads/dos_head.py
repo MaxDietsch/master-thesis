@@ -39,6 +39,8 @@ class DOSHead(LinearClsHead):
                 data of every samples. """
 
         cls_score = []
+        print(deep_feats)
+        print(deep_feats[0].shape)
         for v_i in n:
             if v_i.numel() == 0:
                 # this sample has no overloaded instance
