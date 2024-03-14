@@ -42,7 +42,11 @@ class DOSHead(LinearClsHead):
         for i, v_i in enumerate(n):
             if v_i.numel() == 0:
                 # this sample has no overloaded instance
-                cls_score.append(self(deep_feats[0][i].unsqueeze(dim = 1)))
+                print(deep_feats)
+                print(deep_feats[0])
+                print(deep_feats[0][i])
+                print(deep_feats[0][i].unsqueeze(dim=1))
+                cls_score.append(self(deep_feats[0][i])
             else:
                 cls_score.append(self(v_i))
 
