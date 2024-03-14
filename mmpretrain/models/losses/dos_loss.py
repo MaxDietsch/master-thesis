@@ -50,6 +50,8 @@ class DOSLoss(nn.Module):
         #print(target)
         for i in range(batch_size):
             if n[i].numel() != 0:
+                print(w[i])
+                print(torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
                 f_loss += -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True)
                 #print(cls_score[i])
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]))
