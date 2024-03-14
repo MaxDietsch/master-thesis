@@ -37,21 +37,20 @@ class DOSHead(LinearClsHead):
                 input tensor 
             data_samples (List[DataSample], optional): The annotation
                 data of every samples. """
-
+        
+        #"""Pytorchify
         cls_score = []
         for i, v_i in enumerate(n):
             if v_i.numel() == 0:
                 # this sample has no overloaded instance
-                print(deep_feats)
-                print(deep_feats[0])
-                print(deep_feats[0][i])
-                print(deep_feats[0][i].unsqueeze(dim=0))
                 cls_score.append(self(deep_feats[0][i].unsqueeze(dim=0)))
             else:
                 cls_score.append(self(v_i))
-
+        #"""
+        """
         if len(n) == 0:
             cls_score.append(self(deep_feats))
+        """
 
 
         target = torch.cat([i.gt_label for i in data_samples])
