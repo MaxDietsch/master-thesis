@@ -100,9 +100,9 @@ class DOSLoss(nn.Module):
                 rho[idy] = rho[idy] / torch.sum(rho[idy])
             
 
-            print(w)
-            print(n)
-            print(cls_score)
+            #print(w)
+            #print(n)
+            #print(cls_score)
             for idy, w_i in enumerate(w):
                 for idx, v_i in enumerate(n):
                     f_loss += w_i[idx] * torch.linalg.norm(deep_feats[0] - v_i)
