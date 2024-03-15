@@ -52,6 +52,7 @@ class DOSHead(LinearClsHead):
                 #print(self((v_i, )).shape)
         #"""
         #"""
+        cls_score = []
         if len(n) == 0:
             cls_score.append(self(deep_feats))
 
