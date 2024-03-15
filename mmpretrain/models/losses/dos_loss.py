@@ -82,7 +82,7 @@ class DOSLoss(nn.Module):
         #print(f'f_loss: {f_loss}')
         #print(f'g_loss: {g_loss}')
         print(torch.sum(deep_feats[0]))
-        loss = torch.tensor([0], dtype = float)
+        loss = n_loss + g_loss 
 
 
         """
