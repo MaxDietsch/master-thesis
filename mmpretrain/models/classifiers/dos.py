@@ -108,7 +108,7 @@ class DOSClassifier(ImageClassifier):
             data_samples (List[DataSample], optional): The annotation
                 data of every samples. It's required if ``mode="loss"``.
                 Defaults to None."""
-        print(input.shape) 
+        print(inputs.shape) 
         deep_feats = self.extract_feat(inputs)
         print(deep_feats)
         return self.head.loss(deep_feats, n, w, data_samples)
