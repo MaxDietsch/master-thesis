@@ -37,7 +37,7 @@ class DOSHead(LinearClsHead):
             data_samples (List[DataSample], optional): The annotation
                 data of every samples. """
         
-        #"""Pytorchify
+        """Pytorchify
         cls_score = []
         for i, v_i in enumerate(n):
             if v_i.numel() == 0:
@@ -51,10 +51,9 @@ class DOSHead(LinearClsHead):
                 cls_score.append(self((v_i, )))
                 #print(self((v_i, )).shape)
         #"""
-        """
+        #"""
         if len(n) == 0:
             cls_score.append(self(deep_feats))
-        """
 
 
         target = torch.cat([i.gt_label for i in data_samples])
