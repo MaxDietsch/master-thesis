@@ -30,6 +30,7 @@ class DOSLoss(nn.Module):
         g_loss = 0
         n_loss = 0
         batch_size = deep_feats[0].shape[0]
+        # calculate the rho values
         rho = []
         for i in range(batch_size):
             rho.append((torch.empty(1)).to(torch.device("cuda")))
@@ -43,29 +44,32 @@ class DOSLoss(nn.Module):
                 rho[i] = torch.exp(rho[i])
                 rho[i] = rho[i] / torch.sum(rho[i], dim = 1, keepdim = True)
 
-                print(w[i].shape)
-                print((deep_feats[0][i] - n[i]).shape)
-                print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).squeeze().shape)
-                print(rho[i].shape)
-                print(rho[i])
+                #print(w[i].shape)
+                #print((deep_feats[0][i] - n[i]).shape)
+                #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).squeeze().shape)
+                #print(rho[i].shape)
+                #print(rho[i])
         #print(rho)
         
-        #print(cls_score)
-        #print(target)
         for i in range(batch_size):
             if n[i].numel() != 0:
-                #print(w[i].shape) is of shape: r x k (for that class)
-                #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
+                # wi is of shape: r x k (for that class)
+                # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
                 f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
+                
+                #print(w[i].shape)
+                #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
 
-                #print(cls_score[i].shape)
-                #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
-                #print(rho[i].shape)
+                # cls_score[i] is of shape k x classes, target is of shape 1 x 1
+                # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k x 1
+                # rho[i] is of shape r x k
+                g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
+                print(cls_score[i].shape)
+                print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
 
-                g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).view(1, -1).to(torch.device("cuda")))
-            else: 
+           else: 
                 #print(cls_score[i])
                 #print(target[i])
                 n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
