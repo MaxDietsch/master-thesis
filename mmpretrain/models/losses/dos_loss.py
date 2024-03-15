@@ -50,13 +50,15 @@ class DOSLoss(nn.Module):
         #print(target)
         for i in range(batch_size):
             if n[i].numel() != 0:
-                #print(w[i].shape)
-                #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
+                print(w[i].shape)
+                print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
+                # implements: wi * ||f(x) - vi||**2 , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
+
                 f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
                 #print("-------------------")
-                print(cls_score[i].shape)
+                #print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
-                print(rho[i].shape)
+                #print(rho[i].shape)
                 g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).view(1, -1).to(torch.device("cuda")))
             else: 
                 #print(cls_score[i])
