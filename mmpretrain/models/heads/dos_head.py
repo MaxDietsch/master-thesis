@@ -55,6 +55,9 @@ class DOSHead(LinearClsHead):
         cls_score = []
         if len(n) == 0:
             cls_score.append(self(deep_feats))
+        else:
+            for v_i in n:
+                cls_score.append(self(v_i))
 
 
         target = torch.cat([i.gt_label for i in data_samples])
