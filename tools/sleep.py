@@ -6,6 +6,7 @@ def wait_and_print():
   time.sleep(5 * 60)  # Convert 5 minutes to seconds
 
 if __name__ == "__main__":
-  wait_and_print()
+    while True:
+        wait_and_print()
 
 
