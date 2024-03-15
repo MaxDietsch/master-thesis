@@ -37,8 +37,8 @@ class DOSLoss(nn.Module):
                 # this sample has no overloaded instance
                 continue
             else:
-                print(w[i].shape)
-                print(n[i].shape)
+                #print(w[i].shape)
+                #print(n[i].shape)
                 #print(deep_feats[0][i].shape)
                 #print((deep_feats[0][i] - n[i]).shape)
                 rho[i] = -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True)
@@ -54,9 +54,9 @@ class DOSLoss(nn.Module):
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
                 f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
                 #print("-------------------")
-                #print(cls_score[i].shape)
+                print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
-                #print(rho[i].shape)
+                print(rho[i].shape)
                 g_loss += rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda"))
             else: 
                 #print(cls_score[i])
