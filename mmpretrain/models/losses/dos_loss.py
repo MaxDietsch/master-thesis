@@ -81,7 +81,7 @@ class DOSLoss(nn.Module):
         #print(f'n_loss: {n_loss}')
         #print(f'f_loss: {f_loss}')
         #print(f'g_loss: {g_loss}')
-        loss = f_loss + g_loss+ n_loss
+        loss = 0
 
 
         """
