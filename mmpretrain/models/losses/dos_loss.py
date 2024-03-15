@@ -60,7 +60,7 @@ class DOSLoss(nn.Module):
                 # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 (sum for every i) , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
-                f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
+                loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
                 
                 #print(w[i].shape)
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
@@ -69,20 +69,19 @@ class DOSLoss(nn.Module):
                 # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k (loss for every oversampled examples)
                 # rho[i] is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
                 # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
-                g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
+                loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
                 
                 #print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
 
             else:
                 # for not oversampled instances take the normal loss
-                n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
+                loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
 
         #print(f'n_loss: {n_loss}')
         #print(f'f_loss: {f_loss}')
         #print(f'g_loss: {g_loss}')
-        print(f_loss)
-        loss = f_loss 
+        loss = loss 
 
 
         """
