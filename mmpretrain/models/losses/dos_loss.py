@@ -76,6 +76,8 @@ class DOSLoss(nn.Module):
             else:
                 # for not oversampled instances take the normal loss
                 n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
+
+        print(loss)
         loss = f_loss + g_loss+ n_loss
 
 
