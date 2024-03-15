@@ -37,13 +37,16 @@ class DOSLoss(nn.Module):
                 # this sample has no overloaded instance
                 continue
             else:
-                print(w[i].shape)
-                print(n[i].shape)
-                #print(deep_feats[0][i].shape)
-                print((deep_feats[0][i] - n[i]).shape)
-                rho[i] = -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True)
+                # deep_feats[0][i] is of shape k x feats, n[i] is of shape k x feats -> norm: k x 1 -> transpose: 1 x k
+                # w[i] is of shape r x k -> rho[i] is of shape r x k
+                rho[i] = -w[i] * torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).squeeze()
                 rho[i] = torch.exp(rho[i])
-                rho[i] = rho[i] / torch.sum(rho[i])
+                rho[i] = rho[i] / torch.sum(rho[i], dim = 1, keepdim = True)
+
+                print(w[i].shape)
+                print((deep_feats[0][i] - n[i]).shape)
+                print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).squeeze())
+                print(rho[i].shape)
         #print(rho)
         
         #print(cls_score)
@@ -59,6 +62,7 @@ class DOSLoss(nn.Module):
                 #print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
                 #print(rho[i].shape)
+
                 g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).view(1, -1).to(torch.device("cuda")))
             else: 
                 #print(cls_score[i])
