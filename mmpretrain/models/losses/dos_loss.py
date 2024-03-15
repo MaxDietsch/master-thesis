@@ -27,7 +27,7 @@ class DOSLoss(nn.Module):
             w (torch.Tensor): The weights for the given input
         """
     
-        #"""Pytorchify:
+        """Pytorchify:
         loss = 0
         batch_size = deep_feats[0].shape[0]
         # calculate the rho values
@@ -107,7 +107,7 @@ class DOSLoss(nn.Module):
                     g_loss += rho[idy][idx] * self.ce_loss(cls_score[idx].unsqueeze(0), target)
             
             loss = g_loss + f_loss
-            """
+        #"""
 
         return loss
                 
