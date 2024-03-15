@@ -31,6 +31,7 @@ class DOSLoss(nn.Module):
         f_loss = 0
         g_loss = 0
         n_loss = 0
+        loss = 0
         batch_size = deep_feats[0].shape[0]
         # calculate the rho values
         # print(torch.sum(deep_feats[0]))
@@ -60,7 +61,7 @@ class DOSLoss(nn.Module):
                 # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 (sum for every i) , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
-                loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
+                loss += torch.sum(w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
                 
                 #print(w[i].shape)
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
