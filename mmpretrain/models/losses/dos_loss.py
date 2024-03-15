@@ -37,10 +37,10 @@ class DOSLoss(nn.Module):
                 # this sample has no overloaded instance
                 continue
             else:
-                #print(w[i].shape)
-                #print(n[i].shape)
+                print(w[i].shape)
+                print(n[i].shape)
                 #print(deep_feats[0][i].shape)
-                #print((deep_feats[0][i] - n[i]).shape)
+                print((deep_feats[0][i] - n[i]).shape)
                 rho[i] = -w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True)
                 rho[i] = torch.exp(rho[i])
                 rho[i] = rho[i] / torch.sum(rho[i])
@@ -50,12 +50,12 @@ class DOSLoss(nn.Module):
         #print(target)
         for i in range(batch_size):
             if n[i].numel() != 0:
-                print(w[i].shape)
-                print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
+                #print(w[i].shape) is of shape: r x k (for that class)
+                #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
+                # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
-
                 f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
-                #print("-------------------")
+
                 #print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
                 #print(rho[i].shape)
