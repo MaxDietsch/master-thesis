@@ -18,7 +18,9 @@ class DOSLoss(nn.Module):
                 target: torch.Tensor,
                 n: List[torch.Tensor],
                 w: List[torch.Tensor]) -> float:
-        """ deep_feats (torch.Tensor): The deep feature vector of the input
+        """ 
+            TODO: CHANGE COMMENTS
+            deep_feats (torch.Tensor): The deep feature vector of the input
             cls_score (torch.Tensor): The output vector of the input
             target (torch.Tensor): The target class of the input
             n (torch.Tensor): The deep features of the nearest neighbours of the input
@@ -56,22 +58,23 @@ class DOSLoss(nn.Module):
                 # wi is of shape: r x k (for that class)
                 # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
-                # implements: wi * ||f(x) - vi||**2 , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
+                # implements: wi * ||f(x) - vi||**2 (sum for every i) , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
                 f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
                 
                 #print(w[i].shape)
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
 
                 # cls_score[i] is of shape k x classes, target is of shape 1 x 1
-                # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k x 1
-                # rho[i] is of shape r x k
+                # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k (loss for every oversampled examples)
+                # rho[i] is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
+                # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
                 g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
-                print(cls_score[i].shape)
-                print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
+                
+                #print(cls_score[i].shape)
+                #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
 
-            else: 
-                #print(cls_score[i])
-                #print(target[i])
+            else:
+                # for not oversampled instances take the normal loss
                 n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
         loss = f_loss + g_loss+ n_loss
 
