@@ -28,10 +28,9 @@ class DOSLoss(nn.Module):
         """
     
         #"""Pytorchify:
-        f_loss = 0
-        g_loss = 0
-        n_loss = 0
-        loss = 0
+        f_loss = torch.zeros((1, 1), requires_grad = True)
+        g_loss = torch.zeros((1, 1), requires_grad = True)
+        n_loss = torch.zeros((1, 1), requires_grad = True)
         batch_size = deep_feats[0].shape[0]
         # calculate the rho values
         # print(torch.sum(deep_feats[0]))
@@ -61,7 +60,7 @@ class DOSLoss(nn.Module):
                 # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 (sum for every i) , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
-                loss += torch.sum(w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
+                f_loss += torch.sum(w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
                 
                 #print(w[i].shape)
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)
@@ -70,19 +69,19 @@ class DOSLoss(nn.Module):
                 # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k (loss for every oversampled examples)
                 # rho[i] is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
                 # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
-                loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
+                g_loss += torch.sum(rho[i] @ torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).to(torch.device("cuda")))
                 
                 #print(cls_score[i].shape)
                 #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
 
             else:
                 # for not oversampled instances take the normal loss
-                loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
+                n_loss += self.ce_loss(cls_score[i], target[i].unsqueeze(dim=0))
 
         #print(f'n_loss: {n_loss}')
         #print(f'f_loss: {f_loss}')
         #print(f'g_loss: {g_loss}')
-        loss = loss 
+        loss = f_loss + g_loss + n_loss 
 
 
         """
