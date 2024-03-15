@@ -43,7 +43,7 @@ class DOSLoss(nn.Module):
             else:
                 # deep_feats[0][i] is of shape k x feats, n[i] is of shape k x feats -> norm: k x 1 -> transpose: 1 x k
                 # w[i] is of shape r x k -> rho[i] is of shape r x k
-                rho[i] = -w[i] * torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).squeeze()
+                rho[i] = -w[i] * torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True).squeeze()
                 rho[i] = torch.exp(rho[i])
                 rho[i] = rho[i] / torch.sum(rho[i], dim = 1, keepdim = True)
 
@@ -60,7 +60,7 @@ class DOSLoss(nn.Module):
                 # torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape) shape k x 1
                 # result is r x 1 (so for each weight vector) -> sum over it
                 # implements: wi * ||f(x) - vi||**2 (sum for every i) , where wi is a component of 1 weight vector w and vi is 1 oversampled feature vector
-                f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True))
+                f_loss += torch.sum(-w[i] @ torch.linalg.norm(deep_feats[0][i] - n[i], dim = 1, keepdim = True))
                 
                 #print(w[i].shape)
                 #print(torch.linalg.norm(deep_feats[0][i] - n[i], ord = 2, dim = 1, keepdim = True).shape)

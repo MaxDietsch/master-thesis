@@ -201,7 +201,6 @@ class ImageClassifier(BaseClassifier):
             (f'Invalid output stage "{stage}", please choose from "backbone", '
              '"neck" and "pre_logits"')
 
-        print(inputs)
         x = self.backbone(inputs)
         
         if stage == 'backbone':
