@@ -54,12 +54,13 @@ class DOSHead(LinearClsHead):
 
         #"""Pytorchify:
         cls_score = []
+        print(len(n))
         if len(n) == 0:
             cls_score.append(self(deep_feats))
         else:
             for v_i in n:
                 print(v_i.shape)
-                cls_score.append(self(v_i.unsqeeze(0)))
+                cls_score.append(self(v_i.unsqueeze(0)))
         """
 
         cls_score = []
