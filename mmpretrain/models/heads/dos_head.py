@@ -54,7 +54,8 @@ class DOSHead(LinearClsHead):
 
         #"""Pytorchify:
         cls_score = []
-        print(len(n))
+        print(n) 
+        print(n.shape)
         if len(n) == 0:
             cls_score.append(self(deep_feats))
         else:
