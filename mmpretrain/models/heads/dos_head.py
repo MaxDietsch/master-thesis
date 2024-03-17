@@ -56,12 +56,10 @@ class DOSHead(LinearClsHead):
         cls_score = []
         print(n) 
         print(n.shape)
-        if len(n) == 0:
+        if n.numel() == 0:
             cls_score.append(self(deep_feats))
         else:
-            for v_i in n:
-                print(v_i.shape)
-                cls_score.append(self(v_i.unsqueeze(0)))
+            cls_score.append(self(n))
         """
 
         cls_score = []
