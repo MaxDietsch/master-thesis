@@ -66,7 +66,7 @@ class DOSLoss(nn.Module):
             # rho is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
             # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
             
-            print(torch.tensor([self.ce_loss(score.view(-1, 1), target) for score in cls_score]).shape)
+            print(torch.tensor([self.ce_loss(score.view(1, -1), target) for score in cls_score]).shape)
             loss += torch.sum(rho @ torch.tensor([self.ce_loss(score.view(1, -1), target) for score in cls_score]).to(torch.device("cuda")))
             
             #print(cls_score.shape)
