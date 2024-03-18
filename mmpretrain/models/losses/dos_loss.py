@@ -50,7 +50,7 @@ class DOSLoss(nn.Module):
 
             print(w.shape)
             print((deep_feats[0] - n).shape)
-            print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1, keepdim = True).shape)
+            print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1).shape)
             print(rho.shape)
             print(rho)
         #print(rho)
