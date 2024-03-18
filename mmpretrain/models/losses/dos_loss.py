@@ -29,12 +29,6 @@ class DOSLoss(nn.Module):
     
         #"""Pytorchify:
         loss = 0
-        batch_size = deep_feats[0].shape[0]
-        # calculate the rho values
-        # print(torch.sum(deep_feats[0]))
-        rho = []
-
-        loss = 0
         # calculate the rho values
         # print(torch.sum(deep_feats[0]))
         rho = []
@@ -73,7 +67,7 @@ class DOSLoss(nn.Module):
             # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
             for score in cls_score:
                 print(score)
-                print(torch.tensor(self.ce_loss(score.view(1, 4), target)))
+                print(torch.tensor(self.ce_loss(score.view(1, -1), target)))
 
             loss += torch.sum(rho @ torch.tensor([self.ce_loss(score, target) for score in cls_score]).to(torch.device("cuda")))
             
@@ -107,7 +101,12 @@ class DOSLoss(nn.Module):
 
 
 
-        """with batch 
+        """with batch
+        loss = 0
+        batch_size = deep_feats[0].shape[0]
+        # calculate the rho values
+        # print(torch.sum(deep_feats[0]))
+        rho = []
         for i in range(batch_size):
             rho.append((torch.empty(1)).to(torch.device("cuda")))
             if w[i].numel() == 0: 
