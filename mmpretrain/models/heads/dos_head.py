@@ -57,11 +57,7 @@ class DOSHead(LinearClsHead):
         if n.numel() == 0:
             cls_score.append(self(deep_feats))
         else:
-            print(n.unsqueeze(1))
-            print(n.unsqueeze(1).shape)
-            print(self(n.unsqueeze(1)).shape)
-            print("###############")
-            cls_score.append(self(n.unsqueeze(1)))
+            cls_score.append(self((n, )))
         """
 
         cls_score = []
