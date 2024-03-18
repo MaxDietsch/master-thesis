@@ -55,7 +55,7 @@ class DOSHead(LinearClsHead):
         #"""Pytorchify:
         cls_score = []
         if n.numel() == 0:
-            cls_score.append(self((deep_feats, )))
+            cls_score.append(self(deep_feats))
         else:
             cls_score.append(self((n, )))
         """
