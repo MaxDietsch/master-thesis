@@ -50,7 +50,7 @@ class DOSLoss(nn.Module):
 
             print(w.shape)
             print((deep_feats[0] - n).shape)
-            print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1, keepdim = True).squeeze().shape)
+            print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1, keepdim = True).shape)
             print(rho.shape)
             print(rho)
         #print(rho)
@@ -76,8 +76,6 @@ class DOSLoss(nn.Module):
 
         else:
             # for not oversampled instances take the normal loss
-            print(cls_score)
-            print(target)
             loss += self.ce_loss(cls_score[0], target)
 
 
