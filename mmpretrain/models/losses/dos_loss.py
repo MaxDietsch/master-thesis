@@ -70,7 +70,7 @@ class DOSLoss(nn.Module):
             for score in cls_score:
                 print(score.view(1, -1))
             print(torch.tensor([self.ce_loss(cls_score[0], target)]))
-            loss += torch.sum(rho @ torch.tensor([self.ce_loss(score.view(1, -1), target) for score in cls_score]).to(torch.device("cuda")))
+            loss += torch.sum(rho @ torch.tensor([self.ce_loss(score, target) for score in cls_score[0]]).to(torch.device("cuda")))
             
             #print(cls_score.shape)
             #print(torch.tensor([self.ce_loss(cls_score[j], target) for j in range(cls_score.shape[0])]).shape)
