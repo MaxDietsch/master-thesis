@@ -59,8 +59,9 @@ class DOSHead(LinearClsHead):
         else:
             print(n.unsqueeze(1))
             print(n.unsqueeze(1).shape)
-            print(self(n.unsqueeze(0)).shape)
-            cls_score.append(self(n))
+            print(self(n.unsqueeze(1)).shape)
+            print("###############")
+            cls_score.append(self(n.unsqueeze(1)))
         """
 
         cls_score = []
