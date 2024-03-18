@@ -42,11 +42,11 @@ class DOSLoss(nn.Module):
             rho = torch.exp(rho)
             rho = rho / torch.sum(rho, dim = 1, keepdim = True)
 
-            print(w.shape)
-            print((deep_feats[0] - n).shape)
-            print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1).shape)
-            print(rho.shape)
-            print(rho)
+            #print(w.shape)
+            #print((deep_feats[0] - n).shape)
+            #print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1).shape)
+            #print(rho.shape)
+            #print(rho)
         #print(rho)
 
         #print(target)
