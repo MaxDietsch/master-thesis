@@ -54,6 +54,8 @@ class DOSLoss(nn.Module):
             print(rho.shape)
             print(rho)
         #print(rho)
+
+        print(target)
         
         if n.numel() != 0:
             # wi is of shape: r x k (for that class)
