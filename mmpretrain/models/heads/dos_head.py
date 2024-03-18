@@ -59,6 +59,7 @@ class DOSHead(LinearClsHead):
         else:
             print(n)
             print(n.shape)
+            print(self(n).shape)
             cls_score.append(self(n))
         """
 
