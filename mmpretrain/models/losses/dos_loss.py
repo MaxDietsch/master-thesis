@@ -40,10 +40,8 @@ class DOSLoss(nn.Module):
         rho = []
 
         rho.append((torch.empty(1)).to(torch.device("cuda")))
-        if w.numel() == 0: 
-            # this sample has no overloaded instance
-            continue
-        else:
+        if w.numel() != 0: 
+            # this sample has an overloaded instance
             # deep_feats[0] is of shape 1 x feats, n is of shape k x feats -> norm: k x 1 -> transpose: 1 x k
             # w is of shape r x k -> rho is of shape r x k
             rho = -w * torch.linalg.norm(deep_feats[0] - n, dim = 1, keepdim = True).squeeze()
@@ -68,13 +66,13 @@ class DOSLoss(nn.Module):
             #print(torch.linalg.norm(deep_feats[0] - n, ord = 2, dim = 1, keepdim = True).shape)
 
             # cls_score is of shape k x classes, target is of shape 1 x 1
-            # torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape is of shape k (loss for every oversampled examples)
-            # rho[i] is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
+            # torch.tensor([self.ce_loss(cls_score[j], target) for j in range(cls_score[i].shape[0])]).shape is of shape k (loss for every oversampled examples)
+            # rho is of shape r x k -> result will be r x 1 (for each weight vector) -> sum over it 
             # implements rho(vi, wi) * H(g(vi), y) (-> sum for every i), where g(vi) is prediction for oversamples feature and y is ground truth
             loss += torch.sum(rho @ torch.tensor([self.ce_loss(cls_score[j], target) for j in range(cls_score.shape[0])]).to(torch.device("cuda")))
             
-            #print(cls_score[i].shape)
-            #print(torch.tensor([self.ce_loss(cls_score[i][j], target[i]) for j in range(cls_score[i].shape[0])]).shape)
+            #print(cls_score.shape)
+            #print(torch.tensor([self.ce_loss(cls_score[j], target) for j in range(cls_score.shape[0])]).shape)
 
         else:
             # for not oversampled instances take the normal loss
