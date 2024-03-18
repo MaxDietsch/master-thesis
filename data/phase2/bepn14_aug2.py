@@ -20,11 +20,11 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=16,
+    batch_size=14,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N_aug',
+        data_root='../../B_E_P_N_aug2',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
@@ -55,4 +55,5 @@ val_evaluator = [
 
 test_dataloader = val_dataloader
 test_evaluator = val_evaluator
+
 

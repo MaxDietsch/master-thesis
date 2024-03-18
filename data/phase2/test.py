@@ -19,23 +19,31 @@ test_pipeline = [
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 
-train_dataloader = dict(
-    batch_size=16,
+train_dataloader = None
+
+val_dataloader = dict(
+    batch_size=1,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N_aug2',
-        ann_file='meta/train.txt',
-        data_prefix='train',
+        data_root='../../B_E_P_N',
+        ann_file='meta/val.txt',
+        data_prefix='val',
         with_label=True,
         classes=['normal', 'polyps', 'barretts', 'esophagitis'],
-        pipeline=train_pipeline),
-    sampler=dict(type='DefaultSampler', shuffle=True),
+        pipeline=test_pipeline),
+    sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
 )
 
-val_dataloader = dict(
-    batch_size=16,
+val_evaluator = [
+        dict(type='Accuracy', topk=(1)),
+        dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)                        
+        ]
+
+
+test_dataloader = dict(
+    batch_size=1,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
@@ -48,12 +56,5 @@ val_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
 )
-val_evaluator = [
-        dict(type='Accuracy', topk=(1)),
-        dict(type='SingleLabelMetric', items=['precision', 'recall', 'f1-score'], average=None)
-                ]
 
-test_dataloader = val_dataloader
 test_evaluator = val_evaluator
-
-
