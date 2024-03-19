@@ -1,8 +1,8 @@
 
 
 _base_ = [
-        '../../model/swin.py',
-        '../../data/phase2/bepn14_aug.py',
+        '../../model/swin_disease.py',
+        '../../data/phase2/bepn14_disease.py',
         '../../schedule/sgd_decr.py',
         '../../runtime/default.py'
 ]
