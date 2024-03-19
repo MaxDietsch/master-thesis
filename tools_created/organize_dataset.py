@@ -70,7 +70,7 @@ def copy_and_write(file_list, root, class_id, base_dir, category, meta_dir):
             f.write(f"{destination} {class_id}\n")
 
 # Usage
-base_directory = '../../B_E_P_N_aug4'
+base_directory = '../../B_E_P_N_BMU'
 train_percent = 100
 val_percent = 0
 test_percent = 0
