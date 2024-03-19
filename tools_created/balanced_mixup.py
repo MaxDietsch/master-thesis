@@ -51,7 +51,6 @@ for i in range(num_new_samples):
     img_si = img_si.unsqueeze(0)
     img_si = nn.functional.interpolate(img_si, size = img_sc.shape, mode = 'trilinear')
     img_si = img_si.squeeze()
-    print(img_si.shape)
     # sample lambda
     l = beta_dist.sample()
 
@@ -60,6 +59,7 @@ for i in range(num_new_samples):
     mixed_label = l * si + (1 - l) * sc
 
     mixed_image = mixed_sample.cpu().numpy()
+    print(mixed_image.shape)
     mixed_image = cv2.cvtColor(mixed_image, cv2.COLOR_RGB2BGR)  
     cv2.imwrite(img_dir + f'/bmu_{i}.jpg', mixed_image) 
 
