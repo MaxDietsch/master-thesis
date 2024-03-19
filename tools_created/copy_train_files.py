@@ -13,7 +13,7 @@ The images are copied to a new directory: dataset_name/class_name.
 ROOT = '../../B_E_P_N/'
 
 # create new dataset directory
-dataset_name = 'B_E_P_N_aug4'
+dataset_name = 'B_E_P_N_BMU'
 new_data_dir = os.path.join(ROOT + '../', dataset_name)
 os.makedirs(new_data_dir, exist_ok = True)
 

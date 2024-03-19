@@ -16,7 +16,7 @@ alpha = 0.5
 num_new_samples = 10
 torch.manual_seed(16)
 
-paths = [[] for _ in range(len(classes))]
+paths = [[] for _ in range(num_classes)]
 
 with open(train_txt_file, "r") as file:  
     for line in file:
