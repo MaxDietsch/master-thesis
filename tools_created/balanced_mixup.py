@@ -35,14 +35,14 @@ for i in range(num_new_samples):
     
     # class based sampling
     sc = torch.randint(low = 0, high = num_classes, size = (1, ))
-    img_sc = paths[sc][torch.randint(low = 0, high = len(paths[sc], size = (1, )))]
+    img_sc = paths[sc][torch.randint(low = 0, high = len(paths[sc]), size = (1, ))]
     img_sc = cv2.imread(img_sc)
     img_sc = cv2.cvtColor(img_sc, cv2.COLOR_BGR2RGB)
     img_sc = torch.ToTensor(img_sc)
 
     # instance based sampling and reshape image to match dimension of the first image 
     si = cat_dist.sample(sample_shape=(1,))
-    img_si = paths[si][torch.randint(low = 0, high = len(paths[si], size = (1, )))]
+    img_si = paths[si][torch.randint(low = 0, high = len(paths[si]), size = (1, ))]
     img_si = cv2.imread(img_si)
     img_si = cv2.cvtColor(img_si, cv2.COLOR_BGR2RGB)
     img_si = torch.ToTensor(img_si)
