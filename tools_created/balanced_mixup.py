@@ -51,6 +51,7 @@ for i in range(num_new_samples):
     img_si = img_si.unsqueeze(0)
     img_si = nn.functional.interpolate(img_si, size = img_sc.shape, mode = 'trilinear')
     img_si = img_si.squeeze()
+    print(img_si)
     # sample lambda
     l = beta_dist.sample()
 
