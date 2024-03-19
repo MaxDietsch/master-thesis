@@ -31,12 +31,12 @@ def manipulate_and_save_file(input_file_path, output_file_path):
 #input_file_path = '../../../B_E_P_N/meta/train.txt'
 #output_file_path = '../../../B_E_P_N/meta_2phase/train_healthy.txt'  
 
-input_file_path = '../../../B_E_P_N/meta/val.txt'
+input_file_path = '../../B_E_P_N/meta/val.txt'
 output_file_path = '../../../B_E_P_N/meta_2phase/val_healthy.txt'
 manipulate_and_save_file(input_file_path, output_file_path)
 
-input_file_path = '../../../B_E_P_N/meta/test.txt'
-output_file_path = '../../../B_E_P_N/meta_2phase/test_healthy.txt'
+input_file_path = '../../B_E_P_N/meta/test.txt'
+output_file_path = '../../B_E_P_N/meta_2phase/test_healthy.txt'
 manipulate_and_save_file(input_file_path, output_file_path)
 
 
