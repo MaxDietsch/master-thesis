@@ -27,7 +27,7 @@ def parse_args():
             '--lr',
             help='If specified use a learning rate schedule (predefined by this file)'
             )
-    parser.add_arguemnt(
+    parser.add_argument(
             '--dataset',
             help='Use the specified dataset'
             )
