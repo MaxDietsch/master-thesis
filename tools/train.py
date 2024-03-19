@@ -24,6 +24,14 @@ def parse_args():
         'specify, try to auto resume from the latest checkpoint '
         'in the work directory.')
     parser.add_argument(
+            '--lr',
+            help='If specified use a learning rate schedule (predefined by this file)'
+            )
+    parser.add_arguemnt(
+            '--dataset',
+            help='Use the specified dataset'
+            )
+    parser.add_argument(
         '--amp',
         action='store_true',
         help='enable automatic-mixed-precision training')
@@ -132,6 +140,20 @@ def merge_args(cfg, args):
 
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)
+    
+    if args.lr: 
+        if args.lr == "0.001":
+            cfg.optim_wrapper = dict(optimizer=dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001))
+            cfg.param_scheduler = None
+        if args.lr == "0.01": 
+            cfg.optim_wrapper = dict(optimizer=dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001))
+            cfg.param_scheduler = None 
+        if args.lr == 'decr':
+            cfg.optim_wrapper = dict(optimizer=dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001))
+            cfg.param_scheduler = dict(type='MultiStepLR', by_epoch=True, milestones=[30, 60, 90], gamma=0.5)
+
+
+
 
     return cfg
 
