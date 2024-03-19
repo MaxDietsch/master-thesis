@@ -25,7 +25,14 @@ def manipulate_and_save_file(input_file_path, output_file_path):
         output_file.writelines(modified_lines)
 
 
-input_file_path = '../../../B_E_P_N/meta/train2.txt'
-output_file_path = '../../../B_E_P_N/meta/train2_healthy.txt'  
+#input_file_path = '../../B_E_P_N/meta/train.txt'
+#output_file_path = '../../B_E_P_N/meta/train_disease.txt' 
 
+input_file_path = '../../B_E_P_N/meta/val.txt'
+output_file_path = '../../B_E_P_N/meta_2phase/val_disease.txt'
 manipulate_and_save_file(input_file_path, output_file_path)
+
+input_file_path = '../../B_E_P_N/meta/test.txt'
+output_file_path = '../../B_E_P_N/meta_2phase/test_disease.txt'
+manipulate_and_save_file(input_file_path, output_file_path)
+
