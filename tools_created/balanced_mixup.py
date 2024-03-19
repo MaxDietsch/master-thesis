@@ -47,10 +47,7 @@ for i in range(num_new_samples):
     img_si = cv2.imread(img_si)
     img_si = cv2.cvtColor(img_si, cv2.COLOR_BGR2RGB)
     img_si = transforms.ToTensor()(img_si)
-    img_si = img_si.unsqueeze(0)
-    img_si = img_si.unsqueeze(0)
-    img_si = nn.functional.interpolate(img_si, size = img_sc.shape, mode = 'trilinear')
-    img_si = img_si.squeeze()
+    img_si = nn.functional.interpolate(img_si, size = img_sc.shape, mode = 'bilinear')
 
     # sample lambda
     l = beta_dist.sample()
