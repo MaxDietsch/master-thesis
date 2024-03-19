@@ -21,7 +21,7 @@ paths = [[] for _ in range(num_classes)]
 with open(train_txt_file, "r") as file:  
     for line in file:
         path, label = line.strip().split(" ", 1)
-        paths[label].append(path)
+        paths[int(label)].append(path)
 
 
 # define categorical distribution for instance based sampling 
