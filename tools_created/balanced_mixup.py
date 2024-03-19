@@ -59,6 +59,7 @@ for i in range(num_new_samples):
     mixed_label = l * si + (1 - l) * sc
 
     mixed_image = mixed_sample.cpu().numpy().transpose(1, 2, 0)
+    print(mixed_image)
     mixed_image = cv2.cvtColor(mixed_image, cv2.COLOR_RGB2BGR)  
     cv2.imwrite(img_dir + f'/bmu_{i}.jpg', mixed_image) 
 
