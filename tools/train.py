@@ -161,6 +161,9 @@ def main():
     # load config
     cfg = Config.fromfile(args.config)
 
+    if cfg.train_dataloader == "bmu":
+        print('bmu')
+
     # merge cli arguments to config
     cfg = merge_args(cfg, args)
 
