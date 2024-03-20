@@ -1,7 +1,6 @@
 
 from mmpretrain.datasets.custom import CustomDataset
 import torch
-import numpy as np
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 
@@ -94,7 +93,7 @@ def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pip
                                   )
     if see_classes:
         print(20 * '*')
-        for c in range(len(np.unique(train_dataset.dr))):
+        for c in range(len(classes)):
             exs_train = np.count_nonzero(train_dataset.dr== c)
             print('Found {:d} train examples of class {}'.format(exs_train, c))
 
