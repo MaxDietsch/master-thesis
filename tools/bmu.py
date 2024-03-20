@@ -82,7 +82,7 @@ def get_combo_loader(loader):
     return combo_loader
 
 
-def get_train_datasets(data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes):
+def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes):
 
     train_dataset = CustomDataset(data_root=data_root,
                                   ann_file=ann_file,
