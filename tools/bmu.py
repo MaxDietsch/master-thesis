@@ -96,7 +96,7 @@ def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pip
 
 def get_train_loader(batch_size, num_workers, data_root, ann_file, data_prefix, with_label, classes, pipeline):
 
-    train_dataset = get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes)
+    train_dataset = get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline)
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=torch.cuda.is_available(), shuffle=True, drop_last=True)
     return train_loader
