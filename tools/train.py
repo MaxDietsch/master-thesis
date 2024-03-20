@@ -162,7 +162,7 @@ def main():
     cfg = Config.fromfile(args.config)
 
     if cfg.train_dataloader == "bmu":
-        import bmu
+        from bmu import get_train_loader, get_combo_loader
         train_pipeline = [
             dict(type='LoadImageFromFile'),     # read image
             dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
