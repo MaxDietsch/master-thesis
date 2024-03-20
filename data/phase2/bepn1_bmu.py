@@ -1,5 +1,3 @@
-import torch
-from torch.utils.data import DataLoader, WeightedRandomSampler
 #construct dataloader and evaluator
 dataset_type = 'CustomDataset'
 data_preprocessor = dict(
@@ -21,15 +19,8 @@ test_pipeline = [
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 
-train_loader = get_train_loader(batch_size = 8, num_workers = 5,
-                                data_root = '../../B_E_P_N', 
-                                ann_file = 'meta/train.txt', 
-                                data_prefix = 'train',
-                                with_label = True, 
-                                classes = ['normal', 'polyps', 'barretts', 'esophagitis'],
-                                pipeline = train_pipeline)
 
-train_dataloader = get_combo_loader(train_loader)
+train_dataloader = "bmu" 
 
 
 
