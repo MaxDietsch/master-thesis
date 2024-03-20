@@ -161,23 +161,6 @@ def main():
     # load config
     cfg = Config.fromfile(args.config)
 
-    if cfg.train_dataloader == "bmu":
-        from bmu import get_train_loader, get_combo_loader
-        train_pipeline = [
-            dict(type='LoadImageFromFile'),     # read image
-            dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
-            dict(type='PackInputs'),         # prepare images and labels
-        ]
-        train_loader = get_train_loader(batch_size = 8, 
-                                        num_workers = 5, 
-                                        data_root = '../../B_E_P_N',
-                                        ann_file = 'meta/train.txt',
-                                        data_prefix = 'train',
-                                        with_label = True, 
-                                        classes = ['normal', 'polyps', 'barretts', 'esophagitis'],
-                                        pipeline = train_pipeline)
-        cfg.train_dataloader = get_combo_loader(train_loader)
-
     # merge cli arguments to config
     cfg = merge_args(cfg, args)
 
