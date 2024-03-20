@@ -1,5 +1,5 @@
 
-from mmpretrain import datasets
+from mmpretrain.datasets import custom
 import torch
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
