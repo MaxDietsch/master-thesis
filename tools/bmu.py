@@ -65,7 +65,7 @@ def get_sampling_probabilities(class_count, mode='instance'):
 
  # modify dataloader so that it samples based on probabilities
 def modify_loader(loader, mode, ep=None, n_eps=None):
-    class_count = np.unique(loader.dataset.dr, return_counts=True)[1]
+    class_count = len(loader.dataset.classes)
     sampling_probs = get_sampling_probabilities(class_count, mode=mode)
     sample_weights = sampling_probs[loader.dataset.dr]
 
