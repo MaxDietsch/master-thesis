@@ -163,11 +163,7 @@ def main():
 
     if cfg.train_dataloader == "bmu":
         import bmu
-        train_pipeline = [
-            dict(type='LoadImageFromFile'),     # read image
-            dict(type='Resize', scale=(640, 640), interpolation='bicubic'),
-            dict(type='PackInputs'),         # prepare images and labels
-        ]
+
         train_loader = get_train_loader(batch_size = 8, 
                                         num_workers = 5, 
                                         data_root = '../../B_E_P_N',
@@ -175,7 +171,7 @@ def main():
                                         data_prefix = 'train',
                                         with_label = True, 
                                         classes = ['normal', 'polyps', 'barretts', 'esophagitis'],
-                                        pipeline = train_pipeline)
+                                        pipeline = pipeline)
         cfg.train_dataloader = get_combo_loader(train_loader)
 
     # merge cli arguments to config
