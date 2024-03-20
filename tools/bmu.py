@@ -64,7 +64,7 @@ def get_sampling_probabilities(class_count, mode='instance'):
 
  # modify dataloader so that it samples based on probabilities
 def modify_loader(loader, mode, ep=None, n_eps=None):
-    class_count = len(loader.dataset.classes)
+    class_count = torch.tensor([3312, 45, 132, 539])
     sampling_probs = get_sampling_probabilities(class_count, mode=mode)
     sample_weights = sampling_probs[loader.dataset.dr]
 
@@ -82,7 +82,7 @@ def get_combo_loader(loader):
     return combo_loader
 
 
-def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes):
+def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline):
 
     train_dataset = CustomDataset(data_root=data_root,
                                   ann_file=ann_file,
@@ -91,16 +91,10 @@ def get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pip
                                   classes=classes,
                                   pipeline=pipeline
                                   )
-    if see_classes:
-        print(20 * '*')
-        for c in range(len(classes)):
-            exs_train = np.count_nonzero(train_dataset.dr== c)
-            print('Found {:d} train examples of class {}'.format(exs_train, c))
-
     return train_dataset
 
 
-def get_train_loader(batch_size, num_workers, data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes=True):
+def get_train_loader(batch_size, num_workers, data_root, ann_file, data_prefix, with_label, classes, pipeline):
 
     train_dataset = get_train_dataset(data_root, ann_file, data_prefix, with_label, classes, pipeline, see_classes)
 
