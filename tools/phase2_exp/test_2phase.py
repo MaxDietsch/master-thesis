@@ -72,7 +72,7 @@ f1_std = torch.std(2 * tp / (tp + fn) * tp / (tp + fp) / (tp / (tp + fn) + tp / 
 
 with open(txt_path, 'a') as file:
     algorithm = 'Two-Phase'
-    file.write(f"\n\nAlgorithm: {algorithm} with Model: {model2_name} with schedule: {key} \n")
+    file.write(f"\n\nAlgorithm: {algorithm} with Model: {model2_name} with schedule: {schedule2} \n")
 
     metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
     tensors_mean = [accuracy_mean, recall_mean, precision_mean, f1_mean]
