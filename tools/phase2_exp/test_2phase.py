@@ -60,10 +60,15 @@ for i, epoch in enumerate(epoch2):
             fn[i][label] += 1
             fp[i][res['pred_label']] += 1
 
-recall_mean = torch.mean(tp / (tp + fn), dim = 0) 
-precision_mean = torch.mean(tp / (tp + fp), dim = 0)
+print(tp)
+print(fn)
+print(fp)
+
+recall_mean = torch.mean(tp / (tp + fn) * 100, dim = 0) 
+precision_mean = torch.mean(tp / (tp + fp) * 100, dim = 0)
 accuracy_mean = torch.mean(torch.sum(tp, dim = 1) / len(paths1), dim = 0)
 f1_mean = torch.mean(2 * tp / (tp + fn) * tp / (tp + fp) / (tp / (tp + fn) + tp / (tp + fp)), dim = 0)
+
 
 recall_std = torch.std(tp / (tp + fn), dim = 0) 
 precision_std = torch.std(tp / (tp + fp), dim = 0)
