@@ -29,8 +29,7 @@ class BMUHead(LinearClsHead):
         
         # compute loss
         losses = dict()
-        loss = self.loss_module(
-            cls_score, one_hot_vecs, avg_factor=cls_score.size(0), **kwargs)
+        loss = self.loss_module(cls_score, one_hot_vecs)
         losses['loss'] = loss
 
         # compute accuracy
