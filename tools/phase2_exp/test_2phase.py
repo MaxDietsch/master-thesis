@@ -12,6 +12,7 @@ epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 
 ymodel1_config = f'../../config/phase2/{model1}_healthy.py'
 model1_pretrained = f'../../work_dirs/phase2/{model1}/healthy/{schedule1}/epoch_{epoch1}.pth'
+txt_path=f"../../work_dirs/phase2/{model1}/test/2phase.txt"
 
 model2_config = f'../../config/phase2/{model2}_disease.py'
 
