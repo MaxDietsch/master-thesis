@@ -15,6 +15,7 @@ from .utils import (convert_to_one_hot, reduce_loss, weight_reduce_loss,
 from .dos_loss import DOSLoss
 from .cosen_ce_loss import CoSenCrossEntropyLoss
 from .crl_loss import CRLLoss
+from .bmu_loss import BMULoss
 
 __all__ = [
     'asymmetric_loss',
@@ -38,4 +39,5 @@ __all__ = [
     'DOSLoss',
     'CoSenCrossEntropyLoss', 
     'CRLLoss',
+    'BMULoss',
 ]
