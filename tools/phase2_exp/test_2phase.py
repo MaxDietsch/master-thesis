@@ -4,18 +4,18 @@ import torch
 from mmengine.config import Config
 
 # for classification of healthy or unhealthy
-model1, model2 = 'efficientnet_b4', 'efficientnet_b4'
+model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
 schedule1, schedule2 = '0.001', '0.001'
 epoch1 = '100'
 epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 
 
 
-model1_config = f'../../config/phase2/{model1}_healthy.py'
-model1_pretrained = f'../../work_dirs/phase2/{model1}/healthy/{schedule1}/epoch_{epoch1}.pth'
-txt_path=f"../../work_dirs/phase2/{model1}/test/2phase.txt"
+model1_config = f'../../config/phase2/{model1_name}_healthy.py'
+model1_pretrained = f'../../work_dirs/phase2/{model1_name}/healthy/{schedule1}/epoch_{epoch1}.pth'
+txt_path=f"../../work_dirs/phase2/{model1_name}/test/2phase.txt"
 
-model2_config = f'../../config/phase2/{model2}_disease.py'
+model2_config = f'../../config/phase2/{model2_name}_disease.py'
 
 cfg = Config.fromfile(model1_config)
 
@@ -48,7 +48,7 @@ for label, path in zip(labels1, paths1):
         
 # for classification of the concrete disease
 for i, epoch in enumerate(epoch2): 
-    model2_pretrained = f'../../work_dirs/phase2/{model2}/disease/{schedule2}/epoch_{epoch}.pth'
+    model2_pretrained = f'../../work_dirs/phase2/{model2_name}/disease/{schedule2}/epoch_{epoch}.pth'
     model2 = ImageClassificationInferencer(model = model2_config, pretrained = model2_pretrained)
 
     for label, path in zip(labels2, paths2):
@@ -72,7 +72,7 @@ f1_std = torch.std(2 * tp / (tp + fn) * tp / (tp + fp) / (tp / (tp + fn) + tp / 
 
 with open(txt_path, 'a') as file:
     algorithm = 'Two-Phase'
-    file.write(f"\n\nAlgorithm: {algorithm} with Model: {model} with schedule: {key} \n")
+    file.write(f"\n\nAlgorithm: {algorithm} with Model: {model2_name} with schedule: {key} \n")
 
     metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
     tensors_mean = [accuracy_mean, recall_mean, precision_mean, f1_mean]
