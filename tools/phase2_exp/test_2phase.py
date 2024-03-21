@@ -49,7 +49,7 @@ for label, path in zip(labels1, paths1):
 # for classification of the concrete disease
 for i, epoch in enumerate(epoch2): 
     model2_pretrained = f'../../work_dirs/phase2/{model2}/disease/{schedule2}/epoch_{epoch}.pth'
-    model2 = ImageClassificationInferencer(model = model2_config, weight = model2_pretrained)
+    model2 = ImageClassificationInferencer(model = model2_config, pretrained = model2_pretrained)
 
     for label, path in zip(labels2, paths2):
         res = model2(path) 
