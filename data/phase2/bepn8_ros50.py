@@ -30,7 +30,7 @@ train_dataloader = dict(
         with_label=True,
         classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=train_pipeline),
-        sampler=dict(type='ROSSampler', ros_pct = 50, rus_maj_pct = 80, shuffle=True),
+        sampler=dict(type='ROSSampler', ros_pct = 0.5, rus_maj_pct = 0.8, shuffle=True),
     persistent_workers=True,
 )
 
