@@ -19,7 +19,7 @@ model2_config = f'../../config/phase2/{model2}_disease.py'
 
 cfg = Config.fromfile(model1_config)
 
-model1 = ImageClassificationInferencer(model = model1_config, weight = model1_pretrained)
+model1 = ImageClassificationInferencer(model = model1_config, pretrained = model1_pretrained)
 
 paths1, paths2 = [], []
 labels1, labels2 = [], []
