@@ -30,14 +30,14 @@ class BMUHead(LinearClsHead):
         # compute loss
         losses = dict()
         loss = self.loss_module(
-            cls_score, target, avg_factor=cls_score.size(0), **kwargs)
+            cls_score, one_hot_vecs, avg_factor=cls_score.size(0), **kwargs)
         losses['loss'] = loss
 
         # compute accuracy
         if self.cal_acc:
             assert target.ndim == 1, 'If you enable batch augmentation ' \
                 'like mixup during training, `cal_acc` is pointless.'
-            acc = Accuracy.calculate(cls_score, target, topk=self.topk)
+            acc = Accuracy.calculate(cls_score, one_hot_vecs, topk=self.topk)
             losses.update(
                 {f'accuracy_top-{k}': a
                  for k, a in zip(self.topk, acc)})
