@@ -5,7 +5,7 @@ from mmpretrain.structures import DataSample
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
-from ..losses.dos_loss import BMULoss
+from ..losses.bmu_loss import BMULoss
 
 @MODELS.register_module()
 class BMUHead(LinearClsHead):
