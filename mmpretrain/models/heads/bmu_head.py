@@ -5,7 +5,7 @@ from mmpretrain.structures import DataSample
 
 from mmpretrain.registry import MODELS
 from .linear_head import LinearClsHead
-from ..losses.dos_loss import BMULoss
+#from ..losses.dos_loss import BMULoss
 
 @MODELS.register_module()
 class BMUHead(LinearClsHead):
@@ -19,7 +19,7 @@ class BMUHead(LinearClsHead):
     def __init__(self, **kwargs):
         super(BMUHead, self).__init__(**kwargs)
         
-        assert isinstance(self.loss_module, BMULoss), 'loss_module of the head should be BMULoss when using DOSHead'
+        #assert isinstance(self.loss_module, BMULoss), 'loss_module of the head should be BMULoss when using DOSHead'
     
     def _get_loss(self, cls_score: torch.Tensor,
                   data_samples: List[DataSample], **kwargs):
