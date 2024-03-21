@@ -33,6 +33,7 @@ from .vision_transformer_head import VisionTransformerClsHead
 from .vqa_head import VQAGenerationHead
 from .dos_head import DOSHead
 from .cosen_linear_head import CoSenLinearClsHead
+from .bmu_head import BMUHead
 
 __all__ = [
     'ClsHead',
@@ -70,4 +71,5 @@ __all__ = [
     'SparKPretrainHead',
     'DOSHead',
     'CoSenLinearClsHead',
+    'BMUHead',
 ]
