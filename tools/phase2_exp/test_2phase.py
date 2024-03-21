@@ -2,6 +2,7 @@
 from mmpretrain import ImageClassificationInferencer
 import torch
 from mmengine.config import Config
+import numpy as np
 
 # for classification of healthy or unhealthy
 model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
