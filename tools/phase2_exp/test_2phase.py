@@ -5,7 +5,7 @@ from mmengine.config import Config
 
 # for classification of healthy or unhealthy
 model1, model2 = 'efficientnet_b4', 'efficientnet_b4'
-schedule1 = '0.001', '0.001'
+schedule1 = '0.001'
 epoch1 = '100'
 epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 
