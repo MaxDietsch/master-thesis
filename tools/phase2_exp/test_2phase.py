@@ -32,8 +32,8 @@ tn = torch.empty(len(epoch2), 4)
 with open("../../../B_E_P_N/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
-        paths.append(f'../{path}')
-        labels.append(label)
+        paths2.append(f'../{path}')
+        labels2.append(label)
 
 for label, path in zip(labels1, paths1):
     res = model1(path)
