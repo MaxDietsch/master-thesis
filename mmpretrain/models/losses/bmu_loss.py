@@ -15,7 +15,8 @@ class BMULoss(nn.Module):
 
     def forward(self, cls_score, one_hot_label):
 
-        preds = F.softmax(cls_score, dim = 1).to(torch.device('cuda'))
+        preds = F.softmax(cls_score, dim = 1)
+        one_hot_label.to(torch.device('cuda'))
 
         loss = -one_hot_label * torch.log(preds + 1e-9)
         print(loss.shape)
