@@ -32,11 +32,12 @@ tn = torch.empty(len(epoch2), 4)
 with open("../../../B_E_P_N/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
-        paths2.append(f'../{path}')
-        labels2.append(label)
+        paths1.append(f'../{path}')
+        labels1.append(label)
 
 for label, path in zip(labels1, paths1):
     res = model1(path)
+    print(res)
     if res['pred_class'] == 1:
         paths2.append(path)
         labels2.append(label)
@@ -52,7 +53,8 @@ for i, epoch in enumerate(epoch2):
     model2 = ImageClassificationInferencer(model = model2_config, pretrained = model2_pretrained)
 
     for label, path in zip(labels2, paths2):
-        res = model2(path) 
+        res = model2(path)
+        print(res)
         if res['pred_class'] == label:
             tp[i][label] += 1
         else:
