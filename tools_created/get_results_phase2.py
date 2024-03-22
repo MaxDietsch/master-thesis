@@ -90,11 +90,11 @@ def calculate_average():
             
 
 # Example usage for single method
-specified_directory = f"../work_dirs/phase2/{model_name}/{method}/test"
-txt_path = '../work_dirs/phase2/results.txt'
 model_name = 'swin'
 method = 'aug'
 model_polite = 'Swin Transformer'
+specified_directory = f"../work_dirs/phase2/{model_name}/{method}/test"
+txt_path = '../work_dirs/phase2/results.txt'
 #find_json_values(specified_directory, method)
 #calculate_average()
 
