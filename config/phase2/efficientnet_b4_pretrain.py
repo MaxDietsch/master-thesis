@@ -1,7 +1,7 @@
 _base_ = [
         '../../model/efficientnet_b4.py',
-        '../../data/phase2/pretrain8.py',
-        '../../schedule/sgd_decr.py',
+        '../../data/phase2/pretrain32.py',
+        '../../schedule/sgd_pretrain.py',
         '../../runtime/default.py'
         ]
 
