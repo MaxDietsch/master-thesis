@@ -20,30 +20,30 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=32,
+    batch_size=8,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N',
+        data_root='../../SUN',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
-        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
+        classes=['negative', 'positive'],
         pipeline=train_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=True),
     persistent_workers=True,
 )
 
 val_dataloader = dict(
-    batch_size=32,
+    batch_size=8,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N',
-        ann_file='meta/test.txt',
-        data_prefix='test',
+        data_root='../../SUN',
+        ann_file='meta/val.txt',
+        data_prefix='val',
         with_label=True,
-        classes=['normal', 'polyps', 'barretts', 'esophagitis'],
+        classes=['negative', 'positive'],
         pipeline=test_pipeline),
     sampler=dict(type='DefaultSampler', shuffle=False),
     persistent_workers=True,
