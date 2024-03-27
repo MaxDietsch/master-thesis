@@ -64,16 +64,22 @@ print(tp)
 print(fn)
 print(fp)
 
-recall_mean = torch.mean(tp / (tp + fn) * 100, dim = 0) 
-precision_mean = torch.mean(tp / (tp + fp) * 100, dim = 0)
-accuracy_mean = torch.mean(torch.sum(tp, dim = 1) / len(paths1), dim = 0)
-f1_mean = torch.mean(2 * tp / (tp + fn) * tp / (tp + fp) / (tp / (tp + fn) + tp / (tp + fp)), dim = 0)
+recall_epochs = tp / (tp + fn) * 100
+precision_epochs = tp / (tp + fp) * 100
+accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1)
+f1_epochs = 2 * recall_epochs * precision_epochs / (recall_epochs + precision_epochs) if recall_epochs + precision_epochs != 0 else 0
 
 
-recall_std = torch.std(tp / (tp + fn), dim = 0) 
-precision_std = torch.std(tp / (tp + fp), dim = 0)
-accuracy_std = torch.std(torch.sum(tp, dim = 1) / len(paths1), dim = 0)
-f1_std = torch.std(2 * tp / (tp + fn) * tp / (tp + fp) / (tp / (tp + fn) + tp / (tp + fp)), dim = 0)
+recall_mean = torch.mean(recall_epochs, dim = 0) 
+precision_mean = torch.mean(precision_epochs, dim = 0)
+accuracy_mean = torch.mean(accuracy_epochs, dim = 0)
+f1_mean = torch.mean(f1_epochs, dim = 0)
+
+
+recall_std = torch.std(recall_epochs, dim = 0) 
+precision_std = torch.std(precision_epochs, dim = 0)
+accuracy_std = torch.std(accuracy_epochs, dim = 0)
+f1_std = torch.std(f1_epochs, dim = 0)
 
 
 with open(txt_path, 'a') as file:
