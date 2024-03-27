@@ -77,7 +77,6 @@ print(fp)
 print('-' * 100)
 
 
-"""
 recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
 accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1) * 100
@@ -124,7 +123,6 @@ with open(txt_path, 'a') as file:
         tensor_mean = np.round(tensor_mean.cpu().numpy(), 4)
         tensor_std = np.round(tensor_std.cpu().numpy(), 4)
         file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
-"""
 
 
 
