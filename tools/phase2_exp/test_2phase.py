@@ -61,11 +61,11 @@ for i, epoch in enumerate(epoch2):
 
     for label, path in zip(labels2, paths2):
         res = model2(path)[0]
-        if res['pred_label'] == label:
+        if res['pred_label'] + 1 == label:
             tp[i][label] += 1
         else:
             fn[i][label] += 1
-            fp[i][res['pred_label']] += 1
+            fp[i][res['pred_label'] + 1] += 1
 
 print(tp)
 print(fn)
