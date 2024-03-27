@@ -67,7 +67,7 @@ print(fp)
 recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
 accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1)
-for i in range(len(len(epoch2))):
+for i in range(len(epoch2)):
     for j in range(4):
         f1_epochs = 2 * recall_epochs[i][j] * precision_epochs[i][j] / (recall_epochs[i][j] + precision_epochs[i][j]) if recall_epochs[i][j] + precision_epochs[i][j] != 0 else 0
 
