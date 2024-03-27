@@ -41,16 +41,18 @@ for label, path in zip(labels1, paths1):
     if res['pred_label'] == 1:
         paths2.append(path)
         labels2.append(label)
+    if label > 1:
+        label = 1
     if label == res['pred_label'] and label == 0:
         tp[ : ,label] += 1
-    elif res['pred_label'] != label and label >= 1:
+    elif res['pred_label'] != label:
         fp[ : ,res['pred_label']] += 1
 print(tp)
 print(fn)
 print(fp)
 print('-' * 100)
 
-"""
+
         
 # for classification of the concrete disease
 for i, epoch in enumerate(epoch2): 
@@ -70,6 +72,8 @@ print(fn)
 print(fp)
 print('-' * 100)
 
+
+"""
 recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
 accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1) * 100
