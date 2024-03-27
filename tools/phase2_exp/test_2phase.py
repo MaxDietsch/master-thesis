@@ -6,7 +6,7 @@ import numpy as np
 
 # for classification of healthy or unhealthy
 model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
-schedule1, schedule2 = 'lr_0.001', 'lr_0.001'
+schedule1, schedule2 = 'lr_decr', 'lr_0.001'
 epoch1 = '100'
 epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 
@@ -25,10 +25,10 @@ model1 = ImageClassificationInferencer(model = model1_config, pretrained = model
 paths1, paths2 = [], []
 labels1, labels2 = [], []
 
-tp = torch.empty(len(epoch2), 4)
-fp = torch.empty(len(epoch2), 4)
-fn = torch.empty(len(epoch2), 4)
-tn = torch.empty(len(epoch2), 4)
+tp = torch.zeros(len(epoch2), 4)
+fp = torch.zeros(len(epoch2), 4)
+fn = torch.zeros(len(epoch2), 4)
+tn = torch.zeros(len(epoch2), 4)
 
 with open("../../../B_E_P_N/meta/test.txt", "r") as file:
     for line in file:
@@ -67,7 +67,9 @@ print(fp)
 recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
 accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1)
-f1_epochs = 2 * recall_epochs * precision_epochs / (recall_epochs + precision_epochs) if recall_epochs + precision_epochs != 0 else 0
+for i in range(len(len(epoch2))):
+    for j in range(4):
+        f1_epochs = 2 * recall_epochs[i][j] * precision_epochs[i][j] / (recall_epochs[i][j] + precision_epochs[i][j]) if recall_epochs[i][j] + precision_epochs[i][j] != 0 else 0
 
 
 recall_mean = torch.mean(recall_epochs, dim = 0) 
