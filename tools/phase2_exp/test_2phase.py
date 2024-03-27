@@ -68,9 +68,13 @@ recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
 accuracy_epochs = torch.sum(tp, dim = 1) / len(paths1) * 100
 
+print(recall_epochs)
+print(precision_epochs) 
+print(accuracy_epochs)
+
 recall_epochs[torch.isnan(recall_epochs)] = 0
-precison_epochs[torch.isnan(recall_epochs)] = 0
-accuracy_epochs[torch.isnan(recall_epochs)] = 0
+precision_epochs[torch.isnan(precision_epochs)] = 0
+accuracy_epochs[torch.isnan(accuracy_epochs)] = 0
 
 for i in range(len(epoch2)):
     for j in range(4):
