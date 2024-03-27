@@ -45,7 +45,7 @@ for label, path in zip(labels1, paths1):
         label = 1
     if label == res['pred_label'] and label == 0:
         tp[ : ,label] += 1
-    elif res['pred_label'] != label:
+    elif res['pred_label'] != label and label != 0:
         fp[ : ,res['pred_label']] += 1
 print(tp)
 print(fn)
