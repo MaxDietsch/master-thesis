@@ -89,6 +89,7 @@ recall_epochs[torch.isnan(recall_epochs)] = 0
 precision_epochs[torch.isnan(precision_epochs)] = 0
 accuracy_epochs[torch.isnan(accuracy_epochs)] = 0
 
+f1_epochs = torch.zeros(recall_epochs.shape)
 for i in range(len(epoch2)):
     for j in range(4):
         f1_epochs[i][j] = 2 * recall_epochs[i][j] * precision_epochs[i][j] / (recall_epochs[i][j] + precision_epochs[i][j]) if recall_epochs[i][j] + precision_epochs[i][j] != 0 else 0
