@@ -5,5 +5,5 @@ _base_ = [
         '../../runtime/default.py'
         ]
 
-load_from = None
-resume = False
+load_from = '../../work_dirs/phase2/swin/ros100/epoch_77.pth'
+resume = True
