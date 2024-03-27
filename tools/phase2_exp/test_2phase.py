@@ -125,12 +125,3 @@ with open(txt_path, 'a') as file:
         tensor_std = np.round(tensor_std.cpu().numpy(), 4)
         file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
 
-
-
-
-
-
-
-
-
-
