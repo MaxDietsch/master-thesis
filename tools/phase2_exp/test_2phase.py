@@ -6,7 +6,7 @@ import numpy as np
 
 # for classification of healthy or unhealthy
 model1_name, model2_name = 'swin', 'swin'
-schedule1, schedule2 = 'lr_decr', 'lr_decr'
+schedule1, schedule2 = 'lr_decr', 'lr_0.01'
 epoch1 = '100'
 epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 
