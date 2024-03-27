@@ -8,7 +8,7 @@ import numpy as np
 model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
 schedule1, schedule2 = 'lr_decr', 'lr_0.001'
 epoch1 = '100'
-epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+epoch2 = [91, 92, 93]
 
 
 
@@ -42,10 +42,13 @@ for label, path in zip(labels1, paths1):
         paths2.append(path)
         labels2.append(label)
     if label == res['pred_label'] and label == 0:
-        tp[:][label] += 1
+        tp[ : ,label] += 1
     elif res['pred_label'] != label and label >= 1:
-        fp[:][res['pred_label']] += 1
-        
+        fp[ : ,res['pred_label']] += 1
+print(tp)
+print(fn)
+print(fp)
+print('-' * 100)
         
 # for classification of the concrete disease
 for i, epoch in enumerate(epoch2): 
@@ -63,6 +66,7 @@ for i, epoch in enumerate(epoch2):
 print(tp)
 print(fn)
 print(fp)
+print('-' * 100)
 
 recall_epochs = tp / (tp + fn) * 100
 precision_epochs = tp / (tp + fp) * 100
@@ -78,7 +82,7 @@ accuracy_epochs[torch.isnan(accuracy_epochs)] = 0
 
 for i in range(len(epoch2)):
     for j in range(4):
-        f1_epochs = 2 * recall_epochs[i][j] * precision_epochs[i][j] / (recall_epochs[i][j] + precision_epochs[i][j]) if recall_epochs[i][j] + precision_epochs[i][j] != 0 else 0
+        f1_epochs[i][j] = 2 * recall_epochs[i][j] * precision_epochs[i][j] / (recall_epochs[i][j] + precision_epochs[i][j]) if recall_epochs[i][j] + precision_epochs[i][j] != 0 else 0
 
 print(recall_epochs)
 print(precision_epochs) 
