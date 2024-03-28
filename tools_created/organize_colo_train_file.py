@@ -1,7 +1,7 @@
 import os
 
 # Directory containing the files to read
-source_directory = '../../B_E_P_N_COL/col_transformed'
+source_directory = '../../B_E_P_N_COL/col'
 
 # The file to which the names of all files will be appended
 output_file_path = '../../B_E_P_N_COL/meta/train.txt'
