@@ -12,7 +12,7 @@ The new images are stored in a new directory (output_directory).
 
 
 # Directory containing the images to transform
-image_directory = '../../../B_E_P_N_COL/col'
+image_directory = '../../B_E_P_N_COL/col'
 # Output directory for transformed images
 output_directory = '../../B_E_P_N_COL/col_transformed'
 
