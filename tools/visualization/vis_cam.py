@@ -244,9 +244,13 @@ def main():
         target_layers = get_default_target_layers(model, args)
 
     # init a cam grad calculator
-    use_cuda = ('cuda' in args.device)
-    cam = init_cam(args.method, model, target_layers, use_cuda,
+
+    cam = init_cam(args.method, model, target_layers,
                    partial(reshape_transform, model=model, args=args))
+
+    use_cuda = ('cuda' in args.device)
+    #cam = init_cam(args.method, model, target_layers, use_cuda,
+                   #partial(reshape_transform, model=model, args=args))
 
     # warp the target_category with ClassifierOutputTarget in grad_cam>=1.3.7,
     # to fix the bug in #654.
