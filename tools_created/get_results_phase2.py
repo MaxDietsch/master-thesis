@@ -93,7 +93,7 @@ def calculate_average():
 model_name = 'swin'
 method = 'aug'
 model_polite = 'Swin Transformer'
-specified_directory = f"../work_dirs/phase2/{model_name}/{method}/test"
+specified_directory = f"../work_dirs/phase2/{model_name}/test/{method}"
 txt_path = '../work_dirs/phase2/results.txt'
 #find_json_values(specified_directory, method)
 #calculate_average()
@@ -101,7 +101,7 @@ txt_path = '../work_dirs/phase2/results.txt'
 # Usage for multiple methods: 
 methods = ['aug', 'aug2', 'aug3', 'aug4']
 for meth in methods: 
-    specified_directory = f"../work_dirs/phase2/{model_name}/{meth}/test"
+    specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
     calculate_average()
 
