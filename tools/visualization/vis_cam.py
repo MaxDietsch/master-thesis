@@ -177,6 +177,8 @@ def show_cam_grad(grayscale_cam, src_img, title, out_path=None):
     visualization_img = show_cam_on_image(
         src_img, grayscale_cam, use_rgb=False)
 
+    print(visualization_img)
+
     if out_path:
         mmcv.imwrite(visualization_img, str(out_path))
     else:
