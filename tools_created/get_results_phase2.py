@@ -50,7 +50,7 @@ def find_json_values(root_dir, method):
     # Print the separator line
     print('reading finished')
 
-def calculate_average():
+def calculate_average(method):
 
     for key in acc: 
         #print(torch.stack(acc[key]))
@@ -103,7 +103,7 @@ methods = ['aug', 'aug2', 'aug3', 'aug4']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
-    calculate_average()
+    calculate_average(meth)
 
 print('The results are written to the specified file!')
 
