@@ -65,7 +65,7 @@ def calc_norm(dir):
 
 
 #data_dir = '../../B_E_P_N/train'
-data_dir = '../../../Gastro_extend_with_Colon/colon'
+data_dir = '../../B_E_P_N_COL/col'
 #directories =[os.path.join(data_dir, dir) for dir in os.listdir(data_dir)]
 #print(directories)
 calc_norm(data_dir)

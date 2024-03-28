@@ -12,9 +12,9 @@ The new images are stored in a new directory (output_directory).
 
 
 # Directory containing the images to transform
-image_directory = '../../../Gastro_extend_with_Colon/colon'
+image_directory = '../../../B_E_P_N_COL/col'
 # Output directory for transformed images
-output_directory = '../../Gastro_extend_with_Colon/colon_transformed'
+output_directory = '../../B_E_P_N_COL/col_transformed'
 
 # Make sure output directory exists
 os.makedirs(output_directory, exist_ok=True)
