@@ -90,8 +90,10 @@ def calculate_average(method):
             
 
 # Example usage for single method
-model_name = 'swin'
-model_polite = 'Swin Transformer'
+#model_name = 'swin'
+#model_polite = 'Swin Transformer'
+model_name = 'efficientnet_b4'
+model_polite = 'EfficientNet B4'
 method = 'ros'
 txt_path = f'../work_dirs/phase2/results_{method}.txt'
 
