@@ -2,12 +2,30 @@
 
 cd ..
 
-python train.py ../config/phase2/efficientnet_b4_ros25.py --lr decr --work-dir ../work_dirs/phase2/efficientnet_b4/ros25/decr/
+python train.py ../config/phase2/efficientnet_b4_ros25.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros25/lr_decr/
 
-python train.py ../config/phase2/efficientnet_b4_ros50.py --lr decr --work-dir ../work_dirs/phase2/efficientnet_b4/ros50/decr/
+python train.py ../config/phase2/efficientnet_b4_ros50.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros50/lr_decr/
 
-python train.py ../config/phase2/efficientnet_b4_ros75.py --lr decr --work-dir ../work_dirs/phase2/efficientnet_b4/ros75/decr/
+python train.py ../config/phase2/efficientnet_b4_ros75.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros75/lr_decr/
 
-python train.py ../config/phase2/efficientnet_b4_ros100.py --lr decr --work-dir ../work_dirs/phase2/efficientnet_b4/ros100/decr/
+python train.py ../config/phase2/efficientnet_b4_ros100.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros100/lr_decr/
+
+
+python train.py ../config/phase2/efficientnet_b4_ros25.py --lr 0.01 --work-dir ../work_dirs/phase2/efficientnet_b4/ros25/lr_0.01/
+
+python train.py ../config/phase2/efficientnet_b4_ros50.py --lr 0.01 --work-dir ../work_dirs/phase2/efficientnet_b4/ros50/lr_0.01/
+
+python train.py ../config/phase2/efficientnet_b4_ros75.py --lr 0.01 --work-dir ../work_dirs/phase2/efficientnet_b4/ros75/lr_0.01/
+
+python train.py ../config/phase2/efficientnet_b4_ros100.py --lr 0.01 --work-dir ../work_dirs/phase2/efficientnet_b4/ros100/lr_0.01/
+
+
+python train.py ../config/phase2/efficientnet_b4_ros25.py --lr 0.001 --work-dir ../work_dirs/phase2/efficientnet_b4/ros25/lr_0.001/
+
+python train.py ../config/phase2/efficientnet_b4_ros50.py --lr 0.001 --work-dir ../work_dirs/phase2/efficientnet_b4/ros50/lr_0.001/
+
+python train.py ../config/phase2/efficientnet_b4_ros75.py --lr 0.001 --work-dir ../work_dirs/phase2/efficientnet_b4/ros75/lr_0.001/
+
+python train.py ../config/phase2/efficientnet_b4_ros100.py --lr 0.001 --work-dir ../work_dirs/phase2/efficientnet_b4/ros100/lr_0.001/
 
 
