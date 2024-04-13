@@ -6,4 +6,4 @@ _base_ = [
         ]
 
 load_from = None
-resume = '../work_dirs/phase2/efficientnet_b4/col_45/lr_0.001'
+resume = '../work_dirs/phase2/efficientnet_b4/col_45/lr_0.001/epoch_93.pth'
