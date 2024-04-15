@@ -40,7 +40,7 @@ for i, epoch in enumerate(epoch2):
     model2_pretrained = f'../../work_dirs/phase2/{model2_name}/dyn{model2_type}/{schedule2}/epoch_{epoch}.pth'
     model2 = ImageClassificationInferencer(model = model2_config, pretrained = model2_pretrained)
 
-    for label, path in zip(labels2, paths2):
+    for label, path in zip(labels1, paths1):
         res1 = model1(path)[0]
         res2 = model2(path)[0]
 
