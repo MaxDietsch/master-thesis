@@ -1,4 +1,4 @@
-from mmpretrain import ImageClassificationInferencer
+rom mmpretrain import ImageClassificationInferencer
 import torch
 from mmengine.config import Config
 import numpy as np
@@ -58,7 +58,7 @@ for i, epoch in enumerate(epoch2):
 
 
         if res['pred_label'] == label:
-            tp[i][label += 1]
+            tp[i][label] += 1
         else:
             fn[i][label] += 1
             fp[i][res['pred_label']] += 1
