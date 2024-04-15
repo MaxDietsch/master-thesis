@@ -4,7 +4,7 @@ from mmengine.config import Config
 import numpy as np
 
 # for classification of healthy or unhealthy
-model1_name, model2_name = 'swin', 'swin'
+model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
 schedule1, schedule2 = 'lr_decr', 'lr_0.01'
 epoch1 = '100'
 epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
@@ -15,8 +15,8 @@ model1_phase = 'phase2'
 
 
 model1_config = f'../../config/{model1_phase}/{model1_name}{model1_type}.py'
-model1_file = f'../../work_dirs/{model1_phase}/{model1_name}/{model1_type}/{schedule1}/epoch_{epoch1}.pth'
-txt_path=f"../../work_dirs/phase2/{model1_name}/test/dyn_{model2_type}.txt"
+model1_file = f'../../work_dirs/{model1_phase}/{model1_name}/{model1_type[1 : ]}/{schedule1}/epoch_{epoch1}.pth'
+txt_path=f"../../work_dirs/phase2/{model1_name}/test/dyn{model2_type}.txt"
 
 model2_config = f'../../config/phase2/{model2_name}_dyn{model2_type}.py'
 
