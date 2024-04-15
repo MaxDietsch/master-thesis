@@ -2,8 +2,8 @@
 
 cd ..
 
-method="ros50"
-model="swin"
+method="col"
+model="efficientnet-b4"
 epoch="91 92 93 94 95 96 97 98 99 100"
 lr_array=("lr_0.01" "lr_0.001" "lr_decr")
 #epoch_lr0_01="60 98"
