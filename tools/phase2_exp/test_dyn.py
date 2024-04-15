@@ -1,4 +1,4 @@
-rom mmpretrain import ImageClassificationInferencer
+from mmpretrain import ImageClassificationInferencer
 import torch
 from mmengine.config import Config
 import numpy as np
