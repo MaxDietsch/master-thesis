@@ -57,7 +57,7 @@ for i, epoch in enumerate(epoch2):
                 res = res1['pred_label']
 
 
-        if res['pred_label'] == label:
+        if res == label:
             tp[i][label] += 1
         else:
             fn[i][label] += 1
