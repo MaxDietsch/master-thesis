@@ -48,7 +48,7 @@ for i, epoch in enumerate(epoch2):
             res = 0
         if res1['pred_label'] != 0:
             res = res2['pred_label']
-        if res1['pred_label'] == 0 and res2['pred_label '] != 0:
+        if res1['pred_label'] == 0 and res2['pred_label'] != 0:
             pred_score1 = res1['pred_score']
             pred_score2 = res2['pred_score']
             if pred_score2 >= pred_score1:
