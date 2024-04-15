@@ -61,7 +61,7 @@ for i, epoch in enumerate(epoch2):
             tp[i][label] += 1
         else:
             fn[i][label] += 1
-            fp[i][res['pred_label']] += 1
+            fp[i][res] += 1
 
 
 recall_epochs = tp / (tp + fn) * 100
