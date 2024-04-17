@@ -1,17 +1,22 @@
 
+import os 
+import torch
 
 phase = 'phase1'
 model = 'efficientnet_b4'
+config_file = 'efficientnet_b4_sgd0_01.py'
 schedule = 'lr_0.01'
+algo = ''
 epoch = '100'
-CFG = f'../config/{phase}/{model}'
-CHECKPOINT = f'../work_dirs/{phase}/{model}/{schedule}/epoch_{epoch}.pth'
+CFG = f'../config/phase1/{config_file}'
+CHECKPOINT = f'../work_dirs/{phase}/{model}/{algo}/{schedule}/epoch_{epoch}.pth'
 DEVICE = torch.device('cuda')
 METHOD = 'EigenGradCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
-PATH = ''
-
+PATH = '../../utils/polyp'
+VIT_LIKE = False
+TARGET_LAYERS = []
 
 
 # Copyright (c) OpenMMLab. All rights reserved.
@@ -21,7 +26,6 @@ import math
 import pkg_resources
 from functools import partial
 from pathlib import Path
-import os
 import mmcv
 import numpy as np
 import torch.nn as nn
@@ -53,82 +57,7 @@ METHOD_MAP.update({
     for cam_class in cam.base_cam.BaseCAM.__subclasses__()
 })
 
-
-def parse_args():
-    parser = argparse.ArgumentParser(description='Visualize CAM')
-    parser.add_argument('img', help='Image file')
-    parser.add_argument('config', help='Config file')
-    parser.add_argument('checkpoint', help='Checkpoint file')
-    parser.add_argument(
-        '--target-layers',
-        default=[],
-        nargs='+',
-        type=str,
-        help='The target layers to get CAM, if not set, the tool will '
-        'specify the norm layer in the last block. Backbones '
-        'implemented by users are recommended to manually specify'
-        ' target layers in commmad statement.')
-    parser.add_argument(
-        '--preview-model',
-        default=False,
-        action='store_true',
-        help='To preview all the model layers')
-    parser.add_argument(
-        '--method',
-        default='GradCAM',
-        help='Type of method to use, supports '
-        f'{", ".join(list(METHOD_MAP.keys()))}.')
-    parser.add_argument(
-        '--target-category',
-        default=[],
-        nargs='+',
-        type=int,
-        help='The target category to get CAM, default to use result '
-        'get from given model.')
-    parser.add_argument(
-        '--eigen-smooth',
-        default=False,
-        action='store_true',
-        help='Reduce noise by taking the first principle componenet of '
-        '``cam_weights*activations``')
-    parser.add_argument(
-        '--aug-smooth',
-        default=False,
-        action='store_true',
-        help='Wether to use test time augmentation, default not to use')
-    parser.add_argument(
-        '--save-path',
-        type=Path,
-        help='The path to save visualize cam image, default not to save.')
-    parser.add_argument('--device', default='cpu', help='Device to use cpu')
-    parser.add_argument(
-        '--vit-like',
-        action='store_true',
-        help='Whether the network is a ViT-like network.')
-    parser.add_argument(
-        '--num-extra-tokens',
-        type=int,
-        help='The number of extra tokens in ViT-like backbones. Defaults to'
-        ' use num_extra_tokens of the backbone.')
-    parser.add_argument(
-        '--cfg-options',
-        nargs='+',
-        action=DictAction,
-        help='override some settings in the used config, the key-value pair '
-        'in xxx=yyy format will be merged into config file. If the value to '
-        'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
-        'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
-        'Note that the quotation marks are necessary and that no white space '
-        'is allowed.')
-    args = parser.parse_args()
-    if args.method.lower() not in METHOD_MAP.keys():
-        raise ValueError(f'invalid CAM type {args.method},'
-                         f' supports {", ".join(list(METHOD_MAP.keys()))}.')
-
-    return args
-
-
-def reshape_transform(tensor, model, args):
+def reshape_transform(tensor, model):
     """Build reshape_transform for `cam.activations_and_grads`, which is
     necessary for ViT-like networks."""
     # ViT_based_Transformers have an additional clstoken in features
@@ -136,11 +65,11 @@ def reshape_transform(tensor, model, args):
         # For (B, C, H, W)
         return tensor
     elif tensor.ndim == 3:
-        if not args.vit_like:
+        if not VIT_LIKE:
             raise ValueError(f"The tensor shape is {tensor.shape}, if it's a "
                              'vit-like backbone, please specify `--vit-like`.')
         # For (B, L, C)
-        num_extra_tokens = args.num_extra_tokens or getattr(
+        num_extra_tokens = getattr(
             model.backbone, 'num_extra_tokens', 1)
 
         tensor = tensor[:, num_extra_tokens:, :]
@@ -199,7 +128,7 @@ def show_cam_grad(grayscale_cam, src_img, title, out_path=None):
         mmcv.imshow(visualization_img, win_name=title)
 
 
-def get_default_target_layers(model, args):
+def get_default_target_layers(model, vit_like):
     """get default target layers from given model, here choose nrom type layer
     as default target layer."""
     norm_layers = [
@@ -207,7 +136,7 @@ def get_default_target_layers(model, args):
         for name, layer in model.backbone.named_modules(prefix='backbone')
         if is_norm(layer)
     ]
-    if args.vit_like:
+    if vit_like:
         # For ViT models, the final classification is done on the class token.
         # And the patch tokens and class tokens won't interact each other after
         # the final attention layer. Therefore, we need to choose the norm
@@ -236,26 +165,21 @@ def main():
     
     # build the model from a config file and a checkpoint file
     model: nn.Module = get_model(CFG, CHECKPOINT, device=DEVICE)
-    if args.preview_model:
-        print(model)
-        print('\n Please remove `--preview-model` to get the CAM.')
-        return
 
     
 
     # build target layers
-    """
-    if args.target_layers:
+    
+    if TARGET_LAYERS:
         target_layers = [
-            get_layer(layer, model) for layer in args.target_layers
+            get_layer(layer, model) for layer in TARGET_LAYERS
         ]
     else:
-        target_layers = get_default_target_layers(model, args)
-    """
+        target_layers = get_default_target_layers(model, VIT_LIKE)
 
     # init a cam grad calculator
-    use_cuda = ('cuda' in DEVICE)
-    cam = init_cam(METHOD, model, target_layers, use_cuda, partial(reshape_transform, model=model, args=args))
+    use_cuda = True
+    cam = init_cam(METHOD, model, target_layers, use_cuda, partial(reshape_transform, model=model))
 
     # warp the target_category with ClassifierOutputTarget in grad_cam>=1.3.7,
     # to fix the bug in #654.
@@ -272,7 +196,7 @@ def main():
     """
 
     # calculate cam grads and show|save the visualization image
-
+    cfg = Config.fromfile(CFG)
     for path in os.listdir(PATH):
 
         save_path = os.path.join('../../utils/cams/', path)
