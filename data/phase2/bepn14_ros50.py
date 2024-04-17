@@ -19,12 +19,12 @@ test_pipeline = [
     dict(type='PackInputs'),                 # prepare images and labels
 ]
 
-train_dataloader = dict(
-    batch_size=14,
-    num_workers=5,
+train_dataloade?!?jedi=0, r = dict(?!? (iterable: Iterable[Tuple[_KT, _VT]], *_***kwargs: _VT*_*) ?!?jedi?!?
+    batch_size=?!?jedi=0, 14,?!? (map: Mapping[_KT, _VT], *_***kwargs: _VT*_*) ?!?jedi?!?
+    num_workers?!?jedi=0, =5,?!? (*_***kwargs: _VT*_*) ?!?jedi?!?
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N',
+        data_root='../../B_E_P_N_aug3',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
