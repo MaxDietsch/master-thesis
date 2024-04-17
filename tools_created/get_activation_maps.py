@@ -1,16 +1,16 @@
 
 
 phase = 'phase1'
-    model = 'efficientnet_b4'
-    schedule = 'lr_0.01'
-    epoch = '100'
-    CFG = f'../config/{phase}/{model}'
-    CHECKPOINT = f'../work_dirs/{phase}/{model}/{schedule}/epoch_{epoch}.pth'
-    DEVICE = torch.device('cuda')
-    METHOD = 'EigenGradCAM'
-    AUG_SMOOTH = False
-    EIGEN_SMOOTH = False 
-    PATH = ''
+model = 'efficientnet_b4'
+schedule = 'lr_0.01'
+epoch = '100'
+CFG = f'../config/{phase}/{model}'
+CHECKPOINT = f'../work_dirs/{phase}/{model}/{schedule}/epoch_{epoch}.pth'
+DEVICE = torch.device('cuda')
+METHOD = 'EigenGradCAM'
+AUG_SMOOTH = False
+EIGEN_SMOOTH = False 
+PATH = ''
 
 
 
