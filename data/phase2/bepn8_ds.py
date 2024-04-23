@@ -20,22 +20,22 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=14,
+    batch_size=8,
     num_workers=5,
     dataset=dict(
         type=dataset_type,
-        data_root='../../B_E_P_N_aug',
+        data_root='../../B_E_P_N',
         ann_file='meta/train.txt',
         data_prefix='train',
         with_label=True,
         classes=['normal', 'polyps', 'barretts', 'esophagitis'],
         pipeline=train_pipeline),
-        sampler=dict(type='ROSSampler', ros_pct = 1, rus_maj_pct = 0.8, shuffle=True),
+    sampler=dict(type='DynamicSampler', enable_ROS = True, shuffle=True),
     persistent_workers=True,
 )
 
 val_dataloader = dict(
-    batch_size=14,
+    batch_size=8,
     num_workers=5,
     dataset=dict(
         type=dataset_type,

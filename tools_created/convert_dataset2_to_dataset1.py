@@ -25,7 +25,7 @@ std_1 = np.array([70.03, 55.91, 54.73])   # (R, G, B)
 
 # Dataset 2 stats (source stats)
 mean_2 = np.array([113.23, 69.13, 48.10])       #(R, G, B)
-std_2 = np.array([89.96 61.53, 50.38])     # (R, G, B) 
+std_2 = np.array([89.96, 61.53, 50.38])     # (R, G, B) 
 
 for filename in os.listdir(image_directory):
     if filename.endswith(('.png', '.jpg', '.jpeg')):
