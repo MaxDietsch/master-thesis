@@ -2,7 +2,7 @@
 
 cd ..
 
-python train.py ../config/phase2/efficientnet_b4_ros25_aug_pretrained.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros25_aug_pretrained/lr_decr/
+#python train.py ../config/phase2/efficientnet_b4_ros25_aug_pretrained.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros25_aug_pretrained/lr_decr/
 
 python train.py ../config/phase2/efficientnet_b4_ros50_aug_pretrained.py --work-dir ../work_dirs/phase2/efficientnet_b4/ros50_aug_pretrained/lr_decr/
 
