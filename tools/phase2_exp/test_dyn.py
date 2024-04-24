@@ -30,6 +30,7 @@ with open("../../../B_E_P_N/meta/test.txt", "r") as file:
         paths1.append(f'../{path}')
         labels1.append(int(label))
 
+res_arr = []
 for label, path in zip(labels1, paths1):
     res_arr.append(model1(path)[0])
 
