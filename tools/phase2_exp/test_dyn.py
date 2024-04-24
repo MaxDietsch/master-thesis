@@ -30,6 +30,9 @@ with open("../../../B_E_P_N/meta/test.txt", "r") as file:
         paths1.append(f'../{path}')
         labels1.append(int(label))
 
+for label, path in zip(labels1, paths1):
+    res_arr.append(model1(path)[0])
+
 tp = torch.zeros(len(epoch2), 4)
 fp = torch.zeros(len(epoch2), 4)
 fn = torch.zeros(len(epoch2), 4)
@@ -39,9 +42,11 @@ tn = torch.zeros(len(epoch2), 4)
 for i, epoch in enumerate(epoch2): 
     model2_pretrained = f'../../work_dirs/phase2/{model2_name}/dyn{model2_type}/{schedule2}/epoch_{epoch}.pth'
     model2 = ImageClassificationInferencer(model = model2_config, pretrained = model2_pretrained)
-
+    
+    i = 0
     for label, path in zip(labels1, paths1):
-        res1 = model1(path)[0]
+        res1 = res_arr[i]
+        i += 1
         res2 = model2(path)[0]
 
         if res1['pred_label'] == 0 and res2['pred_label'] == 0:
