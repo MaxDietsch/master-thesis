@@ -6,4 +6,4 @@ _base_ = [
         ]
 
 load_from = None
-resume = False
+resume = '../../work_dirs/phase2/efficiennet_b4/ros50_aug_pretrained/lr_decr/epoch_85.pth'
