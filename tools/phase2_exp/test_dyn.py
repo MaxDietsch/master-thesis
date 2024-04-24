@@ -5,7 +5,7 @@ import numpy as np
 
 # for classification of healthy or unhealthy
 model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
-schedule1, schedule2 = 'lr_decr', 'lr_decr'
+schedule1, schedule2 = 'lr_decr', 'lr_0.01'
 epoch1 = '100'
 epoch2 = [51, 52, 53, 54, 55, 56, 57, 58, 59]
 model1_type = '_aug'
