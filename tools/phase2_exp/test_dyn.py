@@ -4,11 +4,11 @@ from mmengine.config import Config
 import numpy as np
 
 # for classification of healthy or unhealthy
-model1_name, model2_name = 'swin', 'swin'
+model1_name, model2_name = 'efficientnet_b4', 'efficientnet_b4'
 schedule1, schedule2 = 'lr_decr', 'lr_decr'
 epoch1 = '100'
-epoch2 = [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
-model1_type = '_aug3'
+epoch2 = [51, 52, 53, 54, 55, 56, 57, 58, 59]
+model1_type = '_aug'
 model2_type = '_aug'
 model1_phase = 'phase2'
 
@@ -94,7 +94,7 @@ precision_std = torch.std(precision_epochs, dim = 0)
 accuracy_std = torch.std(accuracy_epochs, dim = 0)
 f1_std = torch.std(f1_epochs, dim = 0)
 
-"""
+
 with open(txt_path, 'a') as file:
     algorithm = 'Dynamic Sampling'
     file.write(f"\n\nAlgorithm: {algorithm} with Model: {model2_name} with schedule: {schedule2} \n")
@@ -107,5 +107,5 @@ with open(txt_path, 'a') as file:
         tensor_mean = np.round(tensor_mean.cpu().numpy(), 4)
         tensor_std = np.round(tensor_std.cpu().numpy(), 4)
         file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
-"""
+
 
