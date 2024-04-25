@@ -13,6 +13,7 @@ from .swav_loss import SwAVLoss
 from .utils import (convert_to_one_hot, reduce_loss, weight_reduce_loss,
                     weighted_loss)
 from .dos_loss import DOSLoss
+from .multi_class_focal_loss import MultiClassFocalLoss
 from .cosen_ce_loss import CoSenCrossEntropyLoss
 from .crl_loss import CRLLoss
 from .bmu_loss import BMULoss
@@ -38,6 +39,7 @@ __all__ = [
     'SwAVLoss',
     'DOSLoss',
     'CoSenCrossEntropyLoss', 
+    'MultiClassFocalLoss',
     'CRLLoss',
     'BMULoss',
 ]
