@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch.nn as nn
 import torch.nn.functional as F
-
+import torch
 from mmpretrain.registry import MODELS
 from .utils import convert_to_one_hot, weight_reduce_loss
 
