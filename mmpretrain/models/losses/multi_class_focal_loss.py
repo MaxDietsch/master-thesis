@@ -33,8 +33,7 @@ def softmax_focal_loss(pred,
     print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
     print(focal_weight)
-    print(F.cross_entropy(pred, target.long()))
-    loss = pred_probs * focal_weight
+    loss = (-focal_weight * torch.log(pt)).sum()
     print(loss)
     exit()
     return loss
