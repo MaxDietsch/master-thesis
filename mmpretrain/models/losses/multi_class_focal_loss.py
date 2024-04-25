@@ -26,14 +26,14 @@ def softmax_focal_loss(pred,
     """
     pred_probs = F.softmax(pred, dim = 1)
     target = target.type_as(pred)
-    print(pred_probs)
-    print(target)
+    #print(pred_probs)
+    #print(target)
     row_indices = torch.arange(pred_probs.shape[0])
     pt = pred_probs[ row_indices , target.int()]
-    print(pt)
+    #print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
-    print(focal_weight)
-    print(-focal_weight * torch.log(pt))
+    #print(focal_weight)
+    #print(-focal_weight * torch.log(pt))
     loss = (-focal_weight * torch.log(pt)).sum()
     print(loss)
     return loss
