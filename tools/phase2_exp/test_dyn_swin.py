@@ -7,7 +7,7 @@ import numpy as np
 model1_name, model2_name = 'swin', 'swin'
 schedule1, schedule2 = 'lr_0.01', 'lr_0.01'
 epoch1 = '100'
-epoch2 = [51, 52, 53, 54, 55, 56, 57, 58, 59]
+epoch2 = [51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
 model1_type = '_aug'
 model2_type = '_aug'
 model1_phase = 'phase2'
