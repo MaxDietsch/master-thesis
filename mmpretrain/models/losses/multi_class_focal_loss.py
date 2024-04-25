@@ -84,8 +84,6 @@ class MultiClassFocalLoss(nn.Module):
             torch.Tensor: Loss.
         """
         assert reduction_override in (None, 'none', 'mean', 'sum')
-        reduction = (
-            reduction_override if reduction_override else self.reduction)
         loss_cls = self.loss_weight * softmax_focal_loss(
             pred,
             target,
