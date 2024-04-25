@@ -42,7 +42,7 @@ def softmax_focal_loss(pred,
     print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
     print(focal_weight)
-    print(F.cross_entropy(pred, target.int()))
+    print(F.cross_entropy(pred, target.long()))
     loss = F.cross_entropy(
         pred, target, reduction='none') * focal_weight
     if weight is not None:
