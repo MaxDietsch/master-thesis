@@ -37,12 +37,13 @@ def softmax_focal_loss(pred,
     target = target.type_as(pred)
     print(pred_probs)
     print(target)
-    pt = pred_probs[ : , target.int()]
+    row_indices = torch.arange(pred_probs.shape[0])
+    pt = pred_probs[ row_indices , target.int()]
     print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
     print(focal_weight)
-    print(F.cross_entropy_with_logits(pred, target))
-    loss = F.cross_entropy_with_logits(
+    print(F.cross_entropy(pred, target))
+    loss = F.cross_entropy(
         pred, target, reduction='none') * focal_weight
     if weight is not None:
         assert weight.dim() == 1
