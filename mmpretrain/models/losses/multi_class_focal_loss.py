@@ -33,14 +33,16 @@ def softmax_focal_loss(pred,
     Returns:
         torch.Tensor: Loss.
     """
-    assert pred.shape == \
-        target.shape, 'pred and target should be in the same shape.'
     pred_probs = F.softmax(pred, dim = 1)
     target = target.type_as(pred)
-    pt = (1 - pred_sigmoid) * target + pred_sigmoid * (1 - target)
-    focal_weight = (alpha * target + (1 - alpha) *
-                    (1 - target)) * pt.pow(gamma)
-    loss = F.binary_cross_entropy_with_logits(
+    print(pred_probs)
+    print(target)
+    pt = pred_probs[target]
+    print(pt)
+    focal_weight = alpha * (1 - pt).pow(gamma)
+    print(focal_weight)
+    print(F.cross_entropy_with_logits(pred, target))
+    loss = F.cross_entropy_with_logits(
         pred, target, reduction='none') * focal_weight
     if weight is not None:
         assert weight.dim() == 1
@@ -48,6 +50,7 @@ def softmax_focal_loss(pred,
         if pred.dim() > 1:
             weight = weight.reshape(-1, 1)
     loss = weight_reduce_loss(loss, weight, reduction, avg_factor)
+    exit()
     return loss
 
 
@@ -103,8 +106,6 @@ class MultiClassFocalLoss(nn.Module):
         assert reduction_override in (None, 'none', 'mean', 'sum')
         reduction = (
             reduction_override if reduction_override else self.reduction)
-        print(target.shape)
-        print(pred.shape)
         loss_cls = self.loss_weight * softmax_focal_loss(
             pred,
             target,
