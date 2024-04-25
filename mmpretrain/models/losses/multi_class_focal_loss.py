@@ -37,7 +37,7 @@ def softmax_focal_loss(pred,
     target = target.type_as(pred)
     print(pred_probs)
     print(target)
-    pt = pred_probs[target.int()]
+    pt = pred_probs[ : , target.int()]
     print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
     print(focal_weight)
