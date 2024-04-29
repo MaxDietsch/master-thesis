@@ -52,15 +52,13 @@ class CoSenCrossEntropyLoss(nn.Module):
     def compute_grad(self, v_a):
         """
         Args:   v_a (torch.Tensor): The vectorized T tensor, like in the paper.
-                v_b (torch.Tensor): The vectorized xi tensor, like in the paper.
         """
         v_b = self.xi.view(-1, 1).to(torch.device('cuda'))
-        return -(v_a - v_b) * torch.ones((self.num_classes * self.num_classes, 1) decive = torch.device('cuda'))
+        return -(v_a - v_b) * torch.ones((self.num_classes * self.num_classes, 1), device = torch.device('cuda'))
 
     def update_xi(self, v_a):
         """
         Args:   v_a (torch.Tensor): The vectorized T tensor, like in the paper.
-                v_b (torch.Tensor): The vectorized xi tensor, like in the paper.
         """
 
         self.xi -= self.learning_rate * self.compute_grad(v_a).view(self.xi.shape)
