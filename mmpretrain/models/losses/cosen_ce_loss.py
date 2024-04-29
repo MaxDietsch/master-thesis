@@ -8,13 +8,13 @@ from mmpretrain.registry import MODELS
 # log_softmax version as it tends to be more stable 
 def log_softmax(cls_score, label, xi): 
     
-    """ Want to do this, but with list comprehension
-    l = torch.zeros(pred.shape)
+    """ Want to something like this, but with list comprehension
+    l = torch.zeros(pred.shape[0])
     for i, lab in enumerate(label): 
-        m = xi[lab, torch.argmax(pred[i])]
-        l[i] = m.log() + pred - (m + pred.exp()).sum(-1).log().unsqueeze(-1)
+        l[i] = xi[label, torch.argmax(pred[i])].log() + pred[i] 
+            - ((xi[label, : ] + pred.exp())).sum(-1).log().unsqueeze(-1)
     """
-    log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, torch.argmax(cls_score[i])] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
+    log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, : ] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
     return log_s
 
 # negative log_likelihood, used because we use log_softmax
