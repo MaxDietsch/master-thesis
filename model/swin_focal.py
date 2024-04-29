@@ -10,7 +10,7 @@ model = dict(
         type='LinearClsHead',
         num_classes=4,
         in_channels=768,
-        loss=dict(type='MultiClassFocalLoss', gamma = 0.5),
+        loss=dict(type='MultiClassFocalLoss', gamma = 1),
         topk=(1)
         )
 )
