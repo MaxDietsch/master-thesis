@@ -4,7 +4,7 @@ import torch
 
 phase = 'phase2'
 model = 'efficientnet_b4'
-config_file = 'efficientnet_b4_sgd0_01'
+config_file = 'efficientnet_b4_sgd0_01.py'
 schedule = 'lr_decr'
 algo = 'ros25_aug_pretrained'
 epoch = '100'
