@@ -10,7 +10,7 @@ epoch = '100'
 method = 'aug3'
 
 model_config = f'../config/phase2/{model}_{method}.py'
-model_pretrained = f'../work_dirs/phase2/{model_name}/{method}/{schedule}/epoch_{epoch}.pth'
+model_pretrained = f'../work_dirs/phase2/{model}/{method}/{schedule}/epoch_{epoch}.pth'
 out_path = f'../../utils/correct/{model}_{method}_{schedule}.txt'
 
 cfg = Config.fromfile(model_config)
@@ -38,7 +38,7 @@ for label, path in zip(labels, paths):
             esophagitis.append(path)
 
 with open(out_path, 'a') as file:
-    file.write(f"\n\nCorrect Predictions \n Algorithm: {method} with Model: {model_name} with schedule: {schedule} \n")
+    file.write(f"\n\nCorrect Predictions \n Algorithm: {method} with Model: {model} with schedule: {schedule} \n")
     file.write('Polyps: \n')
     for pol in polyps: 
         file.write(f'{pol}, ')
