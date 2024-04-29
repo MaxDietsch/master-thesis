@@ -14,6 +14,8 @@ def log_softmax(cls_score, label, xi):
         l[i] = xi[label, torch.argmax(pred[i])].log() + pred[i] 
             - ((xi[label, : ] + pred.exp())).sum(-1).log().unsqueeze(-1)
     """
+    print(xi)
+    print(cls_score)
     log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, : ] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
     return log_s
 
