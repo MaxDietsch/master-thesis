@@ -54,8 +54,8 @@ class CoSenCrossEntropyLoss(nn.Module):
         Args:   v_a (torch.Tensor): The vectorized T tensor, like in the paper.
                 v_b (torch.Tensor): The vectorized xi tensor, like in the paper.
         """
-        v_b = self.xi.view(-1, 1)
-        return -(v_a - v_b) * torch.ones((self.num_classes * self.num_classes, 1))
+        v_b = self.xi.view(-1, 1).to(torch.device('cuda'))
+        return -(v_a - v_b) * torch.ones((self.num_classes * self.num_classes, 1) decive = torch.device('cuda'))
 
     def update_xi(self, v_a):
         """
