@@ -15,7 +15,7 @@ METHOD = 'EigenGradCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
 PATH = '../../utils/polyp'
-VIT_LIKE = False
+VIT_LIKE = True
 TARGET_LAYERS = []
 
 
