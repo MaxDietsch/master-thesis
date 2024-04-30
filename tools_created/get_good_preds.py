@@ -4,7 +4,7 @@ from mmengine.config import Config
 import numpy as np
 
 # for classification of healthy or unhealthy
-model = 'efficientnet_b4'
+model = 'swin'
 schedule = 'lr_0.01'
 epoch = '100'
 method = '.'
