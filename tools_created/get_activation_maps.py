@@ -2,11 +2,11 @@
 import os 
 import torch
 
-phase = 'phase2'
-model = 'efficientnet_b4'
-config_file = 'efficientnet_b4_sgd0_01.py'
-schedule = 'lr_decr'
-algo = 'ros25_aug_pretrained'
+phase = 'phase1'
+model = 'swin'
+config_file = 'swin_sgd0_01.py'
+schedule = 'lr_0.01'
+algo = '.'
 epoch = '100'
 CFG = f'../config/phase1/{config_file}'
 CHECKPOINT = f'../work_dirs/{phase}/{model}/{algo}/{schedule}/epoch_{epoch}.pth'
