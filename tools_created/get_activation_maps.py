@@ -3,8 +3,8 @@ import os
 import torch
 
 phase = 'phase2'
-model = 'efficientnet_b4'
-config_file = 'efficientnet_b4_sgd0_01.py'
+model = 'swin'
+config_file = 'swin_sgd0_01.py'
 schedule = 'lr_decr'
 algo = 'ros25_aug_pretrained'
 epoch = '100'
@@ -15,7 +15,7 @@ METHOD = 'EigenCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
 PATH = '../../utils/polyp'
-VIT_LIKE = False
+VIT_LIKE = True
 TARGET_LAYERS = []
 
 
