@@ -14,7 +14,7 @@ method = 'ros50_aug_pretrained'
 #model_pretrained = f'../work_dirs/phase1/{model}/{schedule}/epoch_{epoch}.pth'
 
 # for phase 2
-model_config = f'../config/phase1/{model}_sgd0_01.py.py'
+model_config = f'../config/phase1/{model}_sgd0_01.py'
 model_pretrained = f'../work_dirs/phase2/{model}/{method}/{schedule}/epoch_{epoch}.pth'
 
 out_path = f'../../utils/correct/{model}_{method}_{schedule}.txt'
