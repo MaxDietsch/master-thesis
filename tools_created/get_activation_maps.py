@@ -14,7 +14,7 @@ DEVICE = torch.device('cuda')
 METHOD = 'EigenCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
-PATH = '../../utils/esophagitis'
+PATH = '../../utils/polyp'
 VIT_LIKE = False
 TARGET_LAYERS = []
 
