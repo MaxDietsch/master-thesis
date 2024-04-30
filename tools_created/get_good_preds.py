@@ -4,18 +4,18 @@ from mmengine.config import Config
 import numpy as np
 
 # for classification of healthy or unhealthy
-model = 'swin'
-schedule = 'lr_0.01'
+model = 'efficientnet_b4'
+schedule = 'lr_decr'
 epoch = '100'
-method = '.'
+method = 'ros50_aug_pretrained'
 
 # for phase 1
-model_config = f'../config/phase1/{model}_sgd0_01.py'
-model_pretrained = f'../work_dirs/phase1/{model}/{schedule}/epoch_{epoch}.pth'
+#model_config = f'../config/phase1/{model}_sgd0_01.py'
+#model_pretrained = f'../work_dirs/phase1/{model}/{schedule}/epoch_{epoch}.pth'
 
 # for phase 2
-#model_config = f'../config/phase1/{model}_{method}.py'
-#model_pretrained = f'../work_dirs/phase2/{model}/{method}/{schedule}/epoch_{epoch}.pth'
+model_config = f'../config/phase1/{model}_sgd0_01.py.py'
+model_pretrained = f'../work_dirs/phase2/{model}/{method}/{schedule}/epoch_{epoch}.pth'
 
 out_path = f'../../utils/correct/{model}_{method}_{schedule}.txt'
 
