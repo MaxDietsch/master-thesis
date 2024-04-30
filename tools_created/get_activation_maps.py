@@ -141,8 +141,7 @@ def get_default_target_layers(model, vit_like):
         # And the patch tokens and class tokens won't interact each other after
         # the final attention layer. Therefore, we need to choose the norm
         # layer before the last attention layer.
-        num_extra_tokens = args.num_extra_tokens or getattr(
-            model.backbone, 'num_extra_tokens', 1)
+        num_extra_tokens = getattr(model.backbone, 'num_extra_tokens', 1)
 
         # models like swin have no attr 'out_type', set out_type to avg_featmap
         out_type = getattr(model.backbone, 'out_type', 'avg_featmap')
