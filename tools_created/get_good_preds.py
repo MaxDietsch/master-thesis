@@ -4,10 +4,10 @@ from mmengine.config import Config
 import numpy as np
 
 # for classification of healthy or unhealthy
-model = 'efficientnet_b4'
+model = 'swin'
 schedule = 'lr_decr'
 epoch = '100'
-method = 'ros50_aug_pretrained'
+method = 'ros25_aug_pretrained'
 
 # for phase 1
 #model_config = f'../config/phase1/{model}_sgd0_01.py'
