@@ -11,8 +11,8 @@ The script will read the .pt files and read in the pytorch tensors in those file
 The average confusion matrix over all found values will be calculated.
 The calculated scores will be printed to the screen 
 """
-
-cms = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+cms = {"lr_decr": []}
+#cms = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
 
 def find_json_values(root_dir):
     # Walk through the directory structure starting at 'root_dir'
@@ -41,7 +41,7 @@ def calculate_average():
             
 
 # Example usage
-specified_directory = "../work_dirs/phase1/densenet121/test"
+specified_directory = "../work_dirs/phase2/efficientnet_b4/test/ros25_aug_pretrained"
 find_json_values(specified_directory)
 calculate_average()
 
