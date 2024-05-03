@@ -33,7 +33,7 @@ def softmax_focal_loss(pred,
     #print(pt)
     focal_weight = alpha * (1 - pt).pow(gamma)
     #print(focal_weight)
-    print(-focal_weight * torch.log(pt))
+    #print(-focal_weight * torch.log(pt))
     loss = (-focal_weight * torch.log(pt)).mean()
     #print(loss)
     return loss
