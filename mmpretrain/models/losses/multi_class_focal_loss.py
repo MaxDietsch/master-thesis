@@ -9,7 +9,7 @@ from .utils import convert_to_one_hot, weight_reduce_loss
 def softmax_focal_loss(pred,
                        target,
                        gamma=2.0,
-                       alpha=0.25,
+                       alpha=1,
                        ):
     r"""ce focal loss.
 
