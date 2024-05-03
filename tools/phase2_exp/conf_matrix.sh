@@ -3,6 +3,7 @@
 cd ..
 
 model="efficientnet_b4"
+method="ros25_aug_pretrained"
 epoch="91 92 93 94 95 96 97 98 99 100"
 lr_array=( "lr_decr" "lr_0.01" "lr_0.001")
 #epoch_lr0_01="60 98"
@@ -21,7 +22,7 @@ do
     do
         epoch="${innerArray[$j]}"
 
-        python analysis_tools/confusion_matrix.py ../config/phase2/${model}_test.py ../work_dirs/phase2/${model}/${lr_array[$i]}/epoch_"$epoch".pth --show-path ../work_dirs/phase2/${model}/test/${lr_array[$i]}/cm/conf_matrix_epoch_"$epoch"
+        python analysis_tools/confusion_matrix.py ../config/phase2/${model}_test.py ../work_dirs/phase2/${model}/${method}/${lr_array[$i]}/epoch_"$epoch".pth --show-path ../work_dirs/phase2/${model}/test/${method}/${lr_array[$i]}/cm/conf_matrix_epoch_"$epoch"
 
     done
 done
