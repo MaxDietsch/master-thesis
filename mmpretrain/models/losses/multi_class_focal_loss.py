@@ -53,7 +53,7 @@ class MultiClassFocalLoss(nn.Module):
 
     def __init__(self,
                  gamma=2.0,
-                 alpha=0.25):
+                 alpha=1):
 
         super(MultiClassFocalLoss, self).__init__()
         self.gamma = gamma
