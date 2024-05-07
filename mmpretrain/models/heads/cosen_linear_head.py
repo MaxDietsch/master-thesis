@@ -11,10 +11,12 @@ from ..losses.cosen_ce_loss import CoSenCrossEntropyLoss
 
 @MODELS.register_module()
 class CoSenLinearClsHead(LinearClsHead):
-    """ CoSen Linear classifier head.
-        Like LinearClsHead but always return in addition the predictions
-        which is important for the calculation of the Confusion Matrix.
-        Needs to have CoSenCrossEntropyLoss as loss_module 
+    """ CoSen Linear classifier head (Cost-Sensitive Learning of Deep Feature Representations from Imbalanced Data).
+        Like LinearClsHead but additionally returns the predictions
+        which are important for the calculation of the Confusion Matrix.
+        
+        REQUIRES:
+            to have CoSenCrossEntropyLoss as loss_module 
     """
 
     def __init__(self, **kwargs):

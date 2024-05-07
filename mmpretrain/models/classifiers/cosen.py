@@ -10,9 +10,15 @@ from ..heads.cosen_linear_head import CoSenLinearClsHead
 
 @MODELS.register_module()
 class CoSenClassifier(ImageClassifier):
-    """Cosen Classifier is exactly like ImageClassifier, but things changed:
+    """ 
+        for implementation of: Cost-Sensitive Learning of Deep Feature Representations from Imbalanced Data
+        Cosen Classifier is exactly like ImageClassifier, but things changed:
         handle in the train_step function, that the loss now return the loss and the predicted labels
-        require CosenClsHead as head of the model"""
+        
+        REQUIRES:
+            CosenClsHead as head of the model
+
+    """
 
     def __init__(self, **kwargs):
         super(CoSenClassifier, self).__init__(**kwargs)

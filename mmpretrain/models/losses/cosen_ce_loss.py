@@ -5,19 +5,17 @@ import torch.nn.functional as F
 from mmpretrain.registry import MODELS
 
 
-# log_softmax version as it tends to be more stable 
+# log_softmax version with cost matrix as it tends to be more stable 
 def log_softmax(cls_score, label, xi): 
     
-    """ Want to something like this, but with list comprehension
-    l = torch.zeros(pred.shape[0])
-    for i, lab in enumerate(label): 
-        l[i] = xi[label, torch.argmax(pred[i])].log() + pred[i] 
-            - ((xi[label, : ] + pred.exp())).sum(-1).log().unsqueeze(-1)
-    """
+    print(xi[0, : ])
+    print(cls_score[0])
+    print(xi[0, : ] * cls_score[0])
+
     log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, : ] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
     return log_s
 
-# negative log_likelihood, used because we use log_softmax
+# negative log_likelihood to compute loss of batch, used because we use log_softmax
 def negative_log_likelihood(log_s, label):
     return -log_s[range(label.shape[0]), label].mean()
 
@@ -25,12 +23,14 @@ def negative_log_likelihood(log_s, label):
 
 @MODELS.register_module()
 class CoSenCrossEntropyLoss(nn.Module):
+    """ Loss for the paper: Cost-Sensitive Learning of Deep Feature Representations from Imbalanced Data
+        it uses a cost matrix xi do modify the ce loss. 
 
-    def __init__(self, num_classes, learning_rate):
-        """
         Args:   num_classes (int): The number of classes.
                 learning_rate (float): The learning rate for xi
-        """
+    """
+
+    def __init__(self, num_classes, learning_rate):
 
         super(CoSenCrossEntropyLoss, self).__init__()
         self.num_classes = num_classes
@@ -42,7 +42,6 @@ class CoSenCrossEntropyLoss(nn.Module):
         """
         Args:   cls_score (torch.Tensor): The prediction scores with shape(Batch, #Classes)
                 label (torch.Tensor): The label with shape (Batch, )
-                xi (torch.Tensor): The co-sen matrix with shape (#Classes, #Classes)
         """
         log_s = log_softmax(cls_score, label, self.xi)
         nll_loss = negative_log_likelihood(log_s, label)
