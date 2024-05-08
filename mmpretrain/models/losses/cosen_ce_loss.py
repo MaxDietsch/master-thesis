@@ -7,10 +7,6 @@ from mmpretrain.registry import MODELS
 
 # log_softmax version with cost matrix as it tends to be more stable 
 def log_softmax(cls_score, label, xi): 
-    
-    print(xi[0, : ])
-    print(cls_score[0])
-    print(xi[0, : ] * cls_score[0])
 
     log_s = torch.stack([xi[lab, torch.argmax(cls_score[i])].log() + cls_score[i] - (xi[lab, : ] * cls_score[i].exp()).sum().log() for i, lab in enumerate(label)])
     return log_s

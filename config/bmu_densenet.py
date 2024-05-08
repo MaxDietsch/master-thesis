@@ -1,7 +1,7 @@
 _base_ = [
         '../model/densenet121.py',
-        '../data/bepnwom16.py',
-        '../schedule/sgd.py',
+        '../data/bepnwom2.py',
+        '../schedule/bmu_sgd.py',
         '../runtime/default.py'
         ]
 
