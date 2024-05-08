@@ -5,6 +5,6 @@ model = dict(
         loss=dict(type='BMULoss'),
         num_classes=4,
         topk=1,
-        type='LinearClsHead'),
+        type='BMUHead'),
     neck=dict(type='GlobalAveragePooling'),
     type='ImageClassifier')
