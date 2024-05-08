@@ -5,7 +5,7 @@ param_scheduler = dict(
     type='MultiStepLR', by_epoch=True, milestones=[30, 60, 90], gamma=0.1)
 
 samples_per_class = [3312, 45, 132, 539]
-alpha = 0.5
+alpha = 0.3
 train_cfg = dict(by_epoch=5, samples_per_class = samples_per_class, alpha = alpha, max_epochs=100, val_interval=1)
 
 val_cfg = dict()
