@@ -17,7 +17,11 @@ class BMULoss(nn.Module):
 
         preds = F.softmax(cls_score, dim = 1)
 
+        print(cls_score)
+        print(one_hot_label)
+
         loss = -one_hot_label * torch.log(preds + 1e-9)
+        print(loss)
 
         return loss.mean(1).mean(0)
 

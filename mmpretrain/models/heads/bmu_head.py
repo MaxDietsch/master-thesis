@@ -19,7 +19,7 @@ class BMUHead(LinearClsHead):
     def __init__(self, **kwargs):
         super(BMUHead, self).__init__(**kwargs)
         
-        assert isinstance(self.loss_module, BMULoss), 'loss_module of the head should be BMULoss when using DOSHead'
+        assert isinstance(self.loss_module, BMULoss), 'loss_module of the head should be BMULoss when using BMUHead'
     
     def _get_loss(self, cls_score: torch.Tensor,
                   data_samples: List[DataSample], **kwargs):
