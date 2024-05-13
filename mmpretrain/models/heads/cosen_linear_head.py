@@ -20,6 +20,7 @@ class CoSenLinearClsHead(LinearClsHead):
     """
 
     def __init__(self, **kwargs):
+        print(**kwargs)
         super(CoSenLinearClsHead, self).__init__(**kwargs)
 
         if not isinstance (self.loss_module, CoSenCrossEntropyLoss):
