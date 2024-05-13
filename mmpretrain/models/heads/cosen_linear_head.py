@@ -20,11 +20,13 @@ class CoSenLinearClsHead(LinearClsHead):
     """
 
     def __init__(self, **kwargs):
-        print(kwargs)
-        super(CoSenLinearClsHead, self).__init__(**kwargs)
 
         if not isinstance (self.loss_module, CoSenCrossEntropyLoss):
             raise TypeError('Loss function of the Head should be of type CoSenLinearClsHead')
+
+        super(CoSenLinearClsHead, self).__init__(**kwargs)
+
+        
 
     def _get_loss(self, cls_score: torch.Tensor,
                   data_samples: List[DataSample], **kwargs):
