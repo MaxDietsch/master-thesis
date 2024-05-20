@@ -22,7 +22,7 @@ do
     do
         epoch="${innerArray[$j]}"
 
-        python test.py ../config/phase3/${model}_test.py ../work_dirs/phase3/${model}/${method}/${lr_array[$i]}/epoch_"$epoch".pth --work-dir ../work_dirs/phase3/${model}/test/${method}/${lr_array[$i]}/epoch_"$epoch"
+        python test.py ../config/phase2/${model}_test.py ../work_dirs/phase3/${model}/${method}/${lr_array[$i]}/epoch_"$epoch".pth --work-dir ../work_dirs/phase3/${model}/test/${method}/${lr_array[$i]}/epoch_"$epoch"
 
     done
 done
