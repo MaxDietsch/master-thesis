@@ -84,7 +84,7 @@ def calculate_average(method):
             tensors_std = [acc_temp_std, rec_temp_std, prec_temp_std, f1_temp_std]
             
             for metric, tensor_mean, tensor_std in zip(metrics, tensors_mean, tensors_std):
-                tensor_mean = np.round(tensor_mean.cpu().numpy(), 4)
+                tensor_mean = np.round(tensor_mean.cpu().numpy(), 1)
                 tensor_std = np.round(tensor_std.cpu().numpy(), 4)
                 file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
             
