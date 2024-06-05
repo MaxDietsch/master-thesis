@@ -34,7 +34,7 @@ train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type = 'Resize', scale = (640, 640), interpolation = 'bicubic'),
     dict(type='MultiView', num_views=2, transforms=[view_pipeline]),
-    dict(type='PackSelfSupInputs', meta_keys=['img_path'])
+    dict(type='PackInputs', meta_keys=['img_path'])
 ]
 
 train_dataloader = dict(
