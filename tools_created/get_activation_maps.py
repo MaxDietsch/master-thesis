@@ -2,11 +2,11 @@
 import os 
 import torch
 
-phase = 'phase2'
-model = 'swin'
-config_file = 'swin_sgd0_01.py'
+phase = 'phase3'
+model = 'efficientnet_b4'
+config_file = 'efficientnet_b4_sgd_decr.py'
 schedule = 'lr_decr'
-algo = 'ros25_aug_pretrained'
+algo = 'ros25_aug_pretrained_cosen'
 epoch = '100'
 CFG = f'../config/phase1/{config_file}'
 CHECKPOINT = f'../work_dirs/{phase}/{model}/{algo}/{schedule}/epoch_{epoch}.pth'
@@ -15,7 +15,7 @@ METHOD = 'EigenCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
 PATH = '../../utils/esophagitis'
-VIT_LIKE = True
+VIT_LIKE = False
 TARGET_LAYERS = []
 
 
