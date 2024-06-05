@@ -48,7 +48,7 @@ train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root='../../SSL-HK',
-        ann_file='meta/train.txt'
+        ann_file='meta/train.txt',
         data_prefix='train',
         pipeline=train_pipeline))
 
