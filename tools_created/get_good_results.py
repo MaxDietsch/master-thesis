@@ -14,7 +14,7 @@ method = 'ros25_aug_pretrained_cosen'
 #model_pretrained = f'../work_dirs/phase1/{model}/{schedule}/epoch_{epoch}.pth'
 
 # for phase 2/3
-model_config = f'../config/phase1/{model}_{method}.py'
+model_config = f'../config/phase3/{model}_{method}.py'
 model_pretrained = f'../work_dirs/phase3/{model}/{method}/{schedule}/epoch_{epoch}.pth'
 
 out_path = f'../../utils/correct/{model}_{method}_{schedule}.txt'
