@@ -3,10 +3,11 @@
 dataset_type = 'CustomDataset'
 # TODO: change this 
 data_preprocessor = dict(
-            # Input image data channels in 'RGB' order
-                mean=[130.36, 84.27, 72.21],
-                    std=[80.45, 62.92, 57.33],
-                        to_rgb=True,
+        type='SelfSupDataPreprocessor',
+        # Input image data channels in 'RGB' order
+        mean=[130.36, 84.27, 72.21],
+        std=[80.45, 62.92, 57.33],
+        to_rgb=True,
         )
 
 
