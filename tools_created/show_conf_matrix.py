@@ -16,7 +16,7 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
   if normalize:
     cm_sum = cm.sum(axis=1, keepdim=True)
     cm = cm / cm_sum
-    plt.title(f"Normalized Confusion Matrix \n of {model} with schedule {schedule} \n used: aug1, ros25, transfer learning and CoSen")
+    plt.title(f"Normalized Confusion Matrix \n of {model} with schedule {schedule} \n used: aug1, ros25, transfer learning and FL")
   else:
     plt.title(f"Confusion Matrix of {model} with schedule {schedule}")
 
@@ -46,9 +46,9 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
 
 
 # Read the PyTorch tensor from the file
-model = 'EfficientNet-B4'
+model = 'Swin Transformer'
 schedule = 'lr_decr'
-filename = f"../work_dirs/phase3/efficientnet_b4/test/ros25_aug_pretrained_cosen/lr_decr/cm/avg_cm.pt"  # Replace with your actual filename
+filename = f"../work_dirs/phase3/swin/test/ros25_aug_pretrained_focal2/lr_decr/cm/avg_cm.pt"  # Replace with your actual filename
 tensor = torch.load(filename)
 
 # Ensure it's a square tensor with values between 0 and 1
