@@ -2,8 +2,8 @@
 
 cd ..
 
-model="swin"
-method="ros25_aug_pretrained_focal2"
+model="efficientnet_b4"
+method="ros25_aug_pretrained_cosen"
 epoch="91 92 93 94 95 96 97 98 99 100"
 lr_array=( "lr_decr" "lr_0.01" "lr_0.001")
 #epoch_lr0_01="60 98"

@@ -46,9 +46,9 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
 
 
 # Read the PyTorch tensor from the file
-model = 'Swin Transformer'
+model = 'EfficientNet-B4'
 schedule = 'lr_decr'
-filename = f"../work_dirs/phase3/swin/test/ros25_aug_pretrained_focal2/lr_decr/cm/avg_cm.pt"  # Replace with your actual filename
+filename = f"../work_dirs/phase3/efficientnet_b4/test/ros25_aug_pretrained_cosen/lr_decr/cm/avg_cm.pt"  # Replace with your actual filename
 tensor = torch.load(filename)
 
 # Ensure it's a square tensor with values between 0 and 1
