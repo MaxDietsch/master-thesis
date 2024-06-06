@@ -16,7 +16,7 @@ def plot_confusion_matrix(cm, class_names, normalize=True, filename="confusion_m
   if normalize:
     cm_sum = cm.sum(axis=1, keepdim=True)
     cm = cm / cm_sum
-    plt.title(f"Normalized Confusion Matrix \n of {model} with schedule {schedule} \n used: aug1, ros25 and transfer learning")
+    plt.title(f"Normalized Confusion Matrix \n of {model} with schedule {schedule} \n used: aug1, ros25, transfer learning, CoSen")
   else:
     plt.title(f"Confusion Matrix of {model} with schedule {schedule}")
 
