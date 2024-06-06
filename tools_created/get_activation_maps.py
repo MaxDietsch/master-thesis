@@ -2,11 +2,11 @@
 import os 
 import torch
 
-phase = 'phase1'
-model = 'efficientnet_b4'
-config_file = 'efficientnet_b4_sgd_decr.py'
-schedule = 'lr_0.01'
-algo = '.'
+phase = 'phase3'
+model = 'swin'
+config_file = 'swin_sgd_decr.py'
+schedule = 'lr_decr'
+algo = 'ros25_aug_pretrained_focal2'
 epoch = '100'
 CFG = f'../config/phase1/{config_file}'
 CHECKPOINT = f'../work_dirs/{phase}/{model}/{algo}/{schedule}/epoch_{epoch}.pth'
@@ -14,8 +14,8 @@ DEVICE = torch.device('cuda')
 METHOD = 'EigenCAM'
 AUG_SMOOTH = False
 EIGEN_SMOOTH = False 
-PATH = '../../utils/esophagitis'
-VIT_LIKE = False
+PATH = '../../utils/polyp'
+VIT_LIKE = True
 TARGET_LAYERS = []
 
 
