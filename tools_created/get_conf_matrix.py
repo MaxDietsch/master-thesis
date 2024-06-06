@@ -23,7 +23,7 @@ def find_json_values(root_dir):
                 d2_path = os.path.join(d1_path, d2)
                 for file in os.listdir(d2_path):
 
-                    if file.endswith('.pt') and not file.startswith('avg'):
+                    if d1 in cms and file.endswith('.pt') and not file.startswith('avg'):
                         file_path = os.path.join(d2_path, file)
                         loaded_cm = torch.load(file_path).float()
                         cms[d1].append(loaded_cm)
