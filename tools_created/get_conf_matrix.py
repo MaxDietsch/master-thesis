@@ -41,7 +41,7 @@ def calculate_average():
             
 
 # Example usage
-specified_directory = "../work_dirs/phase2/swin/test/ros25_aug_pretrained"
+specified_directory = "../work_dirs/phase3/swin/test/ros25_aug_pretrained_focal2"
 find_json_values(specified_directory)
 calculate_average()
 
