@@ -4,6 +4,6 @@ optim_wrapper = dict(
 param_scheduler = dict(
     type='MultiStepLR', by_epoch=True, milestones=[60, 120, 180], gamma=0.5)
 
-train_cfg = dict(by_epoch=True, max_epochs=100, val_interval=1)
+train_cfg = dict(by_epoch=True, max_epochs=200, val_interval=1)
 
 
