@@ -96,6 +96,112 @@ VISION_TRANSFORMS = register_vision_transforms()
 
 
 @TRANSFORMS.register_module()
+class RandomPatchWithLabels(BaseTransform):
+    """Relative patch location.
+
+    Required Keys:
+
+    - img
+
+    Modified Keys:
+
+    - img
+
+    Added Keys:
+
+    - patch_label
+    - patch_box
+    - unpatched_img
+
+    Crops image into several patches and concatenates every surrounding patch
+    with center one. Finally gives labels `0, 1, 2, 3, 4, 5, 6, 7` and patch
+    positions.
+    """
+
+    def __init__(self) -> None:
+        pass
+
+    def _image_to_patches(self, img: np.ndarray) -> List[np.ndarray]:
+        """Crop split_per_side x split_per_side patches from input image.
+
+        Args:
+            img (np.ndarray): input image.
+
+        Returns:
+            patches (List[np.ndarray]): A list of cropped patches.
+        """
+        split_per_side = 3  # split of patches per image side
+        patch_jitter = 21  # jitter of each patch from each grid
+        h, w, _ = img.shape
+        h_grid = h // split_per_side
+        w_grid = w // split_per_side
+        h_patch = h_grid - patch_jitter
+        w_patch = w_grid - patch_jitter
+        assert h_patch > 0 and w_patch > 0
+        patches = []
+        patches_pos = []
+        for i in range(split_per_side):
+            for j in range(split_per_side):
+                # get a patch of the image
+                patch_box = np.array([
+                    i * h_grid, j * w_grid, (i + 1) * h_grid, (j + 1) * w_grid
+                ])
+                patch = mmcv.imcrop(img, bboxes=patch_box)
+
+                # random crop sub-patch in the patch
+                ymin, xmin, height, width = RandomCrop.get_params(
+                    patch, (h_patch, w_patch))
+                patch = mmcv.imcrop(
+                    patch,
+                    np.array([
+                        xmin,
+                        ymin,
+                        xmin + width - 1,
+                        ymin + height - 1,
+                    ]))
+                patches.append(patch)
+                patches_pos.append(
+                    np.array([
+                        i * h_grid + xmin,
+                        j * w_grid + ymin,
+                        i * h_grid + xmin + width - 1,
+                        j * w_grid + ymin + height - 1,
+                    ]))
+        return patches, patches_pos
+
+    def transform(self, results: dict) -> dict:
+        """Apply random patch augmentation to the given image.
+
+        Args:
+            results (dict): Results from previous pipeline.
+
+        Returns:
+            dict: Results after applying this transformation.
+        """
+        img = results['img']
+        patches, patches_pos = self._image_to_patches(img)
+        patches_pos = np.stack(patches_pos, axis=0)
+
+        multi_views = []
+        multi_views.append(patches[4])
+        for i in range(9):
+            if i != 4:
+                multi_views.append(patches[i])
+
+        # create corresponding labels for patch pairs
+        patch_labels = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+        results['img'] = multi_views  # 8HWC
+        results['patch_label'] = np.expand_dims(patch_labels, axis=0)
+        results['patch_box'] = np.expand_dims(patches_pos, axis=0)
+        results['unpatched_img'] = np.expand_dims(img, axis=0)
+        return results
+
+    def __repr__(self) -> str:
+        repr_str = self.__class__.__name__
+        return repr_str
+
+
+@TRANSFORMS.register_module()
 class RandomCrop(BaseTransform):
     """Crop the given Image at a random location.
 
