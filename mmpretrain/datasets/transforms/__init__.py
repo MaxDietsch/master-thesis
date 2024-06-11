@@ -15,6 +15,7 @@ from .processing import (Albumentations, BEiTMaskGenerator, CleanCaption,
                          EfficientNetRandomCrop, Lighting,
                          MAERandomResizedCrop, RandomCrop, RandomErasing,
                          RandomResizedCrop,
+                         RandomPatchWithLabels,
                          RandomResizedCropAndInterpolationWithTwoPic,
                          RandomTranslatePad, ResizeEdge, SimMIMMaskGenerator)
 from .utils import get_transform_idx, remove_transform
@@ -37,5 +38,5 @@ __all__ = [
     'RandomFlip', 'RandomGrayscale', 'RandomResize', 'Resize', 'MultiView',
     'ApplyToList', 'CleanCaption', 'RandomTranslatePad',
     'RandomResizedCropAndInterpolationWithTwoPic', 'get_transform_idx',
-    'remove_transform', 'MAERandomResizedCrop'
+    'remove_transform', 'MAERandomResizedCrop', 'RandomPatchWithLabels'
 ]
