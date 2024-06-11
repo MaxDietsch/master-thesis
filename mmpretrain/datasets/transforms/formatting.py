@@ -74,7 +74,7 @@ class PackSelfSupInputs(BaseTransform):
         self.meta_keys = meta_keys
 
     def transform(self,
-                  results: Dict) -> Dict[torch.Tensor, SelfSupDataSample]:
+                  results: Dict) -> Dict[torch.Tensor, DataSample]:
         """Method to pack the data.
 
         Args:
@@ -134,7 +134,7 @@ class PackSelfSupInputs(BaseTransform):
         return packed_results
 
     @classmethod
-    def set_algorithm_keys(self, data_sample: SelfSupDataSample, key: str,
+    def set_algorithm_keys(self, data_sample: DataSample, key: str,
                            results: dict) -> None:
         """Set the algorithm keys of SelfSupDataSample.
 
