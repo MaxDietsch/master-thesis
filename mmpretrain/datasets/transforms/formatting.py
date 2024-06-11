@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from collections import defaultdict
 from collections.abc import Sequence
-from typing import List
+from typing import List, Dict
 import cv2
 import numpy as np
 import torch
