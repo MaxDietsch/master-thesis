@@ -9,7 +9,6 @@ model = dict(
     head=dict(
         type='ClsHead',
         loss=dict(type='CrossEntropyLoss'),
-        with_avg_pool=False,
         in_channels=3584,
         num_classes=8,
         init_cfg=[
