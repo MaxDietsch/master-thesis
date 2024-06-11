@@ -11,6 +11,7 @@ from .clip_generator_helper import QuickGELU, build_clip_model
 from .data_preprocessor import (ClsDataPreprocessor,
                                 MultiModalDataPreprocessor,
                                 SelfSupDataPreprocessor,
+                                RelativeLocDataPreprocessor,
                                 TwoNormDataPreprocessor, VideoDataPreprocessor)
 from .ema import CosineEMA
 from .embed import (HybridEmbed, PatchEmbed, PatchMerging, resize_pos_embed,
@@ -88,6 +89,7 @@ __all__ = [
     'SparseBatchNorm2d',
     'SparseLayerNorm2D',
     'SparseSyncBatchNorm2d',
+    'RelativeLocDataPreprocessor'
 ]
 
 if WITH_MULTIMODAL:

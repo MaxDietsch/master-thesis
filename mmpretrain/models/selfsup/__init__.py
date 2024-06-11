@@ -19,7 +19,7 @@ from .simmim import SimMIM, SimMIMSwinTransformer
 from .simsiam import SimSiam
 from .spark import SparK
 from .swav import SwAV
-
+from .relative_loc import RelativeLoc
 __all__ = [
     'BaseSelfSupervisor',
     'BEiTPretrainViT',
@@ -56,4 +56,5 @@ __all__ = [
     'SparK',
     'MFF',
     'MFFViT',
+    'RelativeLoc'
 ]
