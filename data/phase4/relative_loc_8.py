@@ -12,7 +12,7 @@ train_pipeline = [
     dict(type='RandomGrayscale', prob=0.66, keep_channels=True),
     dict(type='RandomPatchWithLabels'),
     dict(
-        type='PackInputs',
+        type='PackSelfSupInputs',
         pseudo_label_keys=['patch_box', 'patch_label', 'unpatched_img'],
         meta_keys=['img_path'])
 ]
