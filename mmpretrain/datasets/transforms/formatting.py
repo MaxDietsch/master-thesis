@@ -109,7 +109,7 @@ class PackSelfSupInputs(BaseTransform):
                 img[i] = to_tensor(img_)
             packed_results['inputs'] = img
 
-        data_sample = SelfSupDataSample()
+        data_sample = DataSample()
         if len(self.pseudo_label_keys) > 0:
             pseudo_label = InstanceData()
             data_sample.pseudo_label = pseudo_label

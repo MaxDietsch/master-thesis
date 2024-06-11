@@ -149,7 +149,7 @@ class RandomPatchWithLabels(BaseTransform):
                 patch = mmcv.imcrop(img, bboxes=patch_box)
 
                 # random crop sub-patch in the patch
-                ymin, xmin, height, width = RandomCrop.get_params(
+                ymin, xmin, height, width = RandomCrop.rand_crop_params(
                     patch, (h_patch, w_patch))
                 patch = mmcv.imcrop(
                     patch,
