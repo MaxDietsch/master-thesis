@@ -5,7 +5,7 @@ import torch
 from mmengine.structures import LabelData
 
 from mmpretrain.registry import MODELS
-from mmpretrain.structures import SelfSupDataSample
+from mmpretrain.structures import DataSample
 from .base import BaseModel
 
 
@@ -32,7 +32,7 @@ class RelativeLoc(BaseModel):
         return x
 
     def loss(self, inputs: List[torch.Tensor],
-             data_samples: List[SelfSupDataSample],
+             data_samples: List[DataSample],
              **kwargs) -> Dict[str, torch.Tensor]:
         """The forward function in training.
 
@@ -59,8 +59,8 @@ class RelativeLoc(BaseModel):
         return losses
 
     def predict(self, inputs: List[torch.Tensor],
-                data_samples: List[SelfSupDataSample],
-                **kwargs) -> List[SelfSupDataSample]:
+                data_samples: List[DataSample],
+                **kwargs) -> List[DataSample]:
         """The forward function in testing.
 
         Args:
