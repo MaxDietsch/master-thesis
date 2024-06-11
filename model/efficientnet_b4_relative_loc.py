@@ -7,7 +7,7 @@ model = dict(
         out_channels=3584,
         with_avg_pool=True),
     head=dict(
-        type='ClsHead',
+        type='LinearHead',
         loss=dict(type='CrossEntropyLoss'),
         in_channels=3584,
         num_classes=8,
