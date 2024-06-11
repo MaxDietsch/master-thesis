@@ -2,10 +2,10 @@ dataset_type = 'CustomDataset'
 data_root = '../../SSL-HK'
 
 data_preprocessor=dict(
-        type='mmselfsup.RelativeLocDataPreprocessor',
+        type='RelativeLocDataPreprocessor',
         mean=[130.36, 84.27, 72.21],
         std=[80.45, 62.92, 57.33],
-        to_rgb=True),
+        to_rgb=True)
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
