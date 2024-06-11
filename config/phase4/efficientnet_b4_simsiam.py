@@ -6,4 +6,4 @@ _base_ = [
         ]
 
 load_from = None
-resume = False
+resume = '../../work_dirs/phase4/efficientnet_b4/ssl_simsiam/lr_decr/epoch_119.pth'
