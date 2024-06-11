@@ -6,11 +6,11 @@ from mmengine.structures import LabelData
 
 from mmpretrain.registry import MODELS
 from mmpretrain.structures import DataSample
-from .base import BaseModel
+from .base import BaseSelfSupervisor
 
 
 @MODELS.register_module()
-class RelativeLoc(BaseModel):
+class RelativeLoc(BaseSelfSupervisor):
     """Relative patch location.
 
     Implementation of `Unsupervised Visual Representation Learning by Context
