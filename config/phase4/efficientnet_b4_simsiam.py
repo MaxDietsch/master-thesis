@@ -5,5 +5,5 @@ _base_ = [
         '../../runtime/default.py'
         ]
 
-load_from = '../../../work_dirs/phase4/efficientnet_b4/ssl_simsiam/lr_decr/epoch_119.pth'
+load_from = '../work_dirs/phase4/efficientnet_b4/ssl_simsiam/lr_decr/epoch_119.pth'
 resume = True
