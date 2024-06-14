@@ -1,6 +1,6 @@
 _base_ = [
         '../../model/swin_simsiam.py',
-        '../../data/phase4/selfsup14.py',
+        '../../data/phase4/selfsup7.py',
         '../../schedule/sgd_ssl.py',
         '../../runtime/default.py'
         ]
