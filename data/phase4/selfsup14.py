@@ -40,7 +40,7 @@ train_pipeline = [
 
 train_dataloader = dict(
     batch_size=14,
-    num_workers=14,
+    num_workers=10,
     drop_last=True,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
