@@ -1,5 +1,5 @@
 _base_ = [
-        '../../model/swin_b4_pretrained_simsiam.py',
+        '../../model/swin_pretrained_simsiam.py',
         '../../data/phase1/bepn14.py',
         '../../schedule/sgd_decr.py',
         '../../runtime/default.py'
