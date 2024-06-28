@@ -95,12 +95,12 @@ model_polite = 'EfficientNet B4'
 model_name = 'efficientnet_b4'
 #model_polite = 'EfficientNet B4'
 method = 'col'
-txt_path = f'../work_dirs/phase4/results_{method}_x.txt'
+txt_path = f'../work_dirs/phase2/results_{method}_x.txt'
 
 # Usage for multiple methods: 
 methods = ['col', 'col_45', 'col_100']
 for meth in methods: 
-    specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
+    specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
     calculate_average(meth)
 
