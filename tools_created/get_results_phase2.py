@@ -94,11 +94,11 @@ def calculate_average(method):
 model_polite = 'EfficientNet B4'
 model_name = 'efficientnet_b4'
 #model_polite = 'EfficientNet B4'
-method = 'ssl'
-txt_path = f'../work_dirs/phase4/results_{method}.txt'
+method = 'col'
+txt_path = f'../work_dirs/phase4/results_{method}_x.txt'
 
 # Usage for multiple methods: 
-methods = ['pretrained_moco', 'pretrained_simsiam']
+methods = ['col', 'col_45', 'col_100']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
