@@ -98,7 +98,7 @@ method = 'col'
 txt_path = f'../work_dirs/phase2/results_{method}_x.txt'
 
 # Usage for multiple methods: 
-methods = ['aug', 'aug2', 'aug3', 'aug4']
+methods = ['col', 'ros25']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
