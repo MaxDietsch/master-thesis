@@ -90,17 +90,17 @@ def calculate_average(method):
             
 
 # Example usage for single method
-model_name = 'swin'
-model_polite = 'Swin Transformer'
-#model_name = 'efficientnet_b4'
-#model_polite = 'EfficientNet B4'
-method = 'col'
-txt_path = f'../work_dirs/phase2/results_{method}_x.txt'
+#model_name = 'swin'
+#model_polite = 'Swin Transformer'
+model_name = 'efficientnet_b4'
+model_polite = 'EfficientNet B4'
+method = 'ssl'
+txt_path = f'../work_dirs/phase4/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['col', 'ros25']
+methods = ['pretrained_relative_loc']
 for meth in methods: 
-    specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
+    specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
     calculate_average(meth)
 
