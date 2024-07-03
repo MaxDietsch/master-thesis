@@ -20,8 +20,8 @@ test_pipeline = [
 ]
 
 train_dataloader = dict(
-    batch_size=8,
-    num_workers=5,
+    batch_size=128,
+    num_workers=8,
     dataset=dict(
         type=dataset_type,
         data_root='../../B_E_P_N',
@@ -35,8 +35,8 @@ train_dataloader = dict(
 )
 
 val_dataloader = dict(
-    batch_size=8,
-    num_workers=5,
+    batch_size=128,
+    num_workers=8,
     dataset=dict(
         type=dataset_type,
         data_root='../../B_E_P_N',
