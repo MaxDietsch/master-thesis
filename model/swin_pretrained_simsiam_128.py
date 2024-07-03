@@ -4,7 +4,9 @@ model = dict(
         type='SwinTransformer',
         arch='small',
         img_size=128,
-        pad_small_map = True),
+        pad_small_map = True,
+        init_cfg = dict(type = 'Pretrained', checkpoint='../work_dirs/phase4/swin/ssl_simsiam_128/lr_decr/epoch_200.pth', prefix = 'backbone')
+        ),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
         type='LinearClsHead',
