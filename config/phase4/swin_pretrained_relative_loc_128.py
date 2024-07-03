@@ -1,6 +1,6 @@
 _base_ = [
-        '../../model/efficientnet_b4_pretrained_relative_loc.py',
-        '../../data/phase1/bepn8.py',
+        '../../model/swin_pretrained_relative_loc_128.py',
+        '../../data/phase4/bepn8_128.py',
         '../../schedule/sgd_decr.py',
         '../../runtime/default.py'
         ]
