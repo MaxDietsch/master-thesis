@@ -13,15 +13,15 @@ The scores (except accuracy) should be classwise and the average over all found 
 The calculated scores will be printed to the screen 
 """
 
-#acc = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-#rec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-#prec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-#f1 = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+acc = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+rec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+prec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+f1 = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
 
-acc = defaultdict(list)
-rec = defaultdict(list)
-prec = defaultdict(list)
-f1 = defaultdict(list)
+#acc = defaultdict(list)
+#rec = defaultdict(list)
+#prec = defaultdict(list)
+#f1 = defaultdict(list)
 
 def find_json_values(root_dir, method):
     # Walk through the directory structure starting at 'root_dir'
@@ -45,10 +45,10 @@ def find_json_values(root_dir, method):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-                                            acc[method + d1].append(torch.tensor(accuracy))
-                                            rec[method + d1].append(torch.tensor(recall))
-                                            prec[method + d1].append(torch.tensor(precision))
-                                            f1[method + d1].append(torch.tensor(f1_score))
+                                            acc[d1].append(torch.tensor(accuracy))
+                                            rec[d1].append(torch.tensor(recall))
+                                            prec[d1].append(torch.tensor(precision))
+                                            f1[d1].append(torch.tensor(f1_score))
 
                                             #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
                                         except json.JSONDecodeError:
@@ -82,7 +82,7 @@ def calculate_average(method):
         
         
         with open(txt_path, 'a') as file:
-            file.write(f"\n\nModel: {model_polite} and Method: {method} with schedule: {key[-7:]} \n")
+            file.write(f"\n\nModel: {model_polite} and Method: {method} with schedule: {key} \n")
             
             metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
             
@@ -108,6 +108,11 @@ for meth in methods:
     specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
     calculate_average(meth)
+    acc = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+    rec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+    prec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+    f1 = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+
 
 print('The results are written to the specified file!')
 
