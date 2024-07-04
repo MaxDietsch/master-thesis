@@ -99,11 +99,11 @@ def calculate_average(method):
 #model_polite = 'Swin Transformer'
 model_name = 'efficientnet_b4'
 model_polite = 'EfficientNet-B4'
-method = 'ros_aug_pretrained_focal'
+method = 'ros_aug_pretrained_cosen'
 txt_path = f'../work_dirs/phase3/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['ros25_aug_pretrained_focal', 'ros50_aug_pretrained_focal', 'ros75_aug_pretrained_focal', 'ros100_aug_pretrained_focal', 'ros25_aug_pretrained_focal2', 'ros50_aug_pretrained_focal2', 'ros75_aug_pretrained_focal2', 'ros100_aug_pretrained_focal2']
+methods = ['ros25_aug_pretrained_cosen', 'ros50_aug_pretrained_cosen', 'ros75_aug_pretrained_cosen', 'ros100_aug_pretrained_cosen']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase3/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
