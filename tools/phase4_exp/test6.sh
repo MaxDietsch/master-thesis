@@ -2,8 +2,8 @@
 
 cd ..
 
-method="pretrained_moco_128"
-model="efficientnet_b4"
+method="pretrained_simsiam_128"
+model="swin"
 epoch="91 92 93 94 95 96 97 98 99 100"
 lr_array=("lr_0.01" "lr_0.001" "lr_decr")
 #epoch_lr0_01="60 98"
