@@ -82,17 +82,16 @@ def calculate_average(method):
         
         
         with open(txt_path, 'a') as file:
-            file.write(f"\n\nModel: {model_polite} and Method: {method} with schedule: {key} \n")
+            file.write(f"\n\nModel: {model_polite} and Method: {method} with schedule: {key[-7:]} \n")
             
             metrics = ['Accuracy:', 'Classwise Recall:', 'Classwise Precision:', 'Classwise F1-Score:']
             
             tensors_mean = [acc_temp_mean, rec_temp_mean, prec_temp_mean, f1_temp_mean]
             tensors_std = [acc_temp_std, rec_temp_std, prec_temp_std, f1_temp_std]
-            print(key, f1_temp_mean) 
             for metric, tensor_mean, tensor_std in zip(metrics, tensors_mean, tensors_std):
                 tensor_mean = np.round(tensor_mean.cpu().numpy(), 1)
                 tensor_std = np.round(tensor_std.cpu().numpy(), 4)
-                #file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
+                file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
             
 
 # Example usage for single method
@@ -104,7 +103,7 @@ method = 'ssl'
 txt_path = f'../work_dirs/phase4/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['128', 'pretrained_moco_128']
+methods = ['pretrained_relative_loc', 'pretrained_simsiam', 'pretrained_moco']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
