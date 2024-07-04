@@ -87,7 +87,7 @@ def calculate_average(method):
             for metric, tensor_mean, tensor_std in zip(metrics, tensors_mean, tensors_std):
                 tensor_mean = np.round(tensor_mean.cpu().numpy(), 1)
                 tensor_std = np.round(tensor_std.cpu().numpy(), 4)
-                file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
+                #file.write(f"{metric} \n mean: \t {tensor_mean} \n std: \t {tensor_std} \n\n")
             
 
 # Example usage for single method
