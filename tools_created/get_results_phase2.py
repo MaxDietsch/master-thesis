@@ -70,7 +70,6 @@ def calculate_average(method):
         #print(prec_temp)
 
         #print(torch.stack(f1[key]))
-        print(key, f1[key])
         f1_temp_mean = torch.mean(torch.stack(f1[key]), dim = 0) 
         f1_temp_std = torch.std(torch.stack(f1[key]), dim = 0) 
         #print(f1_temp)
@@ -83,7 +82,7 @@ def calculate_average(method):
             
             tensors_mean = [acc_temp_mean, rec_temp_mean, prec_temp_mean, f1_temp_mean]
             tensors_std = [acc_temp_std, rec_temp_std, prec_temp_std, f1_temp_std]
-            
+            print(key, f1_temp_mean) 
             for metric, tensor_mean, tensor_std in zip(metrics, tensors_mean, tensors_std):
                 tensor_mean = np.round(tensor_mean.cpu().numpy(), 1)
                 tensor_std = np.round(tensor_std.cpu().numpy(), 4)
