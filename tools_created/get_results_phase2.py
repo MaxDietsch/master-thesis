@@ -70,6 +70,7 @@ def calculate_average(method):
         #print(prec_temp)
 
         #print(torch.stack(f1[key]))
+        print(key, f1[key])
         f1_temp_mean = torch.mean(torch.stack(f1[key]), dim = 0) 
         f1_temp_std = torch.std(torch.stack(f1[key]), dim = 0) 
         #print(f1_temp)
