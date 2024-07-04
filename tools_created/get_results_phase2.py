@@ -12,10 +12,15 @@ The scores (except accuracy) should be classwise and the average over all found 
 The calculated scores will be printed to the screen 
 """
 
-acc = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-rec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-prec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
-f1 = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+#acc = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+#rec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+#prec = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+#f1 = {"lr_0.01": [], 'lr_0.001': [], 'lr_decr': []}
+
+acc = defaultdict(list)
+rec = defaultdict(list)
+prec = defaultdict(list)
+f1 = defaultdict(list)
 
 def find_json_values(root_dir, method):
     # Walk through the directory structure starting at 'root_dir'
