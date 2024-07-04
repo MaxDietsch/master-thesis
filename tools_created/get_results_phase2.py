@@ -2,6 +2,7 @@ import os
 import json
 import torch
 import numpy as np
+from collections import defaultdict
 
 """
 This script takes a directory (specified_directory).
