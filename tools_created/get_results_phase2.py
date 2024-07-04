@@ -99,7 +99,7 @@ method = 'ssl'
 txt_path = f'../work_dirs/phase4/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['128', 'pretrained_moco_128', 'pretrained_simsiam_128']
+methods = ['pretrained_moco_128']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
