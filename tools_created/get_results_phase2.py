@@ -60,7 +60,6 @@ def calculate_average(method):
 
     for key in acc: 
         #print(torch.stack(acc[key]))
-        key = method + key 
         acc_temp_mean = torch.mean(torch.stack(acc[key]), dim = 0)
         acc_temp_std = torch.std(torch.stack(acc[key]), dim = 0)
 
