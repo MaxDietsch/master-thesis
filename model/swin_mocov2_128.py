@@ -1,6 +1,6 @@
 model = dict(
     type='MoCo',
-    queue_len=518,
+    queue_len=512,
     feat_dim=128,
     momentum=0.001,
     backbone=dict(
