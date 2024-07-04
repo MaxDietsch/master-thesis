@@ -28,7 +28,12 @@ def find_json_values(root_dir, method):
                     for d3 in os.listdir(d2_path):
                         d3_path = os.path.join(d2_path, d3)
                         if os.path.isdir(d3_path):
-                            for file in os.listdir(d3_path):
+                            for file in os.listdir(d3
+
+
+
+
+                                                   _path):
                                 if file.endswith('.json'):
                                     file_path = os.path.join(d3_path, file)
                                     with open(file_path, 'r') as json_file:
@@ -39,10 +44,10 @@ def find_json_values(root_dir, method):
                                             recall = data.get('single-label/recall_classwise', 'N/A')
                                             precision = data.get('single-label/precision_classwise', 'N/A')
                                             f1_score = data.get('single-label/f1-score_classwise', 'N/A')
-                                            acc[d1].append(torch.tensor(accuracy))
-                                            rec[d1].append(torch.tensor(recall))
-                                            prec[d1].append(torch.tensor(precision))
-                                            f1[d1].append(torch.tensor(f1_score))
+                                            acc[method + d1].append(torch.tensor(accuracy))
+                                            rec[method + d1].append(torch.tensor(recall))
+                                            prec[method + d1].append(torch.tensor(precision))
+                                            f1[method + d1].append(torch.tensor(f1_score))
 
                                             #print(f"{d1}: Accuracy: {accuracy}, Recall: {recall}\n")
                                         except json.JSONDecodeError:
@@ -54,6 +59,7 @@ def calculate_average(method):
 
     for key in acc: 
         #print(torch.stack(acc[key]))
+        key = method + key 
         acc_temp_mean = torch.mean(torch.stack(acc[key]), dim = 0)
         acc_temp_std = torch.std(torch.stack(acc[key]), dim = 0)
 
