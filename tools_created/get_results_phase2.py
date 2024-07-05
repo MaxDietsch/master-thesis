@@ -99,11 +99,11 @@ def calculate_average(method):
 #model_polite = 'Swin Transformer'
 model_name = 'swin'
 model_polite = 'Swin Transformer'
-method = 'pretrained'
+method = 'col'
 txt_path = f'../work_dirs/phase2/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['pretrained']
+methods = ['col', 'col_45', 'col_100']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase2/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
