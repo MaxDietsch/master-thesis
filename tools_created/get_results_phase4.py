@@ -95,15 +95,15 @@ def calculate_average(method):
             
 
 # Example usage for single method
-model_name = 'swin'
-model_polite = 'Swin Transformer'
-#model_name = 'efficientnet_b4'
-#model_polite = 'EfficientNet-B4'
+#model_name = 'swin'
+#model_polite = 'Swin Transformer'
+model_name = 'efficientnet_b4'
+model_polite = 'EfficientNet-B4'
 method = 'ssl'
 txt_path = f'../work_dirs/phase4/results_{method}.txt'
 
 # Usage for multiple methods: 
-methods = ['128', 'pretrained_moco_128', 'pretrained_simsiam_128', 'pretrained_relative_loc_128']
+methods = ['128', 'pretrained_relative_loc_128']
 for meth in methods: 
     specified_directory = f"../work_dirs/phase4/{model_name}/test/{meth}"
     find_json_values(specified_directory, meth)
