@@ -20,17 +20,28 @@ brightness1 = A.RandomBrightnessContrast(brightness_limit=(0.1, 0.1), contrast_l
 brightness2 = A.RandomBrightnessContrast(brightness_limit=(-0.1, -0.1), contrast_limit=(-0.2, -0.2), p=1.0)
 brightness = [brightness1, brightness2]
 
-
+# aug1 settings
 elastic1 = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=80, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
+
+#aug2 settings 
+#elastic1 = A.ElasticTransform(alpha=2, sigma=50, alpha_affine=80, border_mode = cv2.BORDER_CONSTANT, value = 0, p=1.0)
+
 elastic = [elastic1]
 # only do it for 0 degree and 180 degree rotations
 apply_elastic = [0, 2]
 
 # maybe set fit_output to true, is quite similar to elastic1
+# aug1 setting 
 perspective1 = A.Perspective(scale=(0.2, 0.2), fit_output = False, p=1.0)
+
+# aug2 setting
+#perspective1 = A.Perspective(scale=(0.1, 0.1), fit_output = False, p=1.0)
 perspective = [perspective1]
 # only do it for 90 degree and 270 degree rotations 
 apply_perspective = [1, 3]
+
+
+
 
 # this defines all augmentations
 # every rotation and every brightness specified in rotations and brightness array are done to the base images
